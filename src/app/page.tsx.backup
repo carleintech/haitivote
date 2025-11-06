@@ -1,0 +1,226 @@
+// app/page.tsx
+import Link from "next/link";
+import {
+  Zap,
+  ShieldCheck,
+  Globe2,
+  Languages,
+  BarChart3,
+  CheckCircle2,
+} from "lucide-react";
+
+const brand = {
+  blue: "#006CFF",
+  purple: "#7F00FF",
+};
+
+function GradientText({ children }: { children: React.ReactNode }) {
+  return (
+    <span className="bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
+      {children}
+    </span>
+  );
+}
+
+function PrimaryButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-white shadow-lg transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#7F00FF] bg-gradient-to-r from-[#006CFF] to-[#7F00FF]"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function SecondaryButton({
+  href,
+  children,
+}: {
+  href: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <Link
+      href={href}
+      className="inline-flex items-center justify-center rounded-xl px-5 py-3 text-[#1A1A1A] transition-transform duration-200 hover:scale-[1.02] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2 focus-visible:ring-[#006CFF] border border-neutral-300 bg-white"
+    >
+      {children}
+    </Link>
+  );
+}
+
+function FeatureCard({
+  icon,
+  title,
+  desc,
+}: {
+  icon: React.ReactNode;
+  title: string;
+  desc: string;
+}) {
+  return (
+    <div className="group relative overflow-hidden rounded-2xl border border-neutral-200 bg-white p-6 shadow-sm transition-all hover:shadow-md">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute -top-10 right-0 h-24 w-24 rounded-full opacity-20 blur-2xl"
+        style={{
+          background: `radial-gradient(60% 60% at 50% 50%, ${brand.blue}, ${brand.purple})`,
+        }}
+      />
+      <div
+        className="mb-4 inline-flex rounded-xl p-2 text-white"
+        style={{
+          background:
+            "linear-gradient(90deg, rgba(0,108,255,0.9) 0%, rgba(127,0,255,0.9) 100%)",
+        }}
+      >
+        {icon}
+      </div>
+      <h3 className="text-lg font-semibold text-neutral-900">{title}</h3>
+      <p className="mt-2 text-sm leading-6 text-neutral-600">{desc}</p>
+    </div>
+  );
+}
+
+export default function Home() {
+  return (
+    <main className="min-h-screen bg-[#F7F7FA] text-[#1A1A1A]">
+      <div
+        aria-hidden
+        className="pointer-events-none fixed inset-x-0 top-[-200px] z-0 mx-auto h-[400px] w-[800px] opacity-40 blur-3xl"
+        style={{
+          background:
+            "radial-gradient(50% 50% at 50% 50%, rgba(0,108,255,0.35), rgba(127,0,255,0.25) 60%, rgba(255,255,255,0) 70%)",
+        }}
+      />
+      
+      <header className="sticky top-0 z-20 border-b border-neutral-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+        <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3">
+          <Link href="/" className="font-semibold tracking-tight">
+            <span className="text-neutral-900">TechKlein</span>{" "}
+            <GradientText>VoteLive</GradientText>
+          </Link>
+          <nav className="flex items-center gap-2">
+            <SecondaryButton href="/live">Rezilta LIVE</SecondaryButton>
+            <PrimaryButton href="/vote">Kòmanse Vote</PrimaryButton>
+          </nav>
+        </div>
+      </header>
+
+      <section className="relative z-10">
+        <div className="mx-auto max-w-4xl px-4 py-16 text-center sm:py-20">
+          <p className="mb-4 text-xs font-medium uppercase tracking-wider text-neutral-600">
+            🇭🇹 Sondaj Ayiti Global 2025–2026
+          </p>
+          <h1 className="mx-auto max-w-3xl text-4xl font-extrabold leading-tight tracking-tight sm:text-5xl">
+            Vote pou kandida ou <GradientText>nan tan reyèl</GradientText>
+          </h1>
+          <p className="mx-auto mt-4 max-w-2xl text-base leading-7 text-neutral-600">
+            Platfòm vòt dijital pou dyaspora ayisyen nan tout mond lan. Vòt ou
+            konte. Nou verifye, n ap pwoteje done yo, epi n ap montre rezilta yo
+            an dirèk.
+          </p>
+          <div className="mt-8 flex items-center justify-center gap-3">
+            <PrimaryButton href="/vote">⚡ Kòmanse Vote</PrimaryButton>
+            <SecondaryButton href="/live">📊 Rezilta LIVE</SecondaryButton>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10">
+        <div className="mx-auto max-w-6xl px-4">
+          <div className="mb-8 text-center">
+            <h2 className="text-2xl font-bold tracking-tight">
+              Poukisa chwazi nou?
+            </h2>
+            <p className="mt-2 text-sm text-neutral-600">
+              Platfòm vòt modèn ak sekirite maksimòm.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <FeatureCard
+              icon={<Zap size={20} />}
+              title="Tan Reyèl"
+              desc="Rezilta ap monte chak segonn, tout kote nan mond lan. Notifikasyon imedya pou chak ajou."
+            />
+            <FeatureCard
+              icon={<ShieldCheck size={20} />}
+              title="Sekirite"
+              desc="OTP pou verifikasyon, deteksyon fwod, ak chifraj end-to-end pou done yo rete konfidansyèl."
+            />
+            <FeatureCard
+              icon={<Globe2 size={20} />}
+              title="Global"
+              desc="Vote soti nenpòt kote nan mond lan, 24/7. Aksè rapid sou tout aparèy."
+            />
+            <FeatureCard
+              icon={<Languages size={20} />}
+              title="4 Lang"
+              desc="Kreyòl Ayisyen, Français, English, Español. Chanje lang fasil epi rapid."
+            />
+            <FeatureCard
+              icon={<BarChart3 size={20} />}
+              title="Analiz"
+              desc="Estatistik desann pa peyi, pa rejyon, ak pa vil. Dashboard klè pou vizyalizasyon kle."
+            />
+            <FeatureCard
+              icon={<CheckCircle2 size={20} />}
+              title="Senp"
+              desc="5 etap sèlman: Chwazi, Verifye, Konfime, Rezilta, Pataj. Rapid e san konfizyon."
+            />
+          </div>
+        </div>
+      </section>
+
+      <section className="relative z-10">
+        <div className="mx-auto max-w-6xl px-4 py-16">
+          <div className="relative overflow-hidden rounded-3xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0 opacity-30"
+              style={{
+                background:
+                  "radial-gradient(60% 60% at 50% 40%, rgba(0,108,255,0.25), rgba(127,0,255,0.25) 50%, rgba(255,255,255,0) 70%)",
+              }}
+            />
+            <h3 className="relative text-2xl font-bold">Pare pou vote?</h3>
+            <p className="relative mx-auto mt-2 max-w-xl text-sm text-neutral-600">
+              Jwenn nou jodi a. Vwa ou konte, e rezilta yo ap vizib an tan reyèl.
+            </p>
+            <div className="relative mt-6 flex justify-center">
+              <PrimaryButton href="/vote">Kòmanse Vote Kounya</PrimaryButton>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <footer className="border-t border-neutral-200 bg-white">
+        <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-3 px-4 py-6 text-center sm:flex-row sm:text-left">
+          <p className="text-sm text-neutral-600">
+            © {new Date().getFullYear()} TechKlein VoteLive. Tout dwa rezève.
+          </p>
+          <div className="text-sm text-neutral-600">
+            <Link className="underline-offset-4 hover:underline" href="/live">
+              Rezilta LIVE
+            </Link>
+            <span className="mx-2">•</span>
+            <Link
+              className="underline-offset-4 hover:underline"
+              href="/admin/login"
+            >
+              Admin
+            </Link>
+          </div>
+        </div>
+      </footer>
+    </main>
+  );
+}
