@@ -417,10 +417,6 @@ export default function HomePage() {
             <div className="space-y-5">
               <h3 className="font-bold text-xl text-blue-300">Lyen Rapid</h3>
               <div className="flex flex-col gap-3.5">
-            {/* Links */}
-            <div className="space-y-5">
-              <h3 className="font-bold text-xl text-blue-300">Lyen Rapid</h3>
-              <div className="flex flex-col gap-3.5">
                 <Link href="/about" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 text-base font-medium group">
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   Sou Nou
