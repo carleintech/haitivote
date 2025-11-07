@@ -26,9 +26,9 @@ import {
 import { formatNumber } from '@/lib/utils';
 
 interface CandidatePageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 async function getCandidateData(slug: string) {
@@ -72,7 +72,8 @@ async function getCandidateData(slug: string) {
 }
 
 export default async function CandidatePage({ params }: CandidatePageProps) {
-  const data = await getCandidateData(params.slug);
+  const { slug } = await params;
+  const data = await getCandidateData(slug);
 
   if (!data) {
     notFound();

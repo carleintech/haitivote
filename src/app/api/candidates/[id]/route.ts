@@ -11,11 +11,11 @@ type Candidate = Database['public']['Tables']['candidates']['Row'];
 
 export async function GET(
   request: Request,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     const supabase = await createClient();
-    const identifier = params.id;
+    const { id: identifier } = await params;
 
     // Try to find by ID first (UUID format)
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(identifier);
