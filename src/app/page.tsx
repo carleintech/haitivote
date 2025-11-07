@@ -301,8 +301,13 @@ export default function HomePage() {
             </div>
 
             <OtpInput
-              length={6}
-              onComplete={verifyOtp}
+              phoneNumber={formData.phone}
+              expiresAt={new Date(Date.now() + 10 * 60 * 1000).toISOString()}
+              onVerify={verifyOtp}
+              onResend={async () => {
+                // Resend OTP logic here
+                alert('OTP resent!');
+              }}
               loading={loading}
             />
 
