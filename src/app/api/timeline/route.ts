@@ -16,7 +16,7 @@ export async function GET(request: NextRequest) {
     const events: any[] = [];
 
     // Get first vote (launch)
-    const { data: firstVote } = await supabase
+    const { data: firstVote } = await (supabase as any)
       .from('votes')
       .select('created_at, candidates(name, photo_url)')
       .order('created_at', { ascending: true })
@@ -25,7 +25,7 @@ export async function GET(request: NextRequest) {
 
     if (firstVote) {
       events.push({
-        date: firstVote.created_at,
+        date: (firstVote as any).created_at,
         type: 'launch',
         title: 'Lanse TechKlein VoteLive',
         description: 'Premye vòt soumèt nan platfòm lan',
@@ -34,7 +34,7 @@ export async function GET(request: NextRequest) {
     }
 
     // Get total vote count to determine which milestones to check
-    const { count: totalVotes } = await supabase
+    const { count: totalVotes } = await (supabase as any)
       .from('votes')
       .select('*', { count: 'exact', head: true });
 
@@ -44,7 +44,7 @@ export async function GET(request: NextRequest) {
     for (const milestone of milestones) {
       if ((totalVotes || 0) >= milestone) {
         // Get the vote at this milestone position
-        const { data: milestoneVotes } = await supabase
+        const { data: milestoneVotes } = await (supabase as any)
           .from('votes')
           .select('created_at, candidates(name, photo_url)')
           .order('created_at', { ascending: true })
@@ -53,7 +53,7 @@ export async function GET(request: NextRequest) {
         if (milestoneVotes && milestoneVotes.length > 0) {
           const milestoneVote = milestoneVotes[0];
           events.push({
-            date: milestoneVote.created_at,
+            date: (milestoneVote as any).created_at,
             type: 'milestone',
             title: `${formatNumber(milestone)} Vòt!`,
             description: `Platfòm lan rive ${formatNumber(milestone)} vòt total`,
@@ -73,19 +73,19 @@ export async function GET(request: NextRequest) {
       const dateStart = new Date(date.setHours(0, 0, 0, 0));
       const dateEnd = new Date(date.setHours(23, 59, 59, 999));
 
-      const { count: dayVotes } = await supabase
+      const { count: dayVotes } = await (supabase as any)
         .from('votes')
         .select('*', { count: 'exact', head: true })
         .gte('created_at', dateStart.toISOString())
         .lte('created_at', dateEnd.toISOString());
 
-      const { count: totalUntilDay } = await supabase
+      const { count: totalUntilDay } = await (supabase as any)
         .from('votes')
         .select('*', { count: 'exact', head: true })
         .lte('created_at', dateEnd.toISOString());
 
       // Get top candidate for that day
-      const { data: dayVotes2 } = await supabase
+      const { data: dayVotes2 } = await (supabase as any)
         .from('votes')
         .select('candidate_id, candidates(name)')
         .gte('created_at', dateStart.toISOString())
