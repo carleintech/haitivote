@@ -107,7 +107,7 @@ export default function LivePage() {
       <header className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur-sm shadow-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
           <Link href="/" className="flex items-center">
-            <img src="/haitivote-logo.svg" alt="HaitiVote" className="h-10" />
+            <img src="/haitivote-logo-white.png" alt="HaitiVote" className="h-10" />
           </Link>
           <nav className="flex items-center gap-3">
             <Link href="/about">
