@@ -46,14 +46,16 @@ export default function EmbedPage() {
       {/* Header */}
       <div className="border-b-2 border-gray-200 bg-gradient-to-r from-blue-600 to-purple-600 shadow-lg">
         <div className="px-6 py-4 flex items-center justify-between">
-          <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2">
-              🇭🇹 HaitiVote
-            </h2>
-            <p className="text-sm text-blue-100 font-medium">
-              Rezilta an Tan Reyèl · {formatNumber(totalVotes)} vòt
-            </p>
-          </div>
+          <a href="https://www.haitivote.org" target="_blank" rel="noopener noreferrer">
+            <div className="cursor-pointer hover:opacity-80 transition-opacity">
+              <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                🇭🇹 HaitiVote
+              </h2>
+              <p className="text-sm text-blue-100 font-medium">
+                Rezilta an Tan Reyèl · {formatNumber(totalVotes)} vòt
+              </p>
+            </div>
+          </a>
           
           <div className="flex items-center gap-2">
             {isLive && (

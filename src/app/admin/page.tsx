@@ -109,12 +109,14 @@ export default function AdminDashboard() {
       <div className="border-b-2 border-gray-200 bg-gradient-to-r from-blue-500 to-purple-500 text-white shadow-lg">
         <div className="container mx-auto px-4 py-8">
           <div className="flex items-center justify-between">
-            <div>
-              <h1 className="text-4xl font-bold tracking-tight">Admin Dashboard</h1>
-              <p className="text-blue-100 mt-2 text-lg font-medium">
-                HaitiVote Management Console
-              </p>
-            </div>
+            <Link href="/">
+              <div className="cursor-pointer hover:opacity-80 transition-opacity">
+                <h1 className="text-4xl font-bold tracking-tight">Admin Dashboard</h1>
+                <p className="text-blue-100 mt-2 text-lg font-medium">
+                  HaitiVote Management Console
+                </p>
+              </div>
+            </Link>
 
             <div className="flex items-center gap-3">
               <Button

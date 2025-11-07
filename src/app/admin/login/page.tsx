@@ -51,17 +51,19 @@ export default function AdminLoginPage() {
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50 flex items-center justify-center p-4">
       <div className="w-full max-w-md space-y-6">
         {/* Header */}
-        <div className="text-center space-y-2">
-          <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow-xl mb-4">
-            <Shield className="h-8 w-8 text-white" />
+        <Link href="/">
+          <div className="text-center space-y-2 cursor-pointer hover:opacity-80 transition-opacity">
+            <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 shadow-xl mb-4">
+              <Shield className="h-8 w-8 text-white" />
+            </div>
+            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              HaitiVote Admin
+            </h1>
+            <p className="text-gray-600 text-lg">
+              Secure Administrator Access
+            </p>
           </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-            HaitiVote Admin
-          </h1>
-          <p className="text-gray-600 text-lg">
-            Secure Administrator Access
-          </p>
-        </div>
+        </Link>
 
         {/* Login Card */}
         <Card className="border-2 shadow-xl">
