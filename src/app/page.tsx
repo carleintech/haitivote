@@ -56,73 +56,109 @@ export default function HomePage() {
   }, [state.candidateId, candidates]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-background via-background to-techklein-purple/5">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Navigation Header */}
+      <nav className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <div className="flex items-center gap-2">
+                <div className="text-2xl">🇭🇹</div>
+                <span className="text-xl font-bold bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
+                  HaitiVote
+                </span>
+              </div>
+              <div className="hidden md:flex items-center gap-4">
+                <Link href="/about" className="text-sm font-medium text-gray-700 hover:text-[#006CFF] transition-colors">
+                  Sou Nou
+                </Link>
+                <Link href="/live" className="text-sm font-medium text-gray-700 hover:text-[#006CFF] transition-colors">
+                  Rezilta Live
+                </Link>
+              </div>
+            </div>
+            <div className="flex items-center gap-3">
+              <LanguageSwitcher />
+              {state.candidateId && state.step === 'candidate' && (
+                <Button
+                  size="lg"
+                  className="hidden md:flex bg-gradient-to-r from-[#006CFF] to-[#7F00FF] hover:opacity-90 text-white"
+                  onClick={() => goToStep('details')}
+                >
+                  <CheckCircle2 className="h-5 w-5 mr-2" />
+                  Kontinye
+                </Button>
+              )}
+            </div>
+          </div>
+        </div>
+      </nav>
+
       {/* Hero Header */}
-      <header className="relative overflow-hidden border-b border-border">
-        {/* Animated background gradient */}
-        <div className="absolute inset-0 bg-gradient-to-r from-techklein-purple/10 via-techklein-blue/10 to-techklein-cyan/10 animate-gradient-shift" />
+      <header className="relative overflow-hidden bg-gradient-to-r from-[#006CFF] to-[#7F00FF] text-white">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
         
-        <div className="relative container mx-auto px-4 py-8">
-          <div className="flex flex-col lg:flex-row items-center justify-between gap-6">
+        <div className="relative container mx-auto px-4 py-12 md:py-20">
+          <div className="flex flex-col lg:flex-row items-center justify-between gap-8">
             {/* Branding & Title */}
-            <div className="text-center lg:text-left space-y-3">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-techklein-purple/20 to-techklein-cyan/20 border border-primary/30">
-                <Sparkles className="h-4 w-4 text-techklein-cyan animate-pulse" />
+            <div className="text-center lg:text-left space-y-4 max-w-2xl">
+              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30">
+                <Sparkles className="h-4 w-4 animate-pulse" />
                 <span className="text-sm font-semibold">Sondaj Ofisyèl 2025-2026</span>
               </div>
               
-              <h1 className="text-4xl md:text-6xl font-bold">
-                <span className="text-gradient-techklein">TechKlein</span>{' '}
-                <span className="text-foreground">VoteLive</span>
+              <h1 className="text-5xl md:text-7xl font-bold tracking-tight">
+                HaitiVote
               </h1>
               
-              <p className="text-xl md:text-2xl text-muted-foreground font-medium">
-                Sondaj Ayiti Global 🇭🇹
+              <p className="text-2xl md:text-3xl font-semibold text-blue-100">
+                "Yon Pèp. Yon Vwa. Yon Sondaj."
               </p>
               
-              <p className="text-sm md:text-base text-muted-foreground max-w-2xl">
+              <p className="text-lg md:text-xl text-blue-50 leading-relaxed">
                 Patisipe nan pi gwo sondaj dijital pou eleksyon prezidansyèl Ayiti. 
-                Vwa w konte, kèlkeswa kote w ye nan mond lan!
+                Kèlkeswa kote w ye nan mond lan, vwa w konte!
               </p>
+
+              <div className="flex flex-wrap gap-3 justify-center lg:justify-start pt-4">
+                <Link href="/about">
+                  <Button size="lg" variant="outline" className="bg-white/10 border-white/30 text-white hover:bg-white/20 backdrop-blur-sm">
+                    <Info className="h-5 w-5 mr-2" />
+                    Aprann Plis
+                  </Button>
+                </Link>
+              </div>
             </div>
 
-            {/* Stats & Actions */}
+            {/* Stats Card */}
             <div className="flex flex-col items-center gap-4">
-              {/* Live indicator */}
-              {isLive && (
-                <div className="flex items-center gap-2 px-4 py-2 rounded-full bg-red-500/10 border border-red-500/50">
-                  <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
-                  <span className="text-sm font-bold text-red-500">LIVE</span>
-                </div>
-              )}
-
-              {/* Total votes */}
-              <Card className="w-full lg:w-auto border-2 border-primary/50 bg-gradient-to-br from-primary/5 to-secondary/5">
-                <CardContent className="p-6 text-center space-y-2">
-                  <p className="text-sm text-muted-foreground font-medium">
+              <Card className="w-full lg:w-auto border-2 border-white/30 bg-white/10 backdrop-blur-md shadow-2xl">
+                <CardContent className="p-8 text-center space-y-3">
+                  {isLive && (
+                    <div className="flex items-center justify-center gap-2 mb-2">
+                      <div className="w-2 h-2 rounded-full bg-red-400 animate-pulse" />
+                      <span className="text-sm font-bold text-red-200">LIVE</span>
+                    </div>
+                  )}
+                  <p className="text-sm text-blue-100 font-medium uppercase tracking-wide">
                     Total Vòt Konte
                   </p>
-                  <p className="text-5xl font-bold text-gradient-techklein">
+                  <p className="text-6xl md:text-7xl font-bold text-white">
                     {formatNumber(totalVotes)}
                   </p>
-                  <div className="flex items-center justify-center gap-2 text-green-500 text-sm">
+                  <div className="flex items-center justify-center gap-2 text-green-300 text-sm">
                     <TrendingUp className="h-4 w-4" />
                     <span className="font-semibold">Ap ogmante chak minit</span>
                   </div>
+                  <Link href="/live" className="block pt-2">
+                    <Button variant="outline" size="lg" className="w-full gap-2 bg-white text-[#006CFF] hover:bg-blue-50 border-white">
+                      <BarChart3 className="h-5 w-5" />
+                      Wè Rezilta Konplè
+                      <ArrowRight className="h-4 w-4" />
+                    </Button>
+                  </Link>
                 </CardContent>
               </Card>
-
-              {/* Language switcher */}
-              <LanguageSwitcher />
-
-              {/* View results button */}
-              <Link href="/live" className="w-full lg:w-auto">
-                <Button variant="outline" size="lg" className="w-full gap-2">
-                  <BarChart3 className="h-5 w-5" />
-                  Gade Rezilta
-                  <ArrowRight className="h-4 w-4" />
-                </Button>
-              </Link>
             </div>
           </div>
         </div>
@@ -134,13 +170,22 @@ export default function HomePage() {
         {state.step === 'candidate' && (
           <div className="space-y-8 animate-fade-in">
             {/* Instructions */}
-            <Alert className="border-2 border-primary/50">
-              <Info className="h-5 w-5" />
-              <AlertDescription className="text-base">
-                <strong>Etap 1 sou 3:</strong> Chwazi kandida ou pami {candidates.length} kandida ofisyèl. 
-                Apre sa, w ap ranpli enfòmasyon w epi konfime vòt ou ak yon kòd SMS.
-              </AlertDescription>
-            </Alert>
+            <Card className="border-2 border-[#006CFF]/30 bg-gradient-to-br from-blue-50 to-purple-50 shadow-lg">
+              <CardContent className="p-6">
+                <div className="flex items-start gap-4">
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#006CFF] to-[#7F00FF] flex items-center justify-center flex-shrink-0">
+                    <Info className="h-6 w-6 text-white" />
+                  </div>
+                  <div>
+                    <h3 className="font-bold text-lg text-gray-900 mb-2">Etap 1 sou 3: Chwazi Kandida Ou</h3>
+                    <p className="text-gray-700">
+                      Chwazi kandida ou pami <strong>{candidates.length} kandida ofisyèl</strong>. 
+                      Apre sa, w ap ranpli enfòmasyon w epi konfime vòt ou ak yon kòd SMS.
+                    </p>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
 
             {/* Search bar */}
             <div className="max-w-2xl mx-auto">
@@ -178,39 +223,39 @@ export default function HomePage() {
             </div>
 
             {/* Features showcase */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-8">
-              <Card className="border-2 hover:border-primary/50 transition-colors">
-                <CardContent className="p-6 text-center space-y-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-green-500/10 flex items-center justify-center">
-                    <Shield className="h-6 w-6 text-green-500" />
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-8">
+              <Card className="border-2 border-transparent hover:border-[#006CFF]/50 transition-all hover:shadow-xl hover:-translate-y-1">
+                <CardContent className="p-8 text-center space-y-3">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center shadow-lg">
+                    <Shield className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="font-semibold">100% Sekirite</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Yon vòt pa telefòn. Sistèm anti-doub avanse.
+                  <h3 className="font-bold text-xl text-gray-900">100% Sekirite</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Yon vòt pa telefòn. Sistèm anti-doub avanse. Verifikasyon SMS obligatwa.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:border-primary/50 transition-colors">
-                <CardContent className="p-6 text-center space-y-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-blue-500/10 flex items-center justify-center">
-                    <Globe className="h-6 w-6 text-blue-500" />
+              <Card className="border-2 border-transparent hover:border-[#7F00FF]/50 transition-all hover:shadow-xl hover:-translate-y-1">
+                <CardContent className="p-8 text-center space-y-3">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#006CFF] to-blue-600 flex items-center justify-center shadow-lg">
+                    <Globe className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="font-semibold">Mondyal</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Vote soti nenpòt kote nan mond lan. Dyaspora akeyi!
+                  <h3 className="font-bold text-xl text-gray-900">Mondyal</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Vote soti nenpòt kote nan mond lan. Dyaspora akeyi! Tout vwa konte menm jan.
                   </p>
                 </CardContent>
               </Card>
 
-              <Card className="border-2 hover:border-primary/50 transition-colors">
-                <CardContent className="p-6 text-center space-y-3">
-                  <div className="w-12 h-12 mx-auto rounded-full bg-cyan-500/10 flex items-center justify-center">
-                    <TrendingUp className="h-6 w-6 text-cyan-500" />
+              <Card className="border-2 border-transparent hover:border-[#006CFF]/50 transition-all hover:shadow-xl hover:-translate-y-1">
+                <CardContent className="p-8 text-center space-y-3">
+                  <div className="w-16 h-16 mx-auto rounded-full bg-gradient-to-br from-[#7F00FF] to-purple-600 flex items-center justify-center shadow-lg">
+                    <TrendingUp className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="font-semibold">Tan Reyèl</h3>
-                  <p className="text-sm text-muted-foreground">
-                    Rezilta mizajou chak minit. Transparans total.
+                  <h3 className="font-bold text-xl text-gray-900">Tan Reyèl</h3>
+                  <p className="text-gray-600 leading-relaxed">
+                    Rezilta mizajou chak minit. Transparans total. Data vizib pou tout moun.
                   </p>
                 </CardContent>
               </Card>
@@ -351,47 +396,51 @@ export default function HomePage() {
       </main>
 
       {/* Footer */}
-      <footer className="border-t border-border bg-card mt-16">
-        <div className="container mx-auto px-4 py-8">
+      <footer className="bg-gray-900 text-white mt-16">
+        <div className="container mx-auto px-4 py-12">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* About */}
-            <div className="space-y-3">
-              <h3 className="font-bold text-lg">TechKlein VoteLive</h3>
-              <p className="text-sm text-muted-foreground">
+            <div className="space-y-4">
+              <div className="flex items-center gap-2">
+                <div className="text-2xl">🇭🇹</div>
+                <h3 className="font-bold text-xl bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">HaitiVote</h3>
+              </div>
+              <p className="text-gray-400 leading-relaxed">
                 Platfòm sondaj transparan pou eleksyon Ayiti 2025-2026. 
                 Bati ak teknoloji modèn pou sekirite ak presizyon maksimòm.
               </p>
+              <p className="text-sm text-gray-500 italic">"Yon Pèp. Yon Vwa. Yon Sondaj."</p>
             </div>
 
             {/* Links */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               <h3 className="font-bold text-lg">Lyen Rapid</h3>
-              <div className="flex flex-col gap-2 text-sm">
-                <Link href="/live" className="hover:text-primary transition-colors">
+              <div className="flex flex-col gap-3 text-sm">
+                <Link href="/about" className="text-gray-400 hover:text-[#006CFF] transition-colors flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4" />
+                  Sou Nou
+                </Link>
+                <Link href="/live" className="text-gray-400 hover:text-[#006CFF] transition-colors flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4" />
                   Rezilta an Tan Reyèl
                 </Link>
-                <Link href="/press" className="hover:text-primary transition-colors">
-                  Kit Medya
-                </Link>
-                <Link href="/embed" className="hover:text-primary transition-colors">
-                  Widget Embed
-                </Link>
-                <Link href="/overlay" className="hover:text-primary transition-colors">
-                  Overlay TV
+                <Link href="/vote" className="text-gray-400 hover:text-[#006CFF] transition-colors flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4" />
+                  Vote Kounye a
                 </Link>
               </div>
             </div>
 
             {/* Contact */}
-            <div className="space-y-3">
+            <div className="space-y-4">
               <h3 className="font-bold text-lg">Kontak</h3>
-              <p className="text-sm text-muted-foreground">
+              <p className="text-gray-400 text-sm">
                 Pou kesyon oswa sipò teknolojik:
               </p>
               <p className="text-sm">
                 <a 
                   href="mailto:info@techklein.com" 
-                  className="text-primary hover:underline"
+                  className="text-[#006CFF] hover:text-[#7F00FF] hover:underline transition-colors"
                 >
                   info@techklein.com
                 </a>
@@ -399,15 +448,17 @@ export default function HomePage() {
             </div>
           </div>
 
-          <Separator className="my-6" />
-
-          <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-muted-foreground">
-            <p>
-              © {new Date().getFullYear()} TechKlein. Tout dwa rezève.
-            </p>
-            <div className="flex items-center gap-4">
-              <span>Bati ak ❤️ pou Ayiti</span>
-              <Badge variant="outline">v1.0.0</Badge>
+          <div className="border-t border-gray-800 mt-8 pt-8">
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4 text-sm text-gray-400">
+              <p>
+                © {new Date().getFullYear()} HaitiVote. Tout dwa rezève.
+              </p>
+              <div className="flex items-center gap-2">
+                <span>Bati ak</span>
+                <span className="text-red-500">❤️</span>
+                <span>pou Ayiti</span>
+                <span className="text-2xl">🇭🇹</span>
+              </div>
             </div>
           </div>
         </div>
@@ -418,7 +469,7 @@ export default function HomePage() {
         <div className="fixed bottom-6 right-6 z-50 md:hidden">
           <Button
             size="lg"
-            className="rounded-full shadow-2xl shadow-primary/50 animate-pulse-glow bg-gradient-to-r from-[#006CFF] to-[#7F00FF]"
+            className="rounded-full shadow-2xl bg-gradient-to-r from-[#006CFF] to-[#7F00FF] text-white"
             onClick={() => goToStep('details')}
           >
             <CheckCircle2 className="h-5 w-5 mr-2" />
