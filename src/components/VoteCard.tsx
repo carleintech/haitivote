@@ -31,7 +31,7 @@ export function VoteCard({
   const [copied, setCopied] = React.useState(false);
 
   const shareText = `Mwen vote nan TechKlein VoteLive pou ${candidateName}! 🗳️ Vote ou menm tou!`;
-  const shareUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://votelive.techklein.com';
+  const shareUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.haitivote.org';
 
   const handleShare = async (platform?: 'twitter' | 'facebook' | 'whatsapp') => {
     if (platform === 'twitter') {

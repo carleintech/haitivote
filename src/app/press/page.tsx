@@ -29,7 +29,7 @@ import {
 export default function PressPage() {
   const [copiedEmbed, setCopiedEmbed] = React.useState(false);
 
-  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://votelive.techklein.com';
+  const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://www.haitivote.org';
   const embedCode = `<iframe src="${siteUrl}/embed" width="100%" height="700" frameborder="0" allowtransparency="true"></iframe>`;
 
   const handleCopyEmbed = async () => {

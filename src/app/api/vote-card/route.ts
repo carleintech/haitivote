@@ -60,7 +60,7 @@ export async function POST(request: NextRequest) {
       candidatePhoto: vote.candidates?.photo_url || '',
       country: vote.country || 'Unknown',
       timestamp: new Date(vote.created_at).toLocaleString('fr-HT'),
-      shareUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://votelive.techklein.com'}`,
+      shareUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://www.haitivote.org'}`,
     };
 
     return NextResponse.json(cardData, { status: 200 });

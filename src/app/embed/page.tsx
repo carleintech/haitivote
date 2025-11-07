@@ -107,7 +107,7 @@ export default function EmbedPage() {
           </span>
           
           <a
-            href={process.env.NEXT_PUBLIC_SITE_URL || 'https://votelive.techklein.com'}
+            href={process.env.NEXT_PUBLIC_SITE_URL || 'https://www.haitivote.org'}
             target="_blank"
             rel="noopener noreferrer"
             className="hover:text-primary transition-colors flex items-center gap-1"

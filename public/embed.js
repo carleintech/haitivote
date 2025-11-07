@@ -1,6 +1,6 @@
 /**
  * TechKlein VoteLive Embed Script
- * Usage: <script src="https://votelive.techklein.com/embed.js" data-votelive></script>
+ * Usage: <script src="https://www.haitivote.org/embed.js" data-votelive></script>
  */
 
 (function() {
