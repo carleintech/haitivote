@@ -328,9 +328,9 @@ export default function VotePage() {
         {step === 'success' && voteReceiptId && (
           <div className="mx-auto max-w-2xl">
             <VoteSuccess
-              receiptId={voteReceiptId}
+              voteId={voteReceiptId}
               candidateName={candidateName}
-              onVoteAgain={handleReset}
+              country={voteData?.country || null}
             />
           </div>
         )}
