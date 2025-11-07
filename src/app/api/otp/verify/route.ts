@@ -62,8 +62,7 @@ export async function POST(request: Request) {
     // Find matching OTP
     const admin = getAdminClient();
     const { data: otpRecord, error: otpError } = await admin
-      .schema('private')
-      .from('otps')
+      .from('private_otps')
       .select('*')
       .eq('phone', normalizedPhone)
       .eq('otp_hash', otpHash)
@@ -75,10 +74,8 @@ export async function POST(request: Request) {
 
     if (otpError || !otpRecord) {
       // Log failed attempt
-      // @ts-ignore - private schema access
       await admin
-        .schema('private')
-        .from('otps')
+        .from('private_otps')
         .update({ 
           attempts: admin.rpc('increment_attempts'),
         })
@@ -111,10 +108,8 @@ export async function POST(request: Request) {
     }
 
     // Mark OTP as verified
-    // @ts-ignore - private schema access
     const { error: updateError } = await admin
-      .schema('private')
-      .from('otps')
+      .from('private_otps')
       .update({ 
         is_verified: true,
         verified_at: new Date().toISOString(),

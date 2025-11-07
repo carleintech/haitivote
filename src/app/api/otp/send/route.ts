@@ -67,8 +67,7 @@ export async function POST(request: Request) {
     const expiresAt = new Date(Date.now() + 10 * 60 * 1000); // 10 minutes
 
     const { error: insertError } = await admin
-      .schema('private')
-      .from('otps')
+      .from('private_otps')
       .insert({
         phone: normalizedPhone,
         otp_hash: otpHash,

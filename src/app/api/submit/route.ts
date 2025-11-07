@@ -132,10 +132,8 @@ export async function POST(request: Request) {
     const supabase = await createClient();
 
     // Verify OTP was validated for this phone
-    // @ts-ignore - private schema access
     const { data: otpRecord, error: otpError } = await admin
-      .schema('private')
-      .from('otps')
+      .from('private_otps')
       .select('*')
       .eq('phone', normalizedPhone)
       .eq('otp_hash', otpHash)
@@ -177,10 +175,8 @@ export async function POST(request: Request) {
     }
 
     // Check for duplicate vote (same normalized name + DOB + phone)
-    // @ts-ignore - private schema access
     const { data: existingVote, error: duplicateError } = await admin
-      .schema('private')
-      .from('voter_records')
+      .from('private_voter_records')
       .select('id')
       .eq('normalized_first_name', normalizedFirstName)
       .eq('normalized_last_name', normalizedLastName)
@@ -236,10 +232,8 @@ export async function POST(request: Request) {
     }
 
     // Mark OTP as used
-    // @ts-ignore - private schema access
     await admin
-      .schema('private')
-      .from('otps')
+      .from('private_otps')
       .update({ is_used: true, used_at: new Date().toISOString() })
       .eq('id', otpRecord.id);
 
