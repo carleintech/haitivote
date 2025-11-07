@@ -65,7 +65,7 @@ async function getCandidateData(slug: string) {
     .from('vote_aggregates')
     .select('*')
     .eq('candidate_slug', slug)
-    .single();
+    .single<{ candidate_id: number; candidate_name: string; candidate_slug: string; photo_url: string; total_votes: number; percentage: number }>();
 
   // Fetch votes by country for this candidate
   const { data: byCountry } = await supabase
@@ -73,7 +73,7 @@ async function getCandidateData(slug: string) {
     .select('*')
     .eq('candidate_slug', slug)
     .order('total_votes', { ascending: false })
-    .limit(10);
+    .limit(10) as { data: Array<{ country: string; candidate_slug: string; candidate_name: string; total_votes: number }> | null };
 
   return {
     candidate,
