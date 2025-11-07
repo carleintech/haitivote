@@ -105,7 +105,7 @@ export default function TrendsPage() {
     '24h': 'Dènye 24 Èdtan',
   };
 
-  const risingStars = trendsData?.rising_stars.slice(0, 5) || [];
+  const risingStars = trendsData?.rising_stars?.slice(0, 5) || [];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">

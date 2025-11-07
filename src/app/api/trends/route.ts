@@ -47,19 +47,27 @@ export async function GET(request: NextRequest) {
       const projected24h = Math.round(candidate.total_votes + (velocity * 24));
 
       return {
-        candidateId: candidate.candidate_id,
-        candidateName: candidate.candidate_name,
-        candidateSlug: candidate.candidate_slug,
-        photoUrl: candidate.photo_url,
-        currentVotes: candidate.total_votes,
-        velocity,
-        momentum,
-        projected24h,
-        trend,
+        id: candidate.candidate_id,
+        name: candidate.candidate_name,
+        slug: candidate.candidate_slug,
+        photo_url: candidate.photo_url,
+        total_votes: candidate.total_votes,
+        votes_per_hour: velocity,
+        momentum_percentage: momentum,
+        projected_24h: projected24h,
+        rank: candidate.rank || 0,
       };
     }) || [];
 
-    return NextResponse.json({ trends });
+    // Sort by momentum (highest first)
+    const rising_stars = trends
+      .sort((a, b) => b.momentum_percentage - a.momentum_percentage);
+
+    return NextResponse.json({ 
+      timeframe,
+      rising_stars,
+      timestamp: new Date().toISOString(),
+    });
 
   } catch (error) {
     console.error('Trends calculation error:', error);
