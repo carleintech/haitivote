@@ -132,7 +132,7 @@ export async function POST(request: Request) {
     const supabase = await createClient();
 
     // Verify OTP was validated for this phone
-    const { data: otpRecord, error: otpError } = await admin
+    const { data: otpRecord, error: otpError } = await (admin as any)
       .from('private_otps')
       .select('*')
       .eq('phone', normalizedPhone)
@@ -232,7 +232,7 @@ export async function POST(request: Request) {
     }
 
     // Mark OTP as used
-    await admin
+    await (admin as any)
       .from('private_otps')
       .update({ is_used: true, used_at: new Date().toISOString() })
       .eq('id', otpRecord.id);
