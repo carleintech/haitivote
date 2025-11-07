@@ -553,7 +553,7 @@ export default function HomePage() {
       <footer className="relative overflow-hidden bg-gradient-to-br from-gray-900 via-blue-900 to-purple-900 text-white mt-20">
         <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
         <div className="relative container mx-auto px-4 py-16">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
             {/* About */}
             <div className="space-y-5">
               <div className="flex items-center gap-3">
@@ -567,45 +567,52 @@ export default function HomePage() {
               <p className="text-base text-blue-300 font-semibold italic">"Yon Pèp. Yon Vwa. Yon Sondaj."</p>
             </div>
 
-            {/* Links */}
+            {/* Navigation Links */}
             <div className="space-y-5">
-              <h3 className="font-bold text-xl text-blue-300">Lyen Rapid</h3>
-              <div className="flex flex-col gap-3.5">
-                <Link href="/about" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+              <h3 className="font-bold text-xl text-blue-300">Navigasyon</h3>
+              <div className="grid grid-cols-2 gap-3">
+                <Link href="/about" className="text-gray-300 hover:text-blue-400 transition-colors text-base font-medium">
                   Sou Nou
                 </Link>
-                <Link href="/live" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
-                  Rezilta an Tan Reyèl
+                <Link href="/live" className="text-gray-300 hover:text-blue-400 transition-colors text-base font-medium">
+                  Rezilta Live
                 </Link>
-                <Link href="/leaderboard" className="text-gray-300 hover:text-yellow-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/leaderboard" className="text-gray-300 hover:text-yellow-400 transition-colors text-base font-medium">
                   Klasman
                 </Link>
-                <Link href="/activity" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/activity" className="text-gray-300 hover:text-blue-400 transition-colors text-base font-medium">
                   Aktivite
                 </Link>
-                <Link href="/trends" className="text-gray-300 hover:text-purple-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/trends" className="text-gray-300 hover:text-purple-400 transition-colors text-base font-medium">
                   Tendans
                 </Link>
-                <Link href="/compare" className="text-gray-300 hover:text-green-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/compare" className="text-gray-300 hover:text-green-400 transition-colors text-base font-medium">
                   Konpare
                 </Link>
-                <Link href="/challenge" className="text-gray-300 hover:text-red-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/challenge" className="text-gray-300 hover:text-red-400 transition-colors text-base font-medium">
                   Batay
                 </Link>
-                <Link href="/press" className="text-gray-300 hover:text-purple-400 transition-colors flex items-center gap-2 text-base font-medium group">
-                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                <Link href="/press" className="text-gray-300 hover:text-purple-400 transition-colors text-base font-medium">
                   Kit Medya
                 </Link>
+              </div>
+            </div>
+
+            {/* Media & Tools */}
+            <div className="space-y-5">
+              <h3 className="font-bold text-xl text-blue-300">Zouti</h3>
+              <div className="flex flex-col gap-3.5">
                 <Link href="/embed" className="text-gray-300 hover:text-purple-400 transition-colors flex items-center gap-2 text-base font-medium group">
                   <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
                   Widget Embed
+                </Link>
+                <Link href="/qr" className="text-gray-300 hover:text-blue-400 transition-colors flex items-center gap-2 text-base font-medium group">
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Kòd QR
+                </Link>
+                <Link href="/tv" className="text-gray-300 hover:text-green-400 transition-colors flex items-center gap-2 text-base font-medium group">
+                  <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform" />
+                  Mode Televizyon
                 </Link>
               </div>
             </div>
@@ -616,14 +623,24 @@ export default function HomePage() {
               <p className="text-gray-300 text-base font-medium">
                 Pou kesyon oswa sipò teknolojik:
               </p>
-              <p className="text-base">
-                <a 
-                  href="mailto:info@techklein.com" 
-                  className="text-blue-400 hover:text-purple-400 hover:underline transition-colors font-semibold"
-                >
-                  info@techklein.com
-                </a>
-              </p>
+              <div className="space-y-3">
+                <p className="text-base">
+                  <a 
+                    href="mailto:info@techklein.com" 
+                    className="text-blue-400 hover:text-purple-400 hover:underline transition-colors font-semibold"
+                  >
+                    info@techklein.com
+                  </a>
+                </p>
+                <div className="flex gap-3 pt-2">
+                  <a href="https://twitter.com/TechKleinHT" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-blue-500 hover:bg-blue-600 flex items-center justify-center transition-colors">
+                    <span className="text-xl">𝕏</span>
+                  </a>
+                  <a href="https://facebook.com/TechKlein" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-blue-600 hover:bg-blue-700 flex items-center justify-center transition-colors">
+                    <span className="text-xl">f</span>
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
 
