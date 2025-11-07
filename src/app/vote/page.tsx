@@ -108,13 +108,21 @@ export default function VotePage() {
 
       const { otpHash } = await verifyResponse.json();
 
+      // Split name into firstName and lastName
+      const nameParts = voteData.name.trim().split(/\s+/);
+      const firstName = nameParts[0];
+      const lastName = nameParts.slice(1).join(' ') || nameParts[0];
+
       // Submit vote
       const submitResponse = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          ...voteData,
           candidateId: selectedCandidateId,
+          firstName,
+          lastName,
+          dateOfBirth: voteData.dob,
+          phone: voteData.phone,
           otpHash,
         }),
       });
