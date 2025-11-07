@@ -65,18 +65,18 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Jenere Kòd QR</CardTitle>
-        <CardDescription>
+    <Card className="border-2 border-gray-100 shadow-xl rounded-2xl overflow-hidden">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2 border-gray-100">
+        <CardTitle className="text-2xl">Jenere Kòd QR</CardTitle>
+        <CardDescription className="text-base">
           Kreye kòd QR pou swiv sous medya
         </CardDescription>
       </CardHeader>
 
-      <CardContent className="space-y-6">
+      <CardContent className="space-y-6 p-6">
         {/* Media Code Input */}
-        <div className="space-y-2">
-          <Label htmlFor="mediaCode">
+        <div className="space-y-3">
+          <Label htmlFor="mediaCode" className="text-base font-semibold text-gray-900">
             Kòd Medya (Opsyonèl)
           </Label>
           <Input
@@ -84,69 +84,74 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
             placeholder="telemetropole, rtvc, youtube-miami, etc."
             value={mediaCode}
             onChange={(e) => setMediaCode(e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, ''))}
+            className="border-2 border-gray-200 focus:border-[#006CFF] text-base py-6"
           />
-          <p className="text-xs text-muted-foreground">
+          <p className="text-sm text-gray-600">
             Itilize kòd sa pou idantifye sous trafik (radyo, TV, influencer, etc.)
           </p>
         </div>
 
         {/* QR Code Display */}
         <div className="flex justify-center">
-          <div className="p-4 bg-white rounded-xl border-4 border-border">
+          <div className="p-6 bg-white rounded-2xl border-4 border-gray-200 shadow-lg">
             {qrDataUrl ? (
               <img
                 src={qrDataUrl}
                 alt="QR Code"
-                className="w-64 h-64"
+                className="w-80 h-80"
               />
             ) : (
-              <div className="w-64 h-64 flex items-center justify-center">
-                <div className="animate-spin h-8 w-8 border-4 border-primary border-t-transparent rounded-full" />
+              <div className="w-80 h-80 flex items-center justify-center">
+                <div className="animate-spin h-12 w-12 border-4 border-[#006CFF] border-t-transparent rounded-full" />
               </div>
             )}
           </div>
         </div>
 
         {/* Generated URL */}
-        <div className="space-y-2">
-          <Label>Lyen Jenere</Label>
+        <div className="space-y-3">
+          <Label className="text-base font-semibold text-gray-900">Lyen Jenere</Label>
           <div className="flex gap-2">
             <Input
               value={generateUrl()}
               readOnly
-              className="flex-1 font-mono text-xs"
+              className="flex-1 font-mono text-sm bg-gray-50 border-2 border-gray-200"
             />
             <Button
-              size="sm"
-              variant="outline"
+              size="lg"
+              className="bg-white text-gray-900 border-2 border-gray-200 hover:bg-gray-50"
               onClick={handleCopyUrl}
             >
               {copied ? (
-                <Check className="h-4 w-4" />
+                <>
+                  <Check className="h-5 w-5 text-green-600" />
+                </>
               ) : (
-                <Copy className="h-4 w-4" />
+                <>
+                  <Copy className="h-5 w-5" />
+                </>
               )}
             </Button>
           </div>
         </div>
 
         {/* Actions */}
-        <div className="flex gap-2">
+        <div className="flex gap-3">
           <Button
-            variant="gradient"
-            className="flex-1"
+            size="lg"
+            className="flex-1 bg-gradient-to-r from-[#006CFF] to-[#7F00FF] hover:opacity-90 text-white text-base py-6"
             onClick={handleDownload}
             disabled={!qrDataUrl}
           >
-            <Download className="h-4 w-4 mr-2" />
+            <Download className="h-5 w-5 mr-2" />
             Telechaje PNG
           </Button>
         </div>
 
         {/* Usage Instructions */}
-        <div className="p-4 rounded-lg bg-muted/50 space-y-2 text-sm">
-          <p className="font-semibold">Kijan pou itilize:</p>
-          <ul className="list-disc list-inside space-y-1 text-muted-foreground">
+        <div className="p-6 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 space-y-3">
+          <p className="font-bold text-base text-gray-900">Kijan pou itilize:</p>
+          <ul className="list-disc list-inside space-y-2 text-sm text-gray-700">
             <li>Afiche kòd QR sou ekran TV oswa poster</li>
             <li>Moun eskane l ak telefòn yo</li>
             <li>Yo ale dirèkteman nan paj vote a</li>

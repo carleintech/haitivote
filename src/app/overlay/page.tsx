@@ -14,11 +14,13 @@ type OverlayLayout = 'full' | 'sidebar' | 'lower-third';
 export default function OverlayPage() {
   const { aggregates, totalVotes, loading, isLive } = useVoteStats(true);
   const [layout, setLayout] = React.useState<OverlayLayout>('sidebar');
+  const [mounted, setMounted] = React.useState(false);
 
   const formatNumber = (num: number) => num.toLocaleString();
 
   // Read layout from URL params
   React.useEffect(() => {
+    setMounted(true);
     const params = new URLSearchParams(window.location.search);
     const layoutParam = params.get('layout') as OverlayLayout;
     if (layoutParam && ['full', 'sidebar', 'lower-third'].includes(layoutParam)) {
@@ -29,12 +31,14 @@ export default function OverlayPage() {
     document.body.style.background = 'transparent';
     document.body.style.margin = '0';
     document.body.style.padding = '0';
+    document.body.style.overflow = 'hidden';
     document.documentElement.style.background = 'transparent';
 
     return () => {
       document.body.style.background = '';
       document.body.style.margin = '';
       document.body.style.padding = '';
+      document.body.style.overflow = '';
       document.documentElement.style.background = '';
     };
   }, []);
@@ -43,7 +47,7 @@ export default function OverlayPage() {
     return aggregates.slice(0, 10);
   }, [aggregates]);
 
-  if (loading) {
+  if (!mounted || loading) {
     return null;
   }
 
