@@ -24,17 +24,26 @@ const languages = [
 
 export function LanguageSwitcher() {
   const { language, setLanguage } = useTranslation();
+  
+  const currentLang = languages.find(l => l.code === language) || languages[0];
 
   return (
     <Select value={language} onValueChange={(value: any) => setLanguage(value)}>
-      <SelectTrigger className="w-[160px]">
-        <Globe className="h-4 w-4 mr-2" />
-        <SelectValue />
+      <SelectTrigger className="w-[160px] bg-white border-2 border-gray-200 hover:border-[#006CFF] transition-colors shadow-sm font-medium">
+        <Globe className="h-4 w-4 mr-2 text-[#006CFF]" />
+        <SelectValue>
+          <span className="mr-2">{currentLang.flag}</span>
+          {currentLang.name}
+        </SelectValue>
       </SelectTrigger>
-      <SelectContent>
+      <SelectContent className="bg-white border-2 border-gray-200 shadow-xl z-[100]">
         {languages.map((lang) => (
-          <SelectItem key={lang.code} value={lang.code}>
-            <span className="mr-2">{lang.flag}</span>
+          <SelectItem 
+            key={lang.code} 
+            value={lang.code}
+            className="cursor-pointer hover:bg-blue-50 focus:bg-blue-100 text-base py-3 font-medium"
+          >
+            <span className="mr-2 text-xl">{lang.flag}</span>
             {lang.name}
           </SelectItem>
         ))}
