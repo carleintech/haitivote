@@ -39,7 +39,12 @@ export async function POST(request: NextRequest) {
         )
       `)
       .eq('id', voteId)
-      .single();
+      .single<{
+        id: string;
+        created_at: string;
+        country: string | null;
+        candidates: { name: string; photo_url: string } | null;
+      }>();
 
     if (error || !vote) {
       return NextResponse.json(
@@ -51,8 +56,8 @@ export async function POST(request: NextRequest) {
     // Generate shareable card data
     const cardData = {
       voteId: vote.id,
-      candidateName: (vote.candidates as any)?.name || 'Unknown',
-      candidatePhoto: (vote.candidates as any)?.photo_url || '',
+      candidateName: vote.candidates?.name || 'Unknown',
+      candidatePhoto: vote.candidates?.photo_url || '',
       country: vote.country || 'Unknown',
       timestamp: new Date(vote.created_at).toLocaleString('fr-HT'),
       shareUrl: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://votelive.techklein.com'}`,
