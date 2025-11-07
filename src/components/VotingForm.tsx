@@ -66,19 +66,21 @@ export function VotingForm({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Ranpli Enfòmasyon Ou</CardTitle>
-        <CardDescription>
-          Ou ap vote pou: <span className="font-semibold text-foreground">{candidateName}</span>
+    <Card className="border-2 shadow-xl">
+      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2">
+        <CardTitle className="text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+          Ranpli Enfòmasyon Ou
+        </CardTitle>
+        <CardDescription className="text-base">
+          Ou ap vote pou: <span className="font-bold text-foreground">{candidateName}</span>
         </CardDescription>
       </CardHeader>
 
-      <CardContent>
-        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-4">
+      <CardContent className="pt-6">
+        <form onSubmit={handleSubmit(handleFormSubmit)} className="space-y-5">{/* Full Name */}
           {/* Full Name */}
           <div className="space-y-2">
-            <Label htmlFor="name">
+            <Label htmlFor="name" className="text-base font-semibold">
               Non Konplè <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -88,12 +90,13 @@ export function VotingForm({
               error={!!errors.name}
               helperText={errors.name?.message}
               disabled={loading}
+              className="h-12 text-base"
             />
           </div>
 
           {/* Date of Birth */}
           <div className="space-y-2">
-            <Label htmlFor="dob">
+            <Label htmlFor="dob" className="text-base font-semibold">
               Dat Nesans <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -104,12 +107,13 @@ export function VotingForm({
               helperText={errors.dob?.message}
               disabled={loading}
               max={new Date().toISOString().split('T')[0]}
+              className="h-12 text-base"
             />
           </div>
 
           {/* Phone Number */}
           <div className="space-y-2">
-            <Label htmlFor="phone">
+            <Label htmlFor="phone" className="text-base font-semibold">
               Nimewo Telefòn <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -120,15 +124,16 @@ export function VotingForm({
               error={!!errors.phone}
               helperText={errors.phone?.message}
               disabled={loading}
+              className="h-12 text-base"
             />
-            <p className="text-xs text-muted-foreground">
+            <p className="text-sm text-muted-foreground">
               Nou pral voye yon kòd verifikasyon sou telefòn sa
             </p>
           </div>
 
           {/* Country */}
           <div className="space-y-2">
-            <Label htmlFor="country">
+            <Label htmlFor="country" className="text-base font-semibold">
               Peyi <span className="text-destructive">*</span>
             </Label>
             <Select
@@ -155,19 +160,20 @@ export function VotingForm({
 
           {/* Region/City (Optional) */}
           <div className="space-y-2">
-            <Label htmlFor="region">Rejyon/Vil (Opsyonèl)</Label>
+            <Label htmlFor="region" className="text-base font-semibold">Rejyon/Vil (Opsyonèl)</Label>
             <Input
               id="region"
               {...register('region')}
               placeholder="Port-au-Prince, Miami, Montréal, etc."
               disabled={loading}
+              className="h-12 text-base"
             />
           </div>
 
           {/* Privacy Notice */}
-          <Alert>
-            <Lock className="h-4 w-4" />
-            <AlertDescription className="text-xs">
+          <Alert className="border-2 border-blue-200 bg-blue-50">
+            <Lock className="h-5 w-5 text-blue-600" />
+            <AlertDescription className="text-sm font-medium text-gray-900">
               <strong>Enfòmasyon prive:</strong> Nou kolekte non, dat nesans, ak telefòn ou sèlman pou evite vòt doub. 
               Enfòmasyon sa yo pa pral pibliye. Yon kòd verifikasyon pral voye sou telefòn ou.
             </AlertDescription>
@@ -178,7 +184,7 @@ export function VotingForm({
             type="submit"
             variant="gradient"
             size="lg"
-            className="w-full"
+            className="w-full h-14 text-lg font-bold shadow-lg"
             loading={loading}
             disabled={loading}
           >
@@ -186,9 +192,9 @@ export function VotingForm({
           </Button>
 
           {/* Info */}
-          <Alert>
-            <Info className="h-4 w-4" />
-            <AlertDescription className="text-xs">
+          <Alert className="border-2 border-purple-200 bg-purple-50">
+            <Info className="h-5 w-5 text-purple-600" />
+            <AlertDescription className="text-sm font-medium text-gray-900">
               Apre ou ranpli fòm sa, n ap voye yon kòd 6 chif sou telefòn ou pou verifye.
             </AlertDescription>
           </Alert>
