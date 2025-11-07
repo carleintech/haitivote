@@ -42,10 +42,10 @@ export async function GET(
 
     // Get vote count for this candidate
     const { data: voteStats } = await supabase
-      .from('vote_aggregations')
+      .from('vote_aggregates')
       .select('total_votes')
       .eq('candidate_id', candidate.id)
-      .maybeSingle();
+      .maybeSingle<{ total_votes: number }>();
 
     // Transform data for response
     const response = {
