@@ -43,44 +43,72 @@ export default function PressPage() {
   };
 
   return (
-    <div className="min-h-screen bg-background">
-      {/* Header */}
-      <div className="border-b border-border bg-card">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex items-center gap-4 mb-2">
-            <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ArrowLeft className="h-4 w-4 mr-2" />
-                Retounen
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
+      {/* Navigation Header */}
+      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
+        <div className="container mx-auto px-4 py-4">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-6">
+              <Link href="/" className="flex items-center gap-2">
+                <div className="text-2xl">🇭🇹</div>
+                <span className="text-xl font-bold bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
+                  HaitiVote
+                </span>
+              </Link>
+              <div className="hidden md:flex items-center gap-4">
+                <Link href="/about" className="text-sm font-medium text-gray-700 hover:text-[#006CFF] transition-colors">
+                  Sou Nou
+                </Link>
+                <Link href="/live" className="text-sm font-medium text-gray-700 hover:text-[#006CFF] transition-colors">
+                  Rezilta Live
+                </Link>
+              </div>
+            </div>
+            <Link href="/vote">
+              <Button className="bg-gradient-to-r from-[#006CFF] to-[#7F00FF] hover:opacity-90 text-white">
+                Vote Kounye a
               </Button>
             </Link>
           </div>
-          <h1 className="text-3xl font-bold text-gradient-techklein">
-            Kit Medya & Jounalis
-          </h1>
-          <p className="text-muted-foreground mt-1">
-            Tout resous ou bezwen pou entegre TechKlein VoteLive
-          </p>
+        </div>
+      </header>
+
+      {/* Hero Header */}
+      <div className="relative overflow-hidden bg-gradient-to-r from-[#006CFF] to-[#7F00FF] text-white">
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
+        <div className="relative container mx-auto px-4 py-16">
+          <div className="max-w-3xl mx-auto text-center space-y-4">
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-4">
+              <Share2 className="h-4 w-4" />
+              <span className="text-sm font-semibold">Kit Medya</span>
+            </div>
+            <h1 className="text-5xl md:text-6xl font-bold">
+              Resous pou Jounalis
+            </h1>
+            <p className="text-xl text-blue-100 leading-relaxed">
+              Tout zouti ou bezwen pou entegre HaitiVote nan platfòm ou
+            </p>
+          </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 py-12">
         <Tabs defaultValue="embed" className="space-y-8">
-          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4">
-            <TabsTrigger value="embed">
+          <TabsList className="grid w-full grid-cols-2 lg:grid-cols-4 bg-white border-2 border-gray-200 p-1 rounded-xl shadow-lg">
+            <TabsTrigger value="embed" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#006CFF] data-[state=active]:to-[#7F00FF] data-[state=active]:text-white rounded-lg">
               <Code className="h-4 w-4 mr-2" />
               Embed
             </TabsTrigger>
-            <TabsTrigger value="overlay">
+            <TabsTrigger value="overlay" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#006CFF] data-[state=active]:to-[#7F00FF] data-[state=active]:text-white rounded-lg">
               <Tv className="h-4 w-4 mr-2" />
               TV Overlay
             </TabsTrigger>
-            <TabsTrigger value="qr">
+            <TabsTrigger value="qr" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#006CFF] data-[state=active]:to-[#7F00FF] data-[state=active]:text-white rounded-lg">
               <Share2 className="h-4 w-4 mr-2" />
               Kòd QR
             </TabsTrigger>
-            <TabsTrigger value="stats">
+            <TabsTrigger value="stats" className="data-[state=active]:bg-gradient-to-r data-[state=active]:from-[#006CFF] data-[state=active]:to-[#7F00FF] data-[state=active]:text-white rounded-lg">
               <BarChart3 className="h-4 w-4 mr-2" />
               Estatistik
             </TabsTrigger>
@@ -88,10 +116,10 @@ export default function PressPage() {
 
           {/* Embed Widget Tab */}
           <TabsContent value="embed" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Widget Embed pou Sit Wèb</CardTitle>
-                <CardDescription>
+            <Card className="border-2 border-gray-100 shadow-xl rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2 border-gray-100">
+                <CardTitle className="text-2xl">Widget Embed pou Sit Wèb</CardTitle>
+                <CardDescription className="text-base">
                   Entegre rezilta an tan reyèl nan atik ou yo
                 </CardDescription>
               </CardHeader>
@@ -99,8 +127,8 @@ export default function PressPage() {
               <CardContent className="space-y-6">
                 {/* Live Preview */}
                 <div>
-                  <h3 className="text-sm font-semibold mb-2">Preview</h3>
-                  <div className="border-2 border-border rounded-lg overflow-hidden">
+                  <h3 className="text-sm font-semibold mb-3 text-gray-900">Preview</h3>
+                  <div className="border-4 border-gray-200 rounded-xl overflow-hidden shadow-lg">
                     <iframe
                       src="/embed"
                       width="100%"
@@ -113,22 +141,21 @@ export default function PressPage() {
                 <Separator />
 
                 {/* Embed Code */}
-                <div className="space-y-2">
-                  <h3 className="text-sm font-semibold">Kòd HTML</h3>
+                <div className="space-y-3">
+                  <h3 className="text-sm font-semibold text-gray-900">Kòd HTML</h3>
                   <div className="relative">
-                    <pre className="p-4 rounded-lg bg-muted overflow-x-auto text-xs">
+                    <pre className="p-4 rounded-xl bg-gray-900 overflow-x-auto text-sm text-green-400 border-2 border-gray-700">
                       <code>{embedCode}</code>
                     </pre>
                     <Button
                       size="sm"
-                      variant="outline"
-                      className="absolute top-2 right-2"
+                      className="absolute top-3 right-3 bg-white text-gray-900 hover:bg-gray-100"
                       onClick={handleCopyEmbed}
                     >
                       {copiedEmbed ? (
                         <>
-                          <Check className="h-4 w-4 mr-2" />
-                          Kopye
+                          <Check className="h-4 w-4 mr-2 text-green-600" />
+                          Kopye!
                         </>
                       ) : (
                         <>
@@ -155,42 +182,42 @@ export default function PressPage() {
 
                 {/* Features */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                  <div className="p-4 rounded-lg bg-muted/50 space-y-2">
-                    <h4 className="font-semibold text-sm flex items-center gap-2">
-                      <Badge variant="default">✓</Badge>
+                  <div className="p-6 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 space-y-2">
+                    <h4 className="font-bold text-base flex items-center gap-2 text-gray-900">
+                      <div className="w-6 h-6 rounded-full bg-green-500 flex items-center justify-center text-white text-xs">✓</div>
                       Mizajou Otomatik
                     </h4>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-gray-700">
                       Rezilta mizajou an tan reyèl san bezwen refresh
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-muted/50 space-y-2">
-                    <h4 className="font-semibold text-sm flex items-center gap-2">
-                      <Badge variant="default">✓</Badge>
+                  <div className="p-6 rounded-xl bg-gradient-to-br from-blue-50 to-cyan-50 border-2 border-blue-200 space-y-2">
+                    <h4 className="font-bold text-base flex items-center gap-2 text-gray-900">
+                      <div className="w-6 h-6 rounded-full bg-blue-500 flex items-center justify-center text-white text-xs">✓</div>
                       Responsif
                     </h4>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-gray-700">
                       Travay sou tout aparèy (desktop, tablet, mobil)
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-muted/50 space-y-2">
-                    <h4 className="font-semibold text-sm flex items-center gap-2">
-                      <Badge variant="default">✓</Badge>
+                  <div className="p-6 rounded-xl bg-gradient-to-br from-purple-50 to-pink-50 border-2 border-purple-200 space-y-2">
+                    <h4 className="font-bold text-base flex items-center gap-2 text-gray-900">
+                      <div className="w-6 h-6 rounded-full bg-purple-500 flex items-center justify-center text-white text-xs">✓</div>
                       Rapid
                     </h4>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-gray-700">
                       Optimize pou vitès maksimòm
                     </p>
                   </div>
 
-                  <div className="p-4 rounded-lg bg-muted/50 space-y-2">
-                    <h4 className="font-semibold text-sm flex items-center gap-2">
-                      <Badge variant="default">✓</Badge>
+                  <div className="p-6 rounded-xl bg-gradient-to-br from-amber-50 to-yellow-50 border-2 border-amber-200 space-y-2">
+                    <h4 className="font-bold text-base flex items-center gap-2 text-gray-900">
+                      <div className="w-6 h-6 rounded-full bg-amber-500 flex items-center justify-center text-white text-xs">✓</div>
                       Gratis
                     </h4>
-                    <p className="text-xs text-muted-foreground">
+                    <p className="text-sm text-gray-700">
                       100% gratis pou tout medya
                     </p>
                   </div>
@@ -201,58 +228,58 @@ export default function PressPage() {
 
           {/* TV Overlay Tab */}
           <TabsContent value="overlay" className="space-y-6">
-            <Card>
-              <CardHeader>
-                <CardTitle>Overlay pou TV & Live Streaming</CardTitle>
-                <CardDescription>
+            <Card className="border-2 border-gray-100 shadow-xl rounded-2xl overflow-hidden">
+              <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2 border-gray-100">
+                <CardTitle className="text-2xl">Overlay pou TV & Live Streaming</CardTitle>
+                <CardDescription className="text-base">
                   Transparan pou OBS, vMix, Streamlabs
                 </CardDescription>
               </CardHeader>
 
               <CardContent className="space-y-6">
                 {/* Layout Options */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                   <Link href="/overlay?layout=full" target="_blank">
-                    <Card className="cursor-pointer hover:border-primary transition-colors">
-                      <CardContent className="p-4 text-center space-y-2">
-                        <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-center">
-                          <div className="text-4xl">📊</div>
+                    <Card className="cursor-pointer hover:border-[#006CFF] transition-all hover:shadow-xl hover:-translate-y-1 border-2">
+                      <CardContent className="p-6 text-center space-y-3">
+                        <div className="w-full h-40 bg-gradient-to-br from-blue-100 to-purple-100 rounded-xl flex items-center justify-center shadow-inner">
+                          <div className="text-5xl">📊</div>
                         </div>
-                        <h4 className="font-semibold">Full Screen</h4>
-                        <p className="text-xs text-muted-foreground">
+                        <h4 className="font-bold text-lg text-gray-900">Full Screen</h4>
+                        <p className="text-sm text-gray-600">
                           Pou ekran konplè
                         </p>
-                        <Badge variant="outline">1920x1080</Badge>
+                        <Badge className="bg-[#006CFF] text-white">1920x1080</Badge>
                       </CardContent>
                     </Card>
                   </Link>
 
                   <Link href="/overlay?layout=sidebar" target="_blank">
-                    <Card className="cursor-pointer hover:border-primary transition-colors">
-                      <CardContent className="p-4 text-center space-y-2">
-                        <div className="w-full h-32 bg-muted rounded-lg flex items-center justify-end pr-4">
-                          <div className="w-24 h-full bg-primary/20 rounded" />
+                    <Card className="cursor-pointer hover:border-[#7F00FF] transition-all hover:shadow-xl hover:-translate-y-1 border-2">
+                      <CardContent className="p-6 text-center space-y-3">
+                        <div className="w-full h-40 bg-gradient-to-br from-purple-100 to-pink-100 rounded-xl flex items-center justify-end pr-6 shadow-inner">
+                          <div className="w-28 h-full bg-purple-300 rounded-lg opacity-50" />
                         </div>
-                        <h4 className="font-semibold">Sidebar</h4>
-                        <p className="text-xs text-muted-foreground">
+                        <h4 className="font-bold text-lg text-gray-900">Sidebar</h4>
+                        <p className="text-sm text-gray-600">
                           Bò dwat ekran
                         </p>
-                        <Badge variant="outline">Responsive</Badge>
+                        <Badge className="bg-[#7F00FF] text-white">Responsive</Badge>
                       </CardContent>
                     </Card>
                   </Link>
 
                   <Link href="/overlay?layout=lower-third" target="_blank">
-                    <Card className="cursor-pointer hover:border-primary transition-colors">
-                      <CardContent className="p-4 text-center space-y-2">
-                        <div className="w-full h-32 bg-muted rounded-lg flex items-end pb-2">
-                          <div className="w-full h-8 bg-primary/20 rounded" />
+                    <Card className="cursor-pointer hover:border-green-500 transition-all hover:shadow-xl hover:-translate-y-1 border-2">
+                      <CardContent className="p-6 text-center space-y-3">
+                        <div className="w-full h-40 bg-gradient-to-br from-green-100 to-emerald-100 rounded-xl flex items-end pb-3 shadow-inner">
+                          <div className="w-full h-10 bg-green-400 rounded-lg opacity-50" />
                         </div>
-                        <h4 className="font-semibold">Lower Third</h4>
-                        <p className="text-xs text-muted-foreground">
+                        <h4 className="font-bold text-lg text-gray-900">Lower Third</h4>
+                        <p className="text-sm text-gray-600">
                           Anba ekran
                         </p>
-                        <Badge variant="outline">1920x200</Badge>
+                        <Badge className="bg-green-600 text-white">1920x200</Badge>
                       </CardContent>
                     </Card>
                   </Link>
@@ -399,6 +426,20 @@ export default function PressPage() {
             </Card>
           </TabsContent>
         </Tabs>
+
+        {/* Footer */}
+        <footer className="bg-gray-900 text-white rounded-2xl mt-12 p-8">
+          <div className="text-center space-y-3">
+            <div className="flex items-center justify-center gap-2">
+              <div className="text-3xl">🇭🇹</div>
+              <h3 className="font-bold text-2xl bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">HaitiVote</h3>
+            </div>
+            <p className="text-gray-400 italic">"Yon Pèp. Yon Vwa. Yon Sondaj."</p>
+            <p className="text-sm text-gray-500">
+              © {new Date().getFullYear()} HaitiVote. Tout dwa rezève.
+            </p>
+          </div>
+        </footer>
       </div>
     </div>
   );

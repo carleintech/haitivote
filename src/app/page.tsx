@@ -428,6 +428,10 @@ export default function HomePage() {
                   <ArrowRight className="h-4 w-4" />
                   Vote Kounye a
                 </Link>
+                <Link href="/press" className="text-gray-400 hover:text-[#7F00FF] transition-colors flex items-center gap-2">
+                  <ArrowRight className="h-4 w-4" />
+                  Kit Medya
+                </Link>
               </div>
             </div>
 
