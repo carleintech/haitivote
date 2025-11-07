@@ -2,6 +2,8 @@ import type { Metadata } from 'next';
 import { Inter, Space_Grotesk } from 'next/font/google';
 import './globals.css';
 import { Toaster } from '@/components/ui/toaster';
+import { Navigation } from '@/components/Navigation';
+import { InstallPWA } from '@/components/InstallPWA';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -20,6 +22,16 @@ export const metadata: Metadata = {
   description: 'Global Haitian pre-election poll platform. Vote securely from anywhere in the world.',
   keywords: ['Haiti', 'election', 'vote', 'poll', 'sondaj', 'TechKlein'],
   authors: [{ name: 'TechKlein' }],
+  manifest: '/manifest.json',
+  themeColor: '#1F41FF',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: 'VoteLive',
+  },
+  formatDetection: {
+    telephone: false,
+  },
   openGraph: {
     title: 'TechKlein VoteLive – Sondaj Ayiti Global',
     description: 'Global Haitian pre-election poll platform',
@@ -48,9 +60,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="ht">
+      <head>
+        <link rel="manifest" href="/manifest.json" />
+        <meta name="theme-color" content="#1F41FF" />
+        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
+      </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
+        <Navigation />
         {children}
+        <InstallPWA />
         <Toaster />
+        
+        {/* Service Worker Registration */}
+        <script dangerouslySetInnerHTML={{
+          __html: `
+            if ('serviceWorker' in navigator) {
+              window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/sw.js')
+                  .then(registration => console.log('SW registered:', registration.scope))
+                  .catch(err => console.log('SW registration failed:', err));
+              });
+            }
+          `
+        }} />
       </body>
     </html>
   );
