@@ -113,6 +113,15 @@ export default function VotePage() {
       const firstName = nameParts[0];
       const lastName = nameParts.slice(1).join(' ') || nameParts[0];
 
+      console.log('Submitting vote with:', {
+        candidateId: selectedCandidateId,
+        firstName,
+        lastName,
+        dateOfBirth: voteData.dob,
+        phone: voteData.phone,
+        otpHash: otpHash ? 'present' : 'missing',
+      });
+
       // Submit vote
       const submitResponse = await fetch('/api/submit', {
         method: 'POST',
@@ -128,6 +137,10 @@ export default function VotePage() {
       });
 
       if (!submitResponse.ok) {
+        const errorData = await submitResponse.json();
+        console.error('Vote submission failed:', errorData);
+        throw new Error(errorData.error || 'Failed to submit vote');
+      }
         const errorData = await submitResponse.json();
         throw new Error(errorData.error || 'Failed to submit vote');
       }

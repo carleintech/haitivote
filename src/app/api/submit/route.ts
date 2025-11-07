@@ -26,8 +26,26 @@ export async function POST(request: Request) {
     const body: SubmitVoteRequest = await request.json();
     const { candidateId, firstName, lastName, dateOfBirth, phone, otpHash } = body;
 
+    // Log received data for debugging
+    console.log('Vote submission received:', {
+      candidateId,
+      firstName,
+      lastName,
+      dateOfBirth,
+      phone: phone ? '***' : undefined,
+      otpHash: otpHash ? 'present' : undefined,
+    });
+
     // Validate required fields
     if (!candidateId || !firstName || !lastName || !dateOfBirth || !phone || !otpHash) {
+      console.error('Missing required fields:', {
+        candidateId: !!candidateId,
+        firstName: !!firstName,
+        lastName: !!lastName,
+        dateOfBirth: !!dateOfBirth,
+        phone: !!phone,
+        otpHash: !!otpHash,
+      });
       return NextResponse.json(
         { error: 'Missing required fields' },
         { status: 400 }
