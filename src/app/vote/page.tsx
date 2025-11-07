@@ -90,6 +90,14 @@ export default function VotePage() {
     setLoading(true);
     setError(null);
 
+    console.log('Starting OTP verification with voteData:', {
+      hasName: !!voteData.name,
+      hasDob: !!voteData.dob,
+      hasPhone: !!voteData.phone,
+      hasCandidateId: !!selectedCandidateId,
+      voteData: { ...voteData, phone: '***' },
+    });
+
     try {
       // Verify OTP
       const verifyResponse = await fetch('/api/otp/verify', {
@@ -139,9 +147,6 @@ export default function VotePage() {
       if (!submitResponse.ok) {
         const errorData = await submitResponse.json();
         console.error('Vote submission failed:', errorData);
-        throw new Error(errorData.error || 'Failed to submit vote');
-      }
-        const errorData = await submitResponse.json();
         throw new Error(errorData.error || 'Failed to submit vote');
       }
 
