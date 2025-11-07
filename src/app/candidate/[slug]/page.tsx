@@ -205,7 +205,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
-                    {byCountry.map((item) => {
+                    {byCountry.map((item: any) => {
                       const percentage = stats?.total_votes
                         ? (item.total_votes / stats.total_votes) * 100
                         : 0;
