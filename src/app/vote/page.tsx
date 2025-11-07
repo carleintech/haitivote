@@ -302,8 +302,12 @@ export default function VotePage() {
             </div>
 
             <OtpInput
-              length={6}
-              onComplete={handleOtpVerify}
+              phoneNumber={voteData.phone}
+              expiresAt={new Date(Date.now() + 10 * 60 * 1000).toISOString()}
+              onVerify={handleOtpVerify}
+              onResend={async () => {
+                alert('OTP resent!');
+              }}
               loading={loading}
             />
 
