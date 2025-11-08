@@ -73,19 +73,28 @@ export async function POST(request: Request) {
     // Get client info
     const clientIp = getClientIp(request);
     const userAgent = getUserAgent(request);
+    console.log('Client IP:', clientIp);
 
-    // Rate limiting
-    const rateLimitKey = `vote:${clientIp}`;
-    const { success: rateLimitOk, reset } = await submitVoteLimiter.limit(rateLimitKey);
-
-    if (!rateLimitOk) {
-      return NextResponse.json(
-        { 
-          error: 'Too many vote submissions. Please try again later.',
-          resetAt: new Date(reset).toISOString(),
-        },
-        { status: 429 }
-      );
+    // Rate limiting (if enabled)
+    if (submitVoteLimiter) {
+      const rateLimitKey = `vote:${clientIp}`;
+      try {
+        const { success: rateLimitOk, reset } = await submitVoteLimiter.limit(rateLimitKey);
+        if (!rateLimitOk) {
+          console.log('⚠️ Rate limit exceeded for IP:', clientIp);
+          return NextResponse.json(
+            { 
+              error: 'Too many vote submissions. Please try again in a few minutes.',
+              resetAt: new Date(reset).toISOString(),
+            },
+            { status: 429 }
+          );
+        }
+      } catch (rateLimitError) {
+        console.error('❌ Rate limit error (continuing anyway):', rateLimitError);
+      }
+    } else {
+      console.log('⚠️ Rate limiting disabled');
     }
 
     // Normalize data
@@ -182,7 +191,15 @@ export async function POST(request: Request) {
     // Insert into private_voter_records
     // Note: normalized_phone is required by schema but we no longer collect it
     // Using a placeholder value based on name+dob hash to maintain uniqueness
-    const phoneePlaceholder = `placeholder_${Buffer.from(`${normalizedFirstName}${normalizedLastName}${dateOfBirth}`).toString('base64').substring(0, 15)}`;
+    let phoneePlaceholder: string;
+    try {
+      phoneePlaceholder = `placeholder_${Buffer.from(`${normalizedFirstName}${normalizedLastName}${dateOfBirth}`).toString('base64').substring(0, 15)}`;
+    } catch (err) {
+      console.error('❌ Error creating phone placeholder:', err);
+      // Fallback to simple hash
+      phoneePlaceholder = `placeholder_${normalizedFirstName}_${normalizedLastName}_${dateOfBirth}`.substring(0, 50);
+    }
+    console.log('Phone placeholder created:', phoneePlaceholder.substring(0, 20) + '...');
     
     console.log('🔵 Inserting voter record...');
     const { error: voterError } = await (admin as any)
