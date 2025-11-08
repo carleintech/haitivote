@@ -19,9 +19,20 @@ async function sendEmailOTP(email: string, code: string) {
     return true;
   }
   
+  // Development mode: Only allow carleintech@gmail.com with resend.dev
+  const isDev = process.env.NODE_ENV === 'development';
+  const allowedEmail = 'carleintech@gmail.com';
+  
+  if (isDev && email.toLowerCase() !== allowedEmail) {
+    console.warn(`⚠️ [DEV] Resend only allows ${allowedEmail} in testing mode. Your code is: ${code}`);
+    // Still return success but log the code for testing
+    console.log(`📧 [DEV MODE] Email OTP for ${email}: ${code}`);
+    return true;
+  }
+  
   // Production: Send via Resend
   const { data, error } = await resend.emails.send({
-    from: 'VoteLive <onboarding@resend.dev>',
+    from: 'VoteLive <noreply@haitivote.org>',
     to: email,
     subject: 'Kòd Verifikasyon VoteLive - Your Verification Code',
     html: `
