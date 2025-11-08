@@ -33,18 +33,20 @@ export async function POST(request: Request) {
     const clientIp = getClientIp(request);
     const userAgent = getUserAgent(request);
 
-    // Rate limiting per phone number
-    const rateLimitKey = `otp:send:${phone}`;
-    const { success: rateLimitOk, reset } = await otpSendLimiter.limit(rateLimitKey);
+    // Rate limiting per phone number (if enabled)
+    if (otpSendLimiter) {
+      const rateLimitKey = `otp:send:${phone}`;
+      const { success: rateLimitOk, reset } = await otpSendLimiter.limit(rateLimitKey);
 
-    if (!rateLimitOk) {
-      return NextResponse.json(
-        { 
-          error: 'Too many OTP requests. Please try again later.',
-          resetAt: new Date(reset).toISOString(),
-        },
-        { status: 429 }
-      );
+      if (!rateLimitOk) {
+        return NextResponse.json(
+          { 
+            error: 'Too many OTP requests. Please try again later.',
+            resetAt: new Date(reset).toISOString(),
+          },
+          { status: 429 }
+        );
+      }
     }
 
     // Parse and validate phone number

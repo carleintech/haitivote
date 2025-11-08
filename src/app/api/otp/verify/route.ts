@@ -36,18 +36,20 @@ export async function POST(request: Request) {
     // Get client info
     const clientIp = getClientIp(request);
 
-    // Rate limiting per identifier
-    const rateLimitKey = `otp:verify:${identifier}`;
-    const { success: rateLimitOk, reset } = await otpVerifyLimiter.limit(rateLimitKey);
+    // Rate limiting per phone number (if enabled)
+    if (otpVerifyLimiter) {
+      const rateLimitKey = `otp:verify:${phone}`;
+      const { success: rateLimitOk, reset } = await otpVerifyLimiter.limit(rateLimitKey);
 
-    if (!rateLimitOk) {
-      return NextResponse.json(
-        { 
-          error: 'Too many verification attempts. Please try again later.',
-          resetAt: new Date(reset).toISOString(),
-        },
-        { status: 429 }
-      );
+      if (!rateLimitOk) {
+        return NextResponse.json(
+          { 
+            error: 'Too many verification attempts. Please try again later.',
+            resetAt: new Date(reset).toISOString(),
+          },
+          { status: 429 }
+        );
+      }
     }
 
     // Normalize identifier based on method
