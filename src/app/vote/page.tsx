@@ -99,7 +99,7 @@ export default function VotePage() {
       console.log('OTP sent successfully:', otpResponse);
 
       // Store form data and move to OTP step
-      setVoteData({ ...data, verificationMethod });
+      setVoteData(data);
       setStep('otp');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send OTP');
