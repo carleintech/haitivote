@@ -3,23 +3,15 @@
  * Media-ready press release for VoteLive platform launch
  */
 
+'use client';
+
 import * as React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { 
   ArrowLeft, FileText, Globe, Shield, BarChart3, 
   Users, Smartphone, TrendingUp, Radio, Share2,
   Database, Lock, Zap, MessageSquare, Eye, Download
 } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Press Release | HaitiVote',
-  description: 'Official press release for VoteLive platform launch',
-  openGraph: {
-    title: 'Press Release | HaitiVote',
-    description: 'Revolutionary digital polling platform for Haiti\'s election',
-  },
-};
 
 export default function PressReleasePage() {
   return (

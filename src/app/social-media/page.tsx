@@ -3,8 +3,9 @@
  * Comprehensive social media resources and campaign templates
  */
 
+'use client';
+
 import * as React from 'react';
-import { Metadata } from 'next';
 import Link from 'next/link';
 import { 
   ArrowLeft, Share2, Twitter, Facebook, Instagram, Linkedin,
@@ -12,15 +13,6 @@ import {
   Mail, FileText, Video, Image as ImageIcon, Download, Sparkles,
   Target, Globe, Megaphone, Award, Zap, Heart
 } from 'lucide-react';
-
-export const metadata: Metadata = {
-  title: 'Social Media Resources | HaitiVote',
-  description: 'Complete social media content templates and campaign resources for VoteLive platform',
-  openGraph: {
-    title: 'Social Media Resources | HaitiVote',
-    description: 'Social media templates, content calendar, and campaign materials',
-  },
-};
 
 export default function SocialMediaPage() {
   return (
