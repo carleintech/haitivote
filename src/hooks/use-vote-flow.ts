@@ -291,9 +291,7 @@ export function useVoteFlow(): UseVoteFlowResult {
 
       toast({
         title: 'Kòd revoye!',
-        description: isEmail 
-          ? 'Yon nouvo kòd voye sou email ou.'
-          : 'Yon nouvo kòd voye sou telefòn ou.',
+        description: 'Yon nouvo kòd voye sou email ou.',
       });
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : 'Resend failed';
