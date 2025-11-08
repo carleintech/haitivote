@@ -27,7 +27,15 @@ export const voteSubmissionSchema = z.object({
   phone: z
     .string()
     .min(10, 'Nimewo telefòn twò kout')
-    .regex(/^\+?[1-9]\d{1,14}$/, 'Fòma telefòn pa valab'),
+    .regex(/^\+?[1-9]\d{1,14}$/, 'Fòma telefòn pa valab')
+    .optional()
+    .or(z.literal('')),
+  
+  email: z
+    .string()
+    .email('Fòma email pa valab')
+    .optional()
+    .or(z.literal('')),
   
   candidateId: z
     .number()
@@ -41,6 +49,9 @@ export const voteSubmissionSchema = z.object({
   mediaCode: z.string().optional().or(z.literal('')),
   
   language: z.enum(['ht', 'fr', 'en', 'es']).default('ht'),
+}).refine((data) => data.phone || data.email, {
+  message: 'Ou dwe bay telefòn oswa email',
+  path: ['phone'], // Show error on phone field
 });
 
 /**

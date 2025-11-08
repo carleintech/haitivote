@@ -700,7 +700,9 @@ export default function HomePage() {
               </div>
               <h2 className="text-2xl font-bold">Verifikasyon Kòd</h2>
               <p className="mt-2 text-muted-foreground">
-                Nou voye yon kòd 6 chif nan {state.metadata.phoneE164}
+                {(state.metadata as any).verificationMethod === 'email' 
+                  ? `Nou voye yon kòd 6 chif sou email ${state.metadata.phoneE164}`
+                  : `Nou voye yon kòd 6 chif nan ${state.metadata.phoneE164}`}
               </p>
             </div>
 

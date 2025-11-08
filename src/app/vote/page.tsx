@@ -53,21 +53,46 @@ export default function VotePage() {
   };
 
   // Handle form submission (sends OTP)
-  const handleFormSubmit = async (data: VoteSubmissionInput) => {
+  const handleFormSubmit = async (data: VoteSubmissionInput & { verificationMethod?: 'phone' | 'email' }) => {
     setLoading(true);
     setError(null);
 
     try {
-      console.log('Form submission data:', { ...data, phone: '***' });
+      const verificationMethod = data.verificationMethod || (data.email ? 'email' : 'phone');
+      console.log('Form submission data:', { 
+        ...data, 
+        phone: data.phone ? '***' : undefined,
+        email: data.email ? '***' : undefined,
+        verificationMethod 
+      });
+      
+      // Determine which endpoint to use based on verification method
+      const endpoint = verificationMethod === 'email' 
+        ? '/api/vote/send-email-otp' 
+        : '/api/otp/send';
       
       // Send OTP
-      const response = await fetch('/api/otp/send', {
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          phone: data.phone,
-          language: data.language || 'ht',
-        }),
+        body: JSON.stringify(
+          verificationMethod === 'email'
+            ? {
+                email: data.email,
+                candidateId: data.candidateId,
+                voterData: {
+                  name: data.name,
+                  dob: data.dob,
+                  country: data.country || null,
+                  region: data.region || null,
+                  mediaCode: data.mediaCode || null,
+                },
+              }
+            : {
+                phone: data.phone,
+                language: data.language || 'ht',
+              }
+        ),
       });
 
       if (!response.ok) {
@@ -79,7 +104,7 @@ export default function VotePage() {
       console.log('OTP sent successfully:', otpResponse);
 
       // Store form data and move to OTP step
-      setVoteData(data);
+      setVoteData({ ...data, verificationMethod });
       setStep('otp');
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to send OTP');
@@ -337,12 +362,14 @@ export default function VotePage() {
                 Verifikasyon Kòd
               </h1>
               <p className="text-lg text-gray-700 font-medium">
-                Nou voye yon kòd 6 chif nan nimewo {voteData.phone}
+                {(voteData as any).verificationMethod === 'email' 
+                  ? `Nou voye yon kòd 6 chif sou email ${voteData.email}`
+                  : `Nou voye yon kòd 6 chif nan nimewo ${voteData.phone}`}
               </p>
             </div>
 
             <OtpInput
-              phoneNumber={voteData.phone}
+              phoneNumber={voteData.phone || voteData.email || ''}
               expiresAt={new Date(Date.now() + 10 * 60 * 1000).toISOString()}
               onVerify={handleOtpVerify}
               onResend={async () => {
@@ -358,7 +385,9 @@ export default function VotePage() {
                 disabled={loading}
                 className="border-2 hover:border-blue-500 hover:bg-blue-50 font-semibold transition-all"
               >
-                Chanje nimewo telefòn
+                {(voteData as any).verificationMethod === 'email' 
+                  ? 'Chanje email'
+                  : 'Chanje nimewo telefòn'}
               </Button>
             </div>
           </div>

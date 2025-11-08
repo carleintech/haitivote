@@ -69,22 +69,47 @@ export function useVoteFlow(): UseVoteFlowResult {
   }, []);
 
   const submitVote = useCallback(
-    async (data: VoteSubmissionInput) => {
+    async (data: VoteSubmissionInput & { verificationMethod?: 'phone' | 'email' }) => {
       try {
         setLoading(true);
         setError(null);
 
+        const verificationMethod = data.verificationMethod || (data.email ? 'email' : 'phone');
         console.log('🔵 Submitting vote - Step 1: Send OTP');
-        console.log('Form data:', { ...data, phone: '***' });
+        console.log('Form data:', { 
+          ...data, 
+          phone: data.phone ? '***' : undefined,
+          email: data.email ? '***' : undefined,
+          verificationMethod 
+        });
+
+        // Determine which endpoint to use based on verification method
+        const endpoint = verificationMethod === 'email' 
+          ? '/api/vote/send-email-otp' 
+          : '/api/otp/send';
 
         // Step 1: Send OTP
-        const otpResponse = await fetch('/api/otp/send', {
+        const otpResponse = await fetch(endpoint, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            phone: data.phone,
-            language: data.language || 'ht',
-          }),
+          body: JSON.stringify(
+            verificationMethod === 'email'
+              ? {
+                  email: data.email,
+                  candidateId: data.candidateId,
+                  voterData: {
+                    name: data.name,
+                    dob: data.dob,
+                    country: data.country || null,
+                    region: data.region || null,
+                    mediaCode: data.mediaCode || null,
+                  },
+                }
+              : {
+                  phone: data.phone,
+                  language: data.language || 'ht',
+                }
+          ),
         });
 
         const otpResult = await otpResponse.json();
@@ -108,19 +133,22 @@ export function useVoteFlow(): UseVoteFlowResult {
           metadata: {
             normalizedName: data.name,
             dob: data.dob,
-            phoneE164: data.phone,
+            phoneE164: data.phone || data.email || '',
             country: data.country || null,
             region: data.region || null,
             mediaCode: data.mediaCode || null,
             firstName,
             lastName,
+            verificationMethod,
           } as any,
           expiresAt: otpResult.expiresAt,
         }));
 
         toast({
           title: 'Kòd voye!',
-          description: 'Nou voye yon kòd verifikasyon sou telefòn ou.',
+          description: verificationMethod === 'email' 
+            ? 'Nou voye yon kòd verifikasyon sou email ou.' 
+            : 'Nou voye yon kòd verifikasyon sou telefòn ou.',
         });
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Submission failed';

@@ -11,28 +11,33 @@ import { getClientIp } from '@/lib/utils';
 import { otpVerifyLimiter } from '@/lib/rate-limit';
 
 interface VerifyOtpRequest {
-  phone: string;
+  phone?: string;
+  email?: string;
   code: string;
 }
 
 export async function POST(request: Request) {
   try {
     const body: VerifyOtpRequest = await request.json();
-    const { phone, code } = body;
+    const { phone, email, code } = body;
 
     // Validate required fields
-    if (!phone || !code) {
+    if ((!phone && !email) || !code) {
       return NextResponse.json(
-        { error: 'Phone number and code are required' },
+        { error: 'Phone number or email and code are required' },
         { status: 400 }
       );
     }
 
+    // Determine verification method
+    const verificationMethod = email ? 'email' : 'phone';
+    const identifier = email ? email.toLowerCase() : phone!;
+
     // Get client info
     const clientIp = getClientIp(request);
 
-    // Rate limiting per phone number
-    const rateLimitKey = `otp:verify:${phone}`;
+    // Rate limiting per identifier
+    const rateLimitKey = `otp:verify:${identifier}`;
     const { success: rateLimitOk, reset } = await otpVerifyLimiter.limit(rateLimitKey);
 
     if (!rateLimitOk) {
@@ -45,54 +50,82 @@ export async function POST(request: Request) {
       );
     }
 
-    // Parse and validate phone number
-    const phoneResult = parseAndValidatePhone(phone);
-    if (!phoneResult.valid || !phoneResult.e164) {
-      return NextResponse.json(
-        { error: 'Invalid phone number format' },
-        { status: 400 }
-      );
+    // Normalize identifier based on method
+    let normalizedIdentifier: string;
+    if (verificationMethod === 'phone') {
+      const phoneResult = parseAndValidatePhone(phone!);
+      if (!phoneResult.valid || !phoneResult.e164) {
+        return NextResponse.json(
+          { error: 'Invalid phone number format' },
+          { status: 400 }
+        );
+      }
+      normalizedIdentifier = phoneResult.e164;
+    } else {
+      // Email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRegex.test(identifier)) {
+        return NextResponse.json(
+          { error: 'Invalid email format' },
+          { status: 400 }
+        );
+      }
+      normalizedIdentifier = identifier;
     }
-
-    const normalizedPhone = phoneResult.e164;
 
     // Hash the provided code
     const otpHash = hashOtpCode(code);
 
     console.log('🔍 Verifying OTP:', {
-      phone: normalizedPhone,
+      method: verificationMethod,
+      identifier: normalizedIdentifier,
       codeLength: code.length,
       hashGenerated: !!otpHash,
     });
 
-    // Find matching OTP
+    // Find matching OTP based on verification method
     const admin = getAdminClient();
-    const { data: otpRecord, error: otpError } = await (admin as any)
+    let query = (admin as any)
       .from('private_otps')
       .select('*')
-      .eq('phone', normalizedPhone)
       .eq('otp_hash', otpHash)
       .eq('is_verified', false)
       .eq('is_used', false)
       .order('created_at', { ascending: false })
-      .limit(1)
-      .maybeSingle();
+      .limit(1);
+
+    // Add appropriate filter based on method
+    if (verificationMethod === 'email') {
+      query = query.eq('email', normalizedIdentifier);
+    } else {
+      query = query.eq('phone', normalizedIdentifier);
+    }
+
+    const { data: otpRecord, error: otpError } = await query.maybeSingle();
 
     console.log('🔍 OTP lookup result:', {
       found: !!otpRecord,
       error: otpError?.message,
-      phone: normalizedPhone,
+      method: verificationMethod,
+      identifier: normalizedIdentifier,
     });
 
     if (otpError || !otpRecord) {
       // Log failed attempt
-      await (admin as any)
+      let updateQuery = (admin as any)
         .from('private_otps')
         .update({ 
           attempts: (admin as any).rpc('increment_attempts'),
         })
-        .eq('phone', normalizedPhone)
         .eq('is_verified', false);
+
+      if (verificationMethod === 'email') {
+        updateQuery = updateQuery.eq('email', normalizedIdentifier);
+      } else {
+        updateQuery = updateQuery.eq('phone', normalizedIdentifier);
+      }
+
+      await updateQuery;
 
       return NextResponse.json(
         { error: 'Invalid verification code' },
@@ -139,8 +172,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Phone number verified successfully',
+      message: verificationMethod === 'email' ? 'Email verified successfully' : 'Phone number verified successfully',
       otpHash, // Return hash for use in vote submission
+      verificationMethod,
       expiresAt: new Date(Date.now() + 10 * 60 * 1000).toISOString(), // 10 min to submit vote
     });
 
