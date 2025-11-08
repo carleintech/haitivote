@@ -21,6 +21,7 @@ interface SubmitVoteRequest {
   email?: string;
   otpHash: string;
   verificationMethod: 'phone' | 'email';
+  country?: string;
 }
 
 export async function POST(request: Request) {
