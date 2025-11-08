@@ -128,27 +128,6 @@ export function VotingForm({
             />
           </div>
 
-          {/* Email Field */}
-          <div className="space-y-2">
-              <Label htmlFor="email" className="text-base font-semibold">
-                Adrès Email <span className="text-destructive">*</span>
-              </Label>
-              <Input
-                id="email"
-                type="email"
-                {...register('email')}
-                placeholder="example@gmail.com"
-                error={!!errors.email}
-                helperText={errors.email?.message}
-                disabled={loading}
-                className="h-12 text-base"
-              />
-              <p className="text-sm text-muted-foreground flex items-center gap-2">
-                <Mail className="h-4 w-4" />
-                Nou pral voye yon kòd verifikasyon sou email sa a
-              </p>
-            </div>
-
           {/* Country */}
           <div className="space-y-2">
             <Label htmlFor="country" className="text-base font-semibold">

@@ -71,65 +71,48 @@ export function useVoteFlow(): UseVoteFlowResult {
   }, []);
 
   const submitVote = useCallback(
-    async (data: VoteSubmissionInput & { verificationMethod?: 'email' }) => {
+    async (data: VoteSubmissionInput) => {
       try {
         setLoading(true);
         setError(null);
 
-        console.log('🔵 Submitting vote - Step 1: Send OTP');
+        console.log('🔵 Direct vote submission');
         console.log('Form data:', { 
           ...data, 
-          email: '***',
         });
 
-        // Step 1: Send OTP via email
-        const otpResponse = await fetch('/api/vote/send-email-otp', {
+        // Direct vote submission
+        const submitResponse = await fetch('/api/submit', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            email: data.email,
             candidateId: data.candidateId,
-            voterData: {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              dob: data.dob,
-              country: data.country || null,
-              region: data.region || null,
-              mediaCode: data.mediaCode || null,
-            },
+            firstName: data.firstName,
+            lastName: data.lastName,
+            dateOfBirth: data.dob,
+            country: data.country || null,
           }),
         });
 
-        const otpResult = await otpResponse.json();
+        const submitResult = await submitResponse.json();
 
-        if (!otpResponse.ok) {
-          throw new Error(otpResult.error || 'Failed to send OTP');
+        if (!submitResponse.ok) {
+          throw new Error(submitResult.error || 'Failed to submit vote');
         }
 
-        console.log('✅ OTP sent successfully');
+        console.log('✅ Vote submitted successfully');
 
-        // Store metadata for OTP verification
+        // Success!
         setState((prev) => ({
           ...prev,
-          step: 'otp',
+          step: 'success',
           candidateId: data.candidateId,
-          metadata: {
-            normalizedName: `${data.firstName} ${data.lastName}`,
-            dob: data.dob,
-            email: data.email,
-            country: data.country || null,
-            region: data.region || null,
-            mediaCode: data.mediaCode || null,
-            firstName: data.firstName,
-            lastName: data.lastName,
-            verificationMethod: 'email',
-          } as any,
-          expiresAt: otpResult.expiresAt,
+          voteId: submitResult.voteId,
         }));
 
         toast({
-          title: 'Kòd voye!',
-          description: 'Nou voye yon kòd verifikasyon sou email ou.',
+          title: 'Siksè!',
+          description: 'Vòt ou konte. Mèsi!',
         });
       } catch (err) {
         const errorMessage = err instanceof Error ? err.message : 'Submission failed';

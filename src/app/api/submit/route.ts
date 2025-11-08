@@ -4,9 +4,7 @@
  */
 
 import { NextResponse } from 'next/server';
-import { createClient } from '@/lib/supabase/server';
 import { getAdminClient } from '@/lib/supabase/admin';
-import { parseAndValidatePhone } from '@/lib/phone';
 import { normalizeName, validateDateOfBirth } from '@/lib/normalize';
 import { getClientIp, getUserAgent } from '@/lib/utils';
 import { checkFraudActivity, logFraudActivity } from '@/lib/fraud-detection';
@@ -17,17 +15,13 @@ interface SubmitVoteRequest {
   firstName: string;
   lastName: string;
   dateOfBirth: string;
-  phone?: string;
-  email?: string;
-  otpHash: string;
-  verificationMethod: 'phone' | 'email';
   country?: string;
 }
 
 export async function POST(request: Request) {
   try {
     const body: SubmitVoteRequest = await request.json();
-    const { candidateId, firstName, lastName, dateOfBirth, phone, email, otpHash, verificationMethod } = body;
+    const { candidateId, firstName, lastName, dateOfBirth, country } = body;
 
     // Log received data for debugging
     console.log('✅ Vote submission received:', {
@@ -35,23 +29,16 @@ export async function POST(request: Request) {
       firstName,
       lastName,
       dateOfBirth,
-      phone: phone ? `***${phone.slice(-4)}` : undefined,
-      email: email ? '***' : undefined,
-      otpHash: otpHash ? '***' : undefined,
-      verificationMethod,
+      country,
     });
 
     // Validate required fields
-    if (!candidateId || !firstName || !lastName || !dateOfBirth || (!phone && !email) || !otpHash || !verificationMethod) {
+    if (!candidateId || !firstName || !lastName || !dateOfBirth) {
       console.error('❌ Missing required fields:', {
         candidateId: !!candidateId,
         firstName: !!firstName,
         lastName: !!lastName,
         dateOfBirth: !!dateOfBirth,
-        phone: !!phone,
-        email: !!email,
-        otpHash: !!otpHash,
-        verificationMethod: !!verificationMethod,
       });
       return NextResponse.json(
         { 
@@ -61,10 +48,6 @@ export async function POST(request: Request) {
             firstName: !!firstName,
             lastName: !!lastName,
             dateOfBirth: !!dateOfBirth,
-            phone: !!phone,
-            email: !!email,
-            otpHash: !!otpHash,
-            verificationMethod: !!verificationMethod,
           }
         },
         { status: 400 }
@@ -89,31 +72,6 @@ export async function POST(request: Request) {
       );
     }
 
-    // Parse and validate identifier based on verification method
-    let normalizedPhone: string | null = null;
-    let normalizedEmail: string | null = null;
-
-    if (verificationMethod === 'phone') {
-      const phoneResult = parseAndValidatePhone(phone!);
-      if (!phoneResult.valid || !phoneResult.e164) {
-        return NextResponse.json(
-          { error: 'Invalid phone number format' },
-          { status: 400 }
-        );
-      }
-      normalizedPhone = phoneResult.e164;
-    } else {
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(email!)) {
-        return NextResponse.json(
-          { error: 'Invalid email format' },
-          { status: 400 }
-        );
-      }
-      normalizedEmail = email!.toLowerCase();
-    }
-
     // Normalize data
     const normalizedFirstName = normalizeName(firstName);
     const normalizedLastName = normalizeName(lastName);
@@ -129,7 +87,6 @@ export async function POST(request: Request) {
     // Check for fraud
     const fraudCheck = await checkFraudActivity({
       ipAddress: clientIp,
-      phoneE164: normalizedPhone || undefined,
       normalizedName: `${normalizedFirstName} ${normalizedLastName}`,
       dob: dateOfBirth,
     });
@@ -138,7 +95,6 @@ export async function POST(request: Request) {
         eventType: 'vote_submission',
         severity: fraudCheck.score > 7 ? 'high' : 'medium',
         ipAddress: clientIp,
-        phoneE164: normalizedPhone || undefined,
         deviceFingerprint: userAgent,
         details: { reasons: fraudCheck.reasons },
       });
@@ -155,41 +111,6 @@ export async function POST(request: Request) {
     const admin = getAdminClient();
     const supabase = getAdminClient();
 
-    // Verify OTP was validated for this phone or email
-    let otpQuery = (admin as any)
-      .from('private_otps')
-      .select('*')
-      .eq('otp_hash', otpHash)
-      .eq('is_verified', true)
-      .eq('is_used', false);
-
-    if (verificationMethod === 'email') {
-      otpQuery = otpQuery.eq('email', normalizedEmail);
-    } else {
-      otpQuery = otpQuery.eq('phone', normalizedPhone);
-    }
-
-    const { data: otpRecord, error: otpError } = await otpQuery.single();
-
-    if (otpError || !otpRecord) {
-      return NextResponse.json(
-        { error: 'Invalid or expired OTP. Please verify your phone number first.' },
-        { status: 400 }
-      );
-    }
-
-    // Check if OTP is still valid (10 minutes)
-    const otpCreatedAt = new Date(otpRecord.created_at).getTime();
-    const now = Date.now();
-    const tenMinutesInMs = 10 * 60 * 1000;
-
-    if (now - otpCreatedAt > tenMinutesInMs) {
-      return NextResponse.json(
-        { error: 'OTP has expired. Please request a new code.' },
-        { status: 400 }
-      );
-    }
-
     // Check if candidate exists and is active
     const { data: candidate, error: candidateError } = await supabase
       .from('candidates')
@@ -204,21 +125,14 @@ export async function POST(request: Request) {
       );
     }
 
-    // Check for duplicate vote (same normalized name + DOB + phone/email)
-    let duplicateQuery = (admin as any)
+    // Check for duplicate vote (same normalized name + DOB)
+    const { data: existingVote } = await (admin as any)
       .from('private_voter_records')
       .select('id')
       .eq('normalized_first_name', normalizedFirstName)
       .eq('normalized_last_name', normalizedLastName)
-      .eq('date_of_birth', dateOfBirth);
-
-    if (verificationMethod === 'email') {
-      duplicateQuery = duplicateQuery.eq('normalized_email', normalizedEmail);
-    } else {
-      duplicateQuery = duplicateQuery.eq('normalized_phone', normalizedPhone);
-    }
-
-    const { data: existingVote, error: duplicateError } = await duplicateQuery.single();
+      .eq('date_of_birth', dateOfBirth)
+      .maybeSingle();
 
     if (existingVote) {
       return NextResponse.json(
@@ -231,32 +145,20 @@ export async function POST(request: Request) {
     }
 
     // Submit vote - Insert voter record and vote
-    const voteId = crypto.randomUUID();
     const voterId = crypto.randomUUID();
 
     // Insert into private_voter_records
-    const voterRecord: any = {
-      id: voterId,
-      normalized_first_name: normalizedFirstName,
-      normalized_last_name: normalizedLastName,
-      date_of_birth: dateOfBirth,
-      ip_address: clientIp,
-      user_agent: userAgent,
-    };
-
-    if (verificationMethod === 'email') {
-      voterRecord.email = email;
-      voterRecord.normalized_email = normalizedEmail;
-      voterRecord.email_verified_at = new Date().toISOString();
-    } else {
-      voterRecord.normalized_phone = normalizedPhone;
-      voterRecord.country_code = (parseAndValidatePhone(phone!)).country || null;
-      voterRecord.phone_verified_at = new Date().toISOString();
-    }
-
     const { error: voterError } = await (admin as any)
       .from('private_voter_records')
-      .insert(voterRecord);
+      .insert({
+        id: voterId,
+        normalized_first_name: normalizedFirstName,
+        normalized_last_name: normalizedLastName,
+        date_of_birth: dateOfBirth,
+        country: country || null,
+        ip_address: clientIp,
+        user_agent: userAgent,
+      });
 
     if (voterError) {
       console.error('Error creating voter record:', voterError);
@@ -276,12 +178,12 @@ export async function POST(request: Request) {
     }
 
     // Insert into public.votes
-    const { data: voteData, error: voteError } = await supabase
+    const { data: voteResult, error: voteError } = await supabase
       .from('votes')
       // @ts-expect-error - votes table insert type mismatch
       .insert({
         candidate_id: candidateId,
-        country: body.country,
+        country: country || null,
       })
       .select('id')
       .single();
@@ -306,16 +208,10 @@ export async function POST(request: Request) {
       );
     }
 
-    // Mark OTP as used
-    await (admin as any)
-      .from('private_otps')
-      .update({ is_used: true, used_at: new Date().toISOString() })
-      .eq('id', otpRecord.id);
-
     return NextResponse.json({
       success: true,
       message: 'Your vote has been recorded successfully!',
-      voteId: voteData,
+      voteId: (voteResult as any)?.id,
     });
 
   } catch (error) {

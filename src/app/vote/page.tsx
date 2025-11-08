@@ -1,6 +1,6 @@
 /**
  * Vote Page - Main voting interface
- * Flow: Select Candidate → User Details → OTP → Submit → Success
+ * Flow: Select Candidate → User Details → Submit → Success
  */
 
 'use client';
@@ -10,27 +10,22 @@ import { useState } from 'react';
 import { CandidateGrid } from '@/components/CandidateGrid';
 import { CandidateSearch } from '@/components/CandidateSearch';
 import { VotingForm } from '@/components/VotingForm';
-import { OtpInput } from '@/components/OtpInput';
 import { VoteSuccess } from '@/components/VoteSuccess';
 import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Progress } from '@/components/ui/progress';
-import { ArrowLeft, CheckCircle2, Shield, UserCheck, Vote } from 'lucide-react';
+import { ArrowLeft, CheckCircle2, Vote } from 'lucide-react';
 import type { VoteSubmissionInput } from '@/lib/validations/vote';
 import Link from 'next/link';
 
-type VoteStep = 'select' | 'details' | 'otp' | 'success';
-
-interface VoteData extends VoteSubmissionInput {
-  otpHash?: string;
-}
+type VoteStep = 'select' | 'details' | 'success';
 
 export default function VotePage() {
   const [step, setStep] = useState<VoteStep>('select');
   const [selectedCandidateId, setSelectedCandidateId] = useState<number | null>(null);
   const [candidateName, setCandidateName] = useState<string>('');
-  const [voteData, setVoteData] = useState<VoteData | null>(null);
+
   const [searchQuery, setSearchQuery] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -38,9 +33,8 @@ export default function VotePage() {
 
   // Calculate progress
   const progressMap: Record<VoteStep, number> = {
-    select: 25,
-    details: 50,
-    otp: 75,
+    select: 33,
+    details: 67,
     success: 100,
   };
 
@@ -52,135 +46,43 @@ export default function VotePage() {
     setError(null);
   };
 
-  // Handle form submission (sends OTP)
-  const handleFormSubmit = async (data: VoteSubmissionInput & { verificationMethod?: 'phone' | 'email' }) => {
+  // Handle form submission (direct vote)
+  const handleFormSubmit = async (data: VoteSubmissionInput) => {
     setLoading(true);
     setError(null);
 
     try {
-      const verificationMethod = 'email';
-      console.log('Form submission data:', { 
-        ...data, 
-        email: data.email ? '***' : undefined,
-        verificationMethod 
+      console.log('Direct vote submission:', { 
+        firstName: data.firstName,
+        lastName: data.lastName,
+        candidateId: data.candidateId
       });
       
-      // Determine which endpoint to use based on verification method
-      const endpoint = verificationMethod === 'email' 
-        ? '/api/vote/send-email-otp' 
-        : '/api/otp/send';
-      
-      // Send OTP
-      const response = await fetch(endpoint, {
+      // Submit vote directly
+      const response = await fetch('/api/submit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(
-          {
-            email: data.email,
-            candidateId: data.candidateId,
-            voterData: {
-              firstName: data.firstName,
-              lastName: data.lastName,
-              dob: data.dob,
-              country: data.country || null,
-              region: data.region || null,
-              mediaCode: data.mediaCode || null,
-            },
-          }
-        ),
+        body: JSON.stringify({
+          candidateId: data.candidateId,
+          firstName: data.firstName,
+          lastName: data.lastName,
+          dateOfBirth: data.dob,
+          country: data.country || null,
+        }),
       });
 
       if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.error || 'Failed to send OTP');
-      }
-
-      const otpResponse = await response.json();
-      console.log('OTP sent successfully:', otpResponse);
-
-      // Store form data and move to OTP step
-      setVoteData(data);
-      setStep('otp');
-    } catch (err) {
-      setError(err instanceof Error ? err.message : 'Failed to send OTP');
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  // Handle OTP verification and vote submission
-  const handleOtpVerify = async (code: string) => {
-    if (!voteData) {
-      setError('Vote data not found. Please start over.');
-      return;
-    }
-
-    setLoading(true);
-    setError(null);
-
-    try {
-      console.log('Starting OTP verification...');
-      
-      // Verify OTP
-      const verifyResponse = await fetch('/api/vote/verify-email-otp', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          email: voteData.email,
-          code,
-        }),
-      });
-
-      if (!verifyResponse.ok) {
-        const errorData = await verifyResponse.json();
-        throw new Error(errorData.error || 'Invalid OTP code');
-      }
-
-      const verifyResult = await verifyResponse.json();
-      console.log('OTP verified successfully');
-
-      if (!verifyResult.otpHash) {
-        throw new Error('OTP verification failed - no hash returned');
-      }
-
-      const submitPayload = {
-        candidateId: selectedCandidateId,
-        firstName: voteData.firstName,
-        lastName: voteData.lastName,
-        dateOfBirth: voteData.dob,
-        email: voteData.email,
-        country: voteData.country,
-        otpHash: verifyResult.otpHash,
-        verificationMethod: 'email' as const,
-      };
-
-      console.log('Submitting vote with:', {
-        ...submitPayload,
-        email: '***',
-        otpHash: '***',
-      });
-
-      // Submit vote
-      const submitResponse = await fetch('/api/submit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(submitPayload),
-      });
-
-      if (!submitResponse.ok) {
-        const errorData = await submitResponse.json();
-        console.error('Vote submission failed:', errorData);
         throw new Error(errorData.error || 'Failed to submit vote');
       }
 
-      const result = await submitResponse.json();
+      const result = await response.json();
       console.log('Vote submitted successfully:', result);
-      
-      setVoteReceiptId(result.voteId || result.receiptId);
+
+      // Move directly to success step
       setStep('success');
     } catch (err) {
-      console.error('Error in handleOtpVerify:', err);
-      setError(err instanceof Error ? err.message : 'Failed to verify OTP');
+      setError(err instanceof Error ? err.message : 'Failed to submit vote');
     } finally {
       setLoading(false);
     }
@@ -191,7 +93,6 @@ export default function VotePage() {
     setStep('select');
     setSelectedCandidateId(null);
     setCandidateName('');
-    setVoteData(null);
     setSearchQuery('');
     setError(null);
     setVoteReceiptId(null);
@@ -231,7 +132,6 @@ export default function VotePage() {
             <span className="text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
               {step === 'select' && '1. Chwazi Kandida'}
               {step === 'details' && '2. Enfòmasyon'}
-              {step === 'otp' && '3. Verifikasyon'}
               {step === 'success' && '✓ Konplete!'}
             </span>
             <span className="text-base font-bold text-gray-700">{progressMap[step]}%</span>
@@ -343,53 +243,13 @@ export default function VotePage() {
           </div>
         )}
 
-        {/* Step 3: OTP Verification */}
-        {step === 'otp' && voteData && (
-          <div className="mx-auto max-w-md space-y-8">
-            <div className="text-center space-y-4">
-              <div className="mx-auto flex h-20 w-20 items-center justify-center rounded-full bg-gradient-to-br from-[#006CFF] to-[#7F00FF] shadow-xl">
-                <Shield className="text-white" size={40} />
-              </div>
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                Verifikasyon Kòd
-              </h1>
-              <p className="text-lg text-gray-700 font-medium">
-                {(voteData as any).verificationMethod === 'email' 
-                  ? `Nou voye yon kòd 6 chif sou email ${voteData.email}`
-                  : `Nou voye yon kòd 6 chif nan email ${voteData.email}`}
-              </p>
-            </div>
-
-            <OtpInput
-              phoneNumber={voteData.email || ''}
-              expiresAt={new Date(Date.now() + 10 * 60 * 1000).toISOString()}
-              onVerify={handleOtpVerify}
-              onResend={async () => {
-                alert('OTP resent!');
-              }}
-              loading={loading}
-            />
-
-            <div className="text-center">
-              <Button
-                variant="outline"
-                onClick={() => setStep('details')}
-                disabled={loading}
-                className="border-2 hover:border-blue-500 hover:bg-blue-50 font-semibold transition-all"
-              >
-                Chanje email
-              </Button>
-            </div>
-          </div>
-        )}
-
-        {/* Step 4: Success */}
+        {/* Step 3: Success */}
         {step === 'success' && voteReceiptId && (
           <div className="mx-auto max-w-2xl">
             <VoteSuccess
               voteId={voteReceiptId}
               candidateName={candidateName}
-              country={voteData?.country || null}
+              country={null}
             />
           </div>
         )}

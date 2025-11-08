@@ -30,10 +30,7 @@ export const voteSubmissionSchema = z.object({
       return age >= 18 && age <= 120;
     }, 'Ou dwe gen omwen 18 zan'),
   
-  email: z
-    .string()
-    .email('Fòma email pa valab')
-    .min(1, 'Email obligatwa'),
+
   
   candidateId: z
     .number()
