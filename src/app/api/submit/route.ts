@@ -148,6 +148,10 @@ export async function POST(request: Request) {
     const voterId = crypto.randomUUID();
 
     // Insert into private_voter_records
+    // Note: normalized_phone is required by schema but we no longer collect it
+    // Using a placeholder value based on name+dob hash to maintain uniqueness
+    const phoneePlaceholder = `placeholder_${Buffer.from(`${normalizedFirstName}${normalizedLastName}${dateOfBirth}`).toString('base64').substring(0, 15)}`;
+    
     const { error: voterError } = await (admin as any)
       .from('private_voter_records')
       .insert({
@@ -155,7 +159,8 @@ export async function POST(request: Request) {
         normalized_first_name: normalizedFirstName,
         normalized_last_name: normalizedLastName,
         date_of_birth: dateOfBirth,
-        country: country || null,
+        normalized_phone: phoneePlaceholder,
+        country_code: country || null,
         ip_address: clientIp,
         user_agent: userAgent,
       });
