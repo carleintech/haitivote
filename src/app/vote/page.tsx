@@ -75,22 +75,18 @@ export default function VotePage() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(
-          verificationMethod === 'email'
-            ? {
-                email: data.email,
-                candidateId: data.candidateId,
-                voterData: {
-                  name: data.name,
-                  dob: data.dob,
-                  country: data.country || null,
-                  region: data.region || null,
-                  mediaCode: data.mediaCode || null,
-                },
-              }
-            : {
-                phone: data.phone,
-                language: data.language || 'ht',
-              }
+          {
+            email: data.email,
+            candidateId: data.candidateId,
+            voterData: {
+              firstName: data.firstName,
+              lastName: data.lastName,
+              dob: data.dob,
+              country: data.country || null,
+              region: data.region || null,
+              mediaCode: data.mediaCode || null,
+            },
+          }
         ),
       });
 
