@@ -20,6 +20,22 @@ interface SubmitVoteRequest {
 
 export async function POST(request: Request) {
   try {
+    // Check environment variables first
+    if (!process.env.SUPABASE_SERVICE_ROLE_KEY) {
+      console.error('❌ MISSING SUPABASE_SERVICE_ROLE_KEY');
+      return NextResponse.json(
+        { error: 'Server configuration error. Please contact administrator.' },
+        { status: 500 }
+      );
+    }
+    if (!process.env.NEXT_PUBLIC_SUPABASE_URL) {
+      console.error('❌ MISSING NEXT_PUBLIC_SUPABASE_URL');
+      return NextResponse.json(
+        { error: 'Server configuration error. Please contact administrator.' },
+        { status: 500 }
+      );
+    }
+
     const body: SubmitVoteRequest = await request.json();
     const { candidateId, firstName, lastName, dateOfBirth, country } = body;
 
