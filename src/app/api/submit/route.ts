@@ -275,6 +275,7 @@ export async function POST(request: Request) {
     }
 
     // Insert into public.votes
+    // @ts-ignore - votes table insert
     const { data: voteData, error: voteError } = await supabase
       .from('votes')
       .insert({
