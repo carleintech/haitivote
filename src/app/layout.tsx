@@ -53,10 +53,6 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
-  icons: {
-    icon: '/icon.svg',
-    apple: '/icon.svg',
-  },
 };
 
 export default function RootLayout({
@@ -69,26 +65,12 @@ export default function RootLayout({
       <head>
         <link rel="manifest" href="/manifest.json" />
         <meta name="theme-color" content="#1F41FF" />
-        <link rel="apple-touch-icon" href="/icons/icon-192x192.png" />
       </head>
       <body className={`${inter.variable} ${spaceGrotesk.variable} font-sans antialiased`}>
         <Navigation />
         {children}
         <InstallPWA />
         <Toaster />
-        
-        {/* Service Worker Registration */}
-        <script dangerouslySetInnerHTML={{
-          __html: `
-            if ('serviceWorker' in navigator) {
-              window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/sw.js')
-                  .then(registration => console.log('SW registered:', registration.scope))
-                  .catch(err => console.log('SW registration failed:', err));
-              });
-            }
-          `
-        }} />
       </body>
     </html>
   );

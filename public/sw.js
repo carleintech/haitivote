@@ -10,8 +10,6 @@ const STATIC_ASSETS = [
   '/',
   '/offline',
   '/manifest.json',
-  '/icons/icon-192x192.png',
-  '/icons/icon-512x512.png',
 ];
 
 // Install event - cache static assets
@@ -104,8 +102,6 @@ self.addEventListener('push', (event) => {
   const title = data.title || 'TechKlein VoteLive';
   const options = {
     body: data.body || 'Nouvo mizajou disponib',
-    icon: '/icons/icon-192x192.png',
-    badge: '/icons/icon-72x72.png',
     vibrate: [200, 100, 200],
     data: {
       url: data.url || '/',
