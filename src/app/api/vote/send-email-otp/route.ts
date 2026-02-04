@@ -8,13 +8,13 @@ import { getAdminClient } from '@/lib/supabase/admin';
 import { Resend } from 'resend';
 import crypto from 'crypto';
 
-// Initialize Resend with API key
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend with API key only if available
+const resend = process.env.RESEND_API_KEY ? new Resend(process.env.RESEND_API_KEY) : null;
 
 // Send email OTP via Resend
 async function sendEmailOTP(email: string, code: string) {
   // For development without API key, log the code
-  if (!process.env.RESEND_API_KEY) {
+  if (!resend || !process.env.RESEND_API_KEY) {
     console.log(`📧 [DEV MODE] Email OTP for ${email}: ${code}`);
     return true;
   }
