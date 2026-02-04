@@ -1,16 +1,16 @@
 /**
- * Live Dashboard Page
- * Real-time voting statistics and results
+ * Live Dashboard Page - Presidential Grade
+ * Enterprise-level real-time voting analytics
  */
 
 'use client';
 
 import * as React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useVoteStats } from '@/hooks/use-vote-stats';
 import { LiveChart } from '@/components/LiveChart';
 import { LiveTicker } from '@/components/LiveTicker';
-import { StatsCard } from '@/components/StatsCard';
 import { CountryBreakdown } from '@/components/CountryBreakdown';
 import { TopCandidates } from '@/components/TopCandidates';
 import { LiveIndicator } from '@/components/LiveIndicator';
@@ -18,7 +18,20 @@ import { RefreshButton } from '@/components/RefreshButton';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { Button } from '@/components/ui/button';
-import { BarChart3, Users, Globe, Clock, Home, Vote } from 'lucide-react';
+import { 
+  BarChart3, 
+  Users, 
+  Globe, 
+  Clock, 
+  Home, 
+  Vote,
+  TrendingUp,
+  Activity,
+  Zap,
+  Award,
+  Eye,
+  ArrowLeft
+} from 'lucide-react';
 
 export default function LivePage() {
   const {
@@ -117,196 +130,259 @@ export default function LivePage() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Top Navigation */}
-      <header className="sticky top-0 z-20 border-b bg-white/80 backdrop-blur-sm shadow-sm">
-        <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="text-2xl">🇭🇹</div>
-            <span className="text-xl font-bold bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
-              HaitiVote
-            </span>
-          </Link>
-          <nav className="flex items-center gap-3">
-            <Link href="/about">
-              <Button variant="ghost" className="gap-2 text-gray-700 hover:text-[#006CFF]">
-                <Home size={16} />
-                <span className="hidden sm:inline">Sou Nou</span>
-              </Button>
-            </Link>
-            <Link href="/vote">
-              <Button className="gap-2 bg-gradient-to-r from-[#006CFF] to-[#7F00FF] hover:opacity-90 text-white">
-                <Vote size={16} />
-                Vote
-              </Button>
-            </Link>
-          </nav>
-        </div>
-      </header>
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950">
+      
+      {/* Animated Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-blob" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-blob animation-delay-4000" />
+      </div>
 
-      {/* Hero Header */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-[#006CFF] to-[#7F00FF] text-white">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-        <div className="relative container mx-auto px-4 py-12">
-          <div className="flex flex-col md:flex-row items-center justify-between gap-6">
-            <div className="text-center md:text-left">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/20 backdrop-blur-sm border border-white/30 mb-4">
-                <BarChart3 className="h-4 w-4 animate-pulse" />
-                <span className="text-sm font-semibold">Rezilta an Tan Reyèl</span>
+      {/* Header with Glassmorphism */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-2xl shadow-2xl">
+        <div className="container mx-auto px-6 py-5">
+          <div className="flex items-center justify-between">
+            {/* Logo */}
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                🇭🇹
               </div>
-              <h1 className="text-4xl md:text-5xl font-bold mb-2">
-                Sondaj Ayiti Global 2025
-              </h1>
-              <p className="text-lg text-blue-100">
-                Dashboard Live – Transparans Total
-              </p>
-            </div>
-            <div className="flex items-center gap-4">
-              <LiveIndicator isLive={isLive} />
-              <RefreshButton onRefresh={refetch} loading={loading} />
+              <div className="flex flex-col">
+                <span className="text-2xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+                  HaitiVote LIVE
+                </span>
+                <span className="text-xs text-gray-400 font-semibold">
+                  Dashboard an Tan Reyèl
+                </span>
+              </div>
+            </Link>
+
+            {/* Actions */}
+            <div className="flex items-center gap-3">
+              <Link href="/">
+                <Button className="rounded-xl bg-white/10 px-5 py-2.5 text-white ring-1 ring-white/20 backdrop-blur hover:bg-white/20 hover:scale-105 transition-all duration-300">
+                  <ArrowLeft className="h-4 w-4 mr-2" />
+                  Retounen
+                </Button>
+              </Link>
+              <div className="flex items-center gap-3 rounded-xl bg-white/10 px-4 py-2.5 ring-1 ring-white/20 backdrop-blur">
+                <LiveIndicator isLive={isLive} />
+                <RefreshButton onRefresh={refetch} loading={loading} />
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      </header>
 
       {/* Live Ticker */}
       {!loadingRecent && recentVotes.length > 0 && (
-        <LiveTicker 
-          items={recentVotes.map(vote => ({
-            id: vote.id,
-            candidateName: vote.candidate_name,
-            country: vote.country,
-            timestamp: vote.timestamp,
-          }))} 
-        />
+        <div className="relative z-10">
+          <LiveTicker 
+            items={recentVotes.map(vote => ({
+              id: vote.id,
+              candidateName: vote.candidate_name,
+              country: vote.country,
+              timestamp: vote.timestamp,
+            }))} 
+          />
+        </div>
       )}
 
-      {/* Main Content */}
-      <div className="container mx-auto px-4 py-8 space-y-8">
-        {/* Stats Grid */}
+      {/* Main Dashboard */}
+      <main className="relative container mx-auto px-6 py-12 space-y-8">
+        
+        {/* Hero Stats Grid - 4 Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {loading ? (
             <>
-              <Skeleton className="h-32 rounded-xl" />
-              <Skeleton className="h-32 rounded-xl" />
-              <Skeleton className="h-32 rounded-xl" />
-              <Skeleton className="h-32 rounded-xl" />
+              {[...Array(4)].map((_, i) => (
+                <Skeleton key={i} className="h-40 rounded-2xl bg-white/10" />
+              ))}
             </>
           ) : (
             <>
-              <div className="bg-white rounded-xl shadow-lg border-2 border-transparent hover:border-[#006CFF]/50 transition-all p-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#006CFF] to-blue-600 flex items-center justify-center">
-                    <BarChart3 className="h-6 w-6 text-white" />
+              {/* Total Votes */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-blue-500/90 to-cyan-600/90 p-6 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur ring-1 ring-white/30">
+                      <BarChart3 className="h-7 w-7 text-white" />
+                    </div>
+                    <div className="flex items-center gap-1 text-emerald-300">
+                      <TrendingUp className="h-4 w-4" />
+                      <span className="text-xs font-bold">LIVE</span>
+                    </div>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 font-medium">Total Vòt</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats?.totalVotes.toLocaleString() || '0'}</p>
-                  </div>
+                  <p className="text-sm text-blue-100 font-semibold mb-1">Total Vòt</p>
+                  <p className="text-4xl font-black text-white drop-shadow-lg">
+                    {stats?.totalVotes.toLocaleString() || '0'}
+                  </p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-lg border-2 border-transparent hover:border-[#7F00FF]/50 transition-all p-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-[#7F00FF] to-purple-600 flex items-center justify-center">
-                    <Users className="h-6 w-6 text-white" />
+
+              {/* Active Candidates */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-purple-500/90 to-pink-600/90 p-6 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur ring-1 ring-white/30">
+                      <Users className="h-7 w-7 text-white" />
+                    </div>
+                    <Award className="h-5 w-5 text-purple-200" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 font-medium">Kandida Aktif</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats?.activeCandidates || 0}</p>
-                  </div>
+                  <p className="text-sm text-purple-100 font-semibold mb-1">Kandida Aktif</p>
+                  <p className="text-4xl font-black text-white drop-shadow-lg">
+                    {stats?.activeCandidates || 0}
+                  </p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-lg border-2 border-transparent hover:border-green-500/50 transition-all p-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-green-500 to-emerald-600 flex items-center justify-center">
-                    <Globe className="h-6 w-6 text-white" />
+
+              {/* Countries */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-500/90 to-teal-600/90 p-6 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur ring-1 ring-white/30">
+                      <Globe className="h-7 w-7 text-white" />
+                    </div>
+                    <Eye className="h-5 w-5 text-emerald-200" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 font-medium">Peyi</p>
-                    <p className="text-3xl font-bold text-gray-900">{stats?.countriesParticipating || 0}</p>
-                  </div>
+                  <p className="text-sm text-emerald-100 font-semibold mb-1">Peyi Patisipe</p>
+                  <p className="text-4xl font-black text-white drop-shadow-lg">
+                    {stats?.countriesParticipating || 0}
+                  </p>
                 </div>
               </div>
-              <div className="bg-white rounded-xl shadow-lg border-2 border-transparent hover:border-cyan-500/50 transition-all p-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-white" />
+
+              {/* Last Update */}
+              <div className="group relative overflow-hidden rounded-2xl bg-gradient-to-br from-orange-500/90 to-red-600/90 p-6 shadow-2xl ring-1 ring-white/20 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <div className="relative">
+                  <div className="flex items-center justify-between mb-4">
+                    <div className="w-14 h-14 rounded-xl bg-white/20 flex items-center justify-center backdrop-blur ring-1 ring-white/30">
+                      <Clock className="h-7 w-7 text-white" />
+                    </div>
+                    <Activity className="h-5 w-5 text-orange-200 animate-pulse" />
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-600 font-medium">Dènye Mizajou</p>
-                    <p className="text-2xl font-bold text-gray-900">
-                      {timestamp
-                        ? new Date(timestamp).toLocaleTimeString('fr-HT', {
-                            hour: '2-digit',
-                            minute: '2-digit',
-                          })
-                        : '--:--'}
-                    </p>
-                  </div>
+                  <p className="text-sm text-orange-100 font-semibold mb-1">Dènye Mizajou</p>
+                  <p className="text-3xl font-black text-white drop-shadow-lg">
+                    {timestamp
+                      ? new Date(timestamp).toLocaleTimeString('fr-HT', {
+                          hour: '2-digit',
+                          minute: '2-digit',
+                        })
+                      : '--:--'}
+                  </p>
                 </div>
               </div>
             </>
           )}
         </div>
 
-        {/* Top 3 Podium */}
+        {/* Podium - Top 3 Winners */}
         {!loading && candidateRankings.length >= 3 && (
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* 2nd Place */}
-            <div className="md:order-1 order-2">
-              <div className="h-full flex flex-col justify-end">
-                <div className="bg-gradient-to-br from-slate-100 to-slate-200 border-4 border-slate-400 rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-                  <div className="text-6xl mb-3">🥈</div>
-                  <p className="font-bold text-xl text-gray-900 mb-2">{candidateRankings[1].name}</p>
-                  <p className="text-4xl font-bold text-slate-600 mt-3">
-                    {candidateRankings[1].percentage.toFixed(1)}%
-                  </p>
-                  <p className="text-base text-gray-600 mt-2 font-medium">
-                    {candidateRankings[1].votes.toLocaleString()} vòt
-                  </p>
-                </div>
-              </div>
+          <div className="relative">
+            <div className="mb-6 text-center">
+              <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-400 via-amber-400 to-orange-400 bg-clip-text text-transparent mb-2">
+                Top 3 Kandida
+              </h2>
+              <p className="text-gray-400 text-sm font-medium">Klasman aktyèl an tan reyèl</p>
             </div>
 
-            {/* 1st Place */}
-            <div className="md:order-2 order-1">
-              <div className="h-full flex flex-col justify-end">
-                <div className="bg-gradient-to-br from-yellow-100 to-amber-200 border-4 border-yellow-500 rounded-2xl p-8 text-center shadow-2xl transform md:scale-110 hover:scale-115 transition-all">
-                  <div className="text-7xl mb-3 animate-bounce">🏆</div>
-                  <p className="font-bold text-2xl text-gray-900 mb-2">{candidateRankings[0].name}</p>
-                  <p className="text-5xl font-bold text-yellow-600 mt-3">
-                    {candidateRankings[0].percentage.toFixed(1)}%
-                  </p>
-                  <p className="text-lg text-gray-700 mt-2 font-semibold">
-                    {candidateRankings[0].votes.toLocaleString()} vòt
-                  </p>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+              {/* 2nd Place */}
+              <div className="md:order-1 order-2 transform md:translate-y-8">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-gray-400 to-gray-600 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+                  <div className="relative rounded-3xl bg-gradient-to-br from-slate-800/90 to-slate-900/90 p-8 ring-2 ring-gray-400 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                    <div className="text-center space-y-4">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-gray-400 to-gray-600 text-5xl shadow-2xl">
+                        🥈
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-2xl font-black text-white">{candidateRankings[1].name}</p>
+                        <p className="text-5xl font-black bg-gradient-to-r from-gray-300 to-gray-500 bg-clip-text text-transparent">
+                          {candidateRankings[1].percentage.toFixed(1)}%
+                        </p>
+                        <p className="text-lg text-gray-400 font-bold">
+                          {candidateRankings[1].votes.toLocaleString()} vòt
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
 
-            {/* 3rd Place */}
-            <div className="md:order-3 order-3">
-              <div className="h-full flex flex-col justify-end">
-                <div className="bg-gradient-to-br from-amber-100 to-amber-200 border-4 border-amber-600 rounded-2xl p-8 text-center shadow-xl hover:shadow-2xl transition-all hover:-translate-y-1">
-                  <div className="text-6xl mb-3">🥉</div>
-                  <p className="font-bold text-xl text-gray-900 mb-2">{candidateRankings[2].name}</p>
-                  <p className="text-4xl font-bold text-amber-700 mt-3">
-                    {candidateRankings[2].percentage.toFixed(1)}%
-                  </p>
-                  <p className="text-base text-gray-600 mt-2 font-medium">
-                    {candidateRankings[2].votes.toLocaleString()} vòt
-                  </p>
+              {/* 1st Place - Champion */}
+              <div className="md:order-2 order-1">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-yellow-400 via-amber-500 to-orange-500 rounded-3xl blur-2xl opacity-60 group-hover:opacity-80 transition-opacity duration-300 animate-pulse" />
+                  <div className="relative rounded-3xl bg-gradient-to-br from-yellow-500/90 to-amber-600/90 p-10 ring-4 ring-yellow-400 backdrop-blur-xl hover:scale-110 transition-all duration-300 shadow-2xl">
+                    <div className="text-center space-y-5">
+                      <div className="inline-flex items-center justify-center w-24 h-24 rounded-2xl bg-gradient-to-br from-yellow-300 to-amber-400 text-6xl shadow-2xl animate-bounce">
+                        🏆
+                      </div>
+                      <div className="space-y-3">
+                        <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-white/20 backdrop-blur">
+                          <Zap className="h-4 w-4 text-yellow-200" />
+                          <span className="text-xs font-black text-yellow-100">AN TÈT</span>
+                        </div>
+                        <p className="text-3xl font-black text-white drop-shadow-lg">{candidateRankings[0].name}</p>
+                        <p className="text-6xl font-black text-white drop-shadow-2xl">
+                          {candidateRankings[0].percentage.toFixed(1)}%
+                        </p>
+                        <p className="text-xl text-yellow-100 font-black drop-shadow">
+                          {candidateRankings[0].votes.toLocaleString()} vòt
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* 3rd Place */}
+              <div className="md:order-3 order-3 transform md:translate-y-8">
+                <div className="relative group">
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-600 to-orange-700 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity duration-300" />
+                  <div className="relative rounded-3xl bg-gradient-to-br from-amber-900/90 to-orange-900/90 p-8 ring-2 ring-amber-600 backdrop-blur-xl hover:scale-105 transition-all duration-300">
+                    <div className="text-center space-y-4">
+                      <div className="inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-amber-600 to-orange-700 text-5xl shadow-2xl">
+                        🥉
+                      </div>
+                      <div className="space-y-2">
+                        <p className="text-2xl font-black text-white">{candidateRankings[2].name}</p>
+                        <p className="text-5xl font-black bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
+                          {candidateRankings[2].percentage.toFixed(1)}%
+                        </p>
+                        <p className="text-lg text-amber-300 font-bold">
+                          {candidateRankings[2].votes.toLocaleString()} vòt
+                        </p>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         )}
 
-        {/* Chart */}
+        {/* Chart Section */}
         {loading ? (
-          <Skeleton className="h-[500px] rounded-xl" />
+          <Skeleton className="h-[500px] rounded-3xl bg-white/10" />
         ) : candidateRankings.length > 0 ? (
-          <div className="bg-white rounded-xl shadow-xl border-2 border-gray-100 p-6">
+          <div className="rounded-3xl bg-slate-900/50 p-8 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl hover:shadow-3xl transition-all duration-300">
+            <div className="mb-6 flex items-center justify-between">
+              <div>
+                <h2 className="text-2xl font-black text-white mb-1">Distribisyon Vòt</h2>
+                <p className="text-sm text-gray-400 font-medium">Konparezon grafik tout kandida yo</p>
+              </div>
+              <div className="flex items-center gap-2 px-4 py-2 rounded-xl bg-green-500/20 ring-1 ring-green-500/50">
+                <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+                <span className="text-xs font-bold text-green-300">LIVE DATA</span>
+              </div>
+            </div>
             <LiveChart
               data={candidateRankings.map((c: any) => ({
                 id: c.id,
@@ -317,48 +393,63 @@ export default function LivePage() {
             />
           </div>
         ) : (
-          <Alert className="border-2 border-[#006CFF]/30 bg-gradient-to-br from-blue-50 to-purple-50">
-            <AlertDescription className="text-gray-700 text-center py-4 text-lg">
+          <Alert className="rounded-3xl border-2 border-blue-500/30 bg-gradient-to-br from-blue-900/50 to-purple-900/50 backdrop-blur-xl">
+            <AlertDescription className="text-gray-300 text-center py-8 text-xl font-semibold">
               Pa gen done pou afiche ankò
             </AlertDescription>
           </Alert>
         )}
 
-        {/* Two Column Layout */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-          {/* Top Candidates */}
+        {/* Two Column Data Section */}
+        <div className="grid grid-cols-1 xl:grid-cols-2 gap-8">
+          {/* Top Candidates Detailed */}
           {loading ? (
-            <Skeleton className="h-96 rounded-xl" />
+            <Skeleton className="h-[500px] rounded-3xl bg-white/10" />
           ) : candidateRankings.length > 0 ? (
-            <div className="bg-white rounded-xl shadow-xl border-2 border-gray-100 p-6">
+            <div className="rounded-3xl bg-slate-900/50 p-8 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl hover:shadow-3xl transition-all duration-300">
+              <div className="mb-6">
+                <h2 className="text-2xl font-black text-white mb-1">Tout Kandida</h2>
+                <p className="text-sm text-gray-400 font-medium">Klasman konplè ak detay</p>
+              </div>
               <TopCandidates candidates={candidateRankings} />
             </div>
           ) : null}
 
           {/* Country Breakdown */}
           {loading ? (
-            <Skeleton className="h-96 rounded-xl" />
+            <Skeleton className="h-[500px] rounded-3xl bg-white/10" />
           ) : countryBreakdown.length > 0 ? (
-            <div className="bg-white rounded-xl shadow-xl border-2 border-gray-100 p-6">
+            <div className="rounded-3xl bg-slate-900/50 p-8 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl hover:shadow-3xl transition-all duration-300">
+              <div className="mb-6">
+                <h2 className="text-2xl font-black text-white mb-1">Vòt pa Peyi</h2>
+                <p className="text-sm text-gray-400 font-medium">Distribisyon jewografik</p>
+              </div>
               <CountryBreakdown data={countryBreakdown} />
             </div>
           ) : null}
         </div>
 
         {/* Footer */}
-        <footer className="bg-gray-900 text-white rounded-2xl mt-12 p-8">
-          <div className="text-center space-y-3">
-            <div className="flex items-center justify-center gap-2">
-              <div className="text-3xl">🇭🇹</div>
-              <h3 className="font-bold text-2xl bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">HaitiVote</h3>
+        <footer className="rounded-3xl bg-gradient-to-br from-slate-900/90 to-slate-950/90 p-10 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl mt-12">
+          <div className="max-w-4xl mx-auto text-center space-y-4">
+            <div className="text-5xl mb-4">🇭🇹</div>
+            <p className="text-3xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              HaitiVote
+            </p>
+            <p className="text-xl font-bold text-white/90 italic">
+              Yon Pèp. Yon Vwa. Yon Sondaj.
+            </p>
+            <div className="flex items-center justify-center gap-2 text-sm text-gray-400 pt-2">
+              <Activity className="h-4 w-4 text-emerald-400 animate-pulse" />
+              <span className="font-medium">Dashboard aktyalize otomatikman</span>
             </div>
-            <p className="text-gray-400 italic">"Yon Pèp. Yon Vwa. Yon Sondaj."</p>
-            <p className="text-sm text-gray-500">
-              © {new Date().getFullYear()} HaitiVote. Tout dwa rezève.
+            <p className="text-sm text-gray-500 pt-2">
+              © {new Date().getFullYear()} HaitiVote. Tout dwa rezève. Bati ak ❤️ pou Ayiti.
             </p>
           </div>
         </footer>
-      </div>
+
+      </main>
     </div>
   );
 }

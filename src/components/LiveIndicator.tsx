@@ -24,7 +24,7 @@ export function LiveIndicator({ isLive }: LiveIndicatorProps) {
           <div className="absolute inset-0 h-3 w-3 rounded-full bg-green-500 animate-ping" />
         )}
       </div>
-      <span className="text-sm font-medium">
+      <span className="text-sm font-bold text-white">
         {isLive ? 'LIVE' : 'Pa konekte'}
       </span>
     </div>

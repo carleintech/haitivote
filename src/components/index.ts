@@ -4,7 +4,6 @@
 
 export { CandidateCard } from './CandidateCard';
 export { CandidateGrid } from './CandidateGrid';
-export { CandidateModal } from './CandidateModal';
 export { CandidateSearch } from './CandidateSearch';
 export { VotingForm } from './VotingForm';
 export { OtpInput } from './OtpInput';
@@ -18,3 +17,12 @@ export { LiveIndicator } from './LiveIndicator';
 export { RefreshButton } from './RefreshButton';
 export { QRCodeGenerator } from './QRCodeGenerator';
 export { MediaStats } from './MediaStats';
+
+// Homepage components
+export { Hero } from './home/Hero';
+export { TrustStrip } from './home/TrustStrip';
+export { HowItWorks } from './home/HowItWorks';
+export { CandidatesSection } from './home/CandidatesSection';
+export { FeaturesGrid } from './home/FeaturesGrid';
+export { ResourcesGrid } from './home/ResourcesGrid';
+export { FooterSection } from './home/FooterSection';

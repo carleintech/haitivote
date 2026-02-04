@@ -19,7 +19,7 @@ Vote kounye a → www.haitivote.org
 
 **Tweet 2:**
 ```
-✅ 47 kandida ofisyèl
+✅ 5 kandida ofisyèl
 ✅ Verifikasyon telefòn sekirize
 ✅ Rezilta an tan reyèl
 ✅ Dyaspora akeyi
@@ -66,7 +66,7 @@ TechKlein pwoud pou prezante: VoteLive – Sondaj Ayiti Global
 
 Pou premye fwa, chak Ayisyen nan mond lan ka vote nan yon sondaj nasyonal transparan!
 
-🔹 47 kandida ofisyèl
+🔹 5 kandida ofisyèl
 🔹 Sekirite maksimòm (SMS verification)
 🔹 Rezilta an tan reyèl
 🔹 Disponib nan 4 lang
@@ -90,7 +90,7 @@ Pataje ak tout fanmi w, zanmi w, ak kominote w! Ansanm nou pi fò! 💪🇭🇹
 Prezante @techkleinhaiti VoteLive – premye platfòm sondaj dijital pou Ayiti!
 
 ✨ Karakteristik:
-- 47 kandida ✅
+- 5 kandida ✅
 - Vote sekirize 🔐
 - Rezilta live 📊
 - Kat mondyal 🗺️
@@ -684,7 +684,7 @@ SKANE POU VOTE
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-47 KANDIDA OFISYÈL
+5 KANDIDA OFISYÈL
 GRATIS • MONDYAL • TRANSPARAN
 
 ━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -736,7 +736,7 @@ VWA W ENPÒTAN! 🇭🇹
 VOTE NAN PREMYE SONDAJ
 NASYONAL DIJITAL AYITI
 
-47 KANDIDA OFISYÈL
+5 KANDIDA OFISYÈL
 REZILTA AN TAN REYÈL
 100% GRATIS
 

@@ -94,7 +94,7 @@ export default function LaunchReadyPage() {
                 <Users className="h-10 w-10 text-green-400 mb-3" />
                 <h4 className="text-xl font-bold mb-2">Core Voting System</h4>
                 <ul className="space-y-2 text-sm text-green-200">
-                  <li>✅ 47-candidate grid with search</li>
+                  <li>✅ 5-candidate grid with search</li>
                   <li>✅ Phone OTP verification</li>
                   <li>✅ Duplicate prevention</li>
                   <li>✅ Real-time counting</li>

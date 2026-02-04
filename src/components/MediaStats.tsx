@@ -80,14 +80,14 @@ export function MediaStats() {
 
   if (loading) {
     return (
-      <Card>
+      <Card className="border-2 border-white/10 bg-slate-900/50 backdrop-blur-2xl shadow-2xl">
         <CardHeader>
-          <Skeleton className="h-6 w-48" />
-          <Skeleton className="h-4 w-64" />
+          <Skeleton className="h-6 w-48 bg-slate-800" />
+          <Skeleton className="h-4 w-64 bg-slate-800" />
         </CardHeader>
         <CardContent className="space-y-4">
           {Array.from({ length: 5 }).map((_, i) => (
-            <Skeleton key={i} className="h-16" />
+            <Skeleton key={i} className="h-16 bg-slate-800" />
           ))}
         </CardContent>
       </Card>
@@ -96,25 +96,31 @@ export function MediaStats() {
 
   if (sources.length === 0) {
     return (
-      <Card>
+      <Card className="border-2 border-white/10 bg-slate-900/50 backdrop-blur-2xl shadow-2xl">
         <CardHeader>
-          <CardTitle>Sous Medya</CardTitle>
-          <CardDescription>Pa gen done pou afiche</CardDescription>
+          <CardTitle className="text-white">Sous Medya</CardTitle>
+          <CardDescription className="text-gray-400">Pa gen done pou afiche</CardDescription>
         </CardHeader>
       </Card>
     );
   }
 
   return (
-    <Card>
+    <Card className="border-2 border-white/10 bg-slate-900/50 backdrop-blur-2xl shadow-2xl">
       <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <TrendingUp className="h-5 w-5" />
-          Pèfòmans Sous Medya
-        </CardTitle>
-        <CardDescription>
-          Trafik pa kòd medya
-        </CardDescription>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-3 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 shadow-lg">
+            <TrendingUp className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <CardTitle className="text-3xl font-black bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent">
+              Pèfòmans Sous Medya
+            </CardTitle>
+            <CardDescription className="text-gray-400 text-base font-medium mt-1">
+              Trafik pa kòd medya
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
 
       <CardContent>
@@ -122,33 +128,33 @@ export function MediaStats() {
           {sources.map((source) => (
             <div
               key={source.code}
-              className="p-4 rounded-lg border border-border hover:bg-muted/50 transition-colors"
+              className="p-6 rounded-2xl bg-gradient-to-br from-blue-500/10 to-purple-500/10 border-2 border-blue-400/30 backdrop-blur-xl hover:scale-105 hover:border-blue-400/50 transition-all shadow-xl"
             >
               <div className="flex items-start justify-between mb-3">
                 <div className="space-y-1">
                   <div className="flex items-center gap-2">
-                    <h4 className="font-semibold">{source.label}</h4>
+                    <h4 className="font-black text-white text-lg">{source.label}</h4>
                     {source.country && (
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="text-xs bg-slate-800 text-gray-300 border-white/20">
                         {source.country}
                       </Badge>
                     )}
                   </div>
                   {source.organization && (
-                    <p className="text-sm text-muted-foreground">
+                    <p className="text-sm text-gray-400">
                       {source.organization}
                     </p>
                   )}
-                  <p className="text-xs text-muted-foreground font-mono">
+                  <p className="text-xs text-gray-500 font-mono">
                     Code: {source.code}
                   </p>
                 </div>
 
                 <div className="text-right">
-                  <div className="text-2xl font-bold">
+                  <div className="text-2xl font-black text-white">
                     {formatNumber(source.voteCount)}
                   </div>
-                  <div className="text-xs text-muted-foreground">
+                  <div className="text-xs text-gray-400">
                     vòt
                   </div>
                 </div>
@@ -156,12 +162,12 @@ export function MediaStats() {
 
               <div className="space-y-2">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-muted-foreground">Kontribisyon</span>
-                  <span className="font-semibold">
+                  <span className="text-gray-400">Kontribisyon</span>
+                  <span className="font-black text-white">
                     {source.percentage.toFixed(2)}%
                   </span>
                 </div>
-                <Progress value={source.percentage} className="h-2" />
+                <Progress value={source.percentage} className="h-2 bg-slate-800" />
               </div>
             </div>
           ))}

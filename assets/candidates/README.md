@@ -11,12 +11,11 @@
 File names **MUST** match the candidate slug from `candidates.json`:
 
 ```
-jude-celestin.jpg
-moise-jean-charles.jpg
-martine-moise.jpg
-claude-joseph.jpg
-jerry-tardieu.jpg
-nesmy-manigat.jpg
+dominique-dupuy.jpg
+jean-ernest-muscadin.jpg
+etzer-emile.jpg
+guy-philippe.jpg
+wilson-jeudy.jpg
 ```
 
 ## 🎯 Photo Sourcing
@@ -30,16 +29,17 @@ nesmy-manigat.jpg
 ```
 assets/
 └── candidates/
-    ├── jude-celestin.jpg
-    ├── jocelerme-privert.jpg
-    ├── jean-michel-lapin.jpg
-    └── ... (47 total)
+    ├── dominique-dupuy.jpg
+    ├── jean-ernest-muscadin.jpg
+    ├── etzer-emile.jpg
+    ├── guy-philippe.jpg
+    └── wilson-jeudy.jpg
 ```
 
 ## 🚀 Upload Process
 
 ### Step 1: Place Photos
-Copy all 47 candidate photos into this directory (`assets/candidates/`)
+Copy all 5 candidate photos into this directory (`assets/candidates/`)
 
 ### Step 2: Run Upload Script
 ```powershell
@@ -70,11 +70,11 @@ https://YOUR_PROJECT_REF.supabase.co/storage/v1/object/public/candidates/{slug}.
 
 Example:
 ```
-https://abcdefgh.supabase.co/storage/v1/object/public/candidates/jude-celestin.jpg
+https://abcdefgh.supabase.co/storage/v1/object/public/candidates/dominique-dupuy.jpg
 ```
 
 ## 📋 Checklist
-- [ ] All 47 photos collected and renamed correctly
+- [ ] All 5 photos collected and renamed correctly
 - [ ] Photos meet size and quality requirements
 - [ ] Upload script executed successfully
 - [ ] Verification script passed all tests

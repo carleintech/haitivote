@@ -40,67 +40,71 @@ export function TopCandidates({ candidates }: TopCandidatesProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Top Kandida</CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-3">
-        {candidates.slice(0, 5).map((candidate, index) => {
-          const Icon = getIcon(index);
-          
-          return (
-            <div
-              key={candidate.id}
-              className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
-                index === 0
-                  ? 'bg-gradient-to-r from-yellow-500/10 to-amber-500/10 border-yellow-500/30'
-                  : 'bg-card border-border hover:border-techklein-cyan/50'
-              }`}
-            >
-              {/* Rank */}
-              <div className="flex-shrink-0 w-8 text-center">
-                {Icon ? (
-                  <Icon className={`h-6 w-6 ${getIconColor(index)}`} />
-                ) : (
-                  <span className="text-lg font-bold text-muted-foreground">
-                    {index + 1}
-                  </span>
-                )}
-              </div>
-
-              {/* Photo */}
-              <div className="relative h-12 w-12 flex-shrink-0">
-                <Image
-                  src={candidate.photo_url}
-                  alt={candidate.name}
-                  fill
-                  className="rounded-lg object-cover"
-                />
-              </div>
-
-              {/* Info */}
-              <div className="flex-1 min-w-0">
-                <p className="font-semibold truncate">{candidate.name}</p>
-                {candidate.party && (
-                  <p className="text-xs text-muted-foreground truncate">
-                    {candidate.party}
-                  </p>
-                )}
-              </div>
-
-              {/* Stats */}
-              <div className="text-right flex-shrink-0">
-                <Badge variant={index === 0 ? 'default' : 'secondary'}>
-                  {candidate.percentage.toFixed(1)}%
-                </Badge>
-                <p className="text-xs text-muted-foreground mt-1">
-                  {candidate.votes.toLocaleString()}
-                </p>
-              </div>
+    <div className="space-y-3">
+      {candidates.slice(0, 10).map((candidate, index) => {
+        const Icon = getIcon(index);
+        
+        return (
+          <div
+            key={candidate.id}
+            className={`flex items-center gap-4 p-4 rounded-xl border transition-all ${
+              index === 0
+                ? 'bg-gradient-to-r from-yellow-500/20 to-amber-500/20 border-yellow-500/50 shadow-lg shadow-yellow-500/20'
+                : index === 1
+                ? 'bg-gradient-to-r from-gray-500/15 to-slate-500/15 border-gray-500/40'
+                : index === 2
+                ? 'bg-gradient-to-r from-amber-600/15 to-orange-600/15 border-amber-600/40'
+                : 'bg-white/5 border-white/10 hover:border-blue-400/50 hover:bg-white/10'
+            }`}
+          >
+            {/* Rank */}
+            <div className="shrink-0 w-10 text-center">
+              {Icon ? (
+                <Icon className={`h-7 w-7 ${getIconColor(index)}`} />
+              ) : (
+                <span className="text-xl font-black text-gray-400">
+                  {index + 1}
+                </span>
+              )}
             </div>
-          );
-        })}
-      </CardContent>
-    </Card>
+
+            {/* Photo */}
+            <div className="relative h-14 w-14 shrink-0">
+              <Image
+                src={candidate.photo_url}
+                alt={candidate.name}
+                fill
+                className="rounded-xl object-cover ring-2 ring-white/20"
+              />
+            </div>
+
+            {/* Info */}
+            <div className="flex-1 min-w-0">
+              <p className="font-bold text-white truncate text-lg">{candidate.name}</p>
+              {candidate.party && (
+                <p className="text-sm text-gray-400 truncate">
+                  {candidate.party}
+                </p>
+              )}
+            </div>
+
+            {/* Stats */}
+            <div className="text-right shrink-0">
+              <div className={`inline-flex items-center px-3 py-1.5 rounded-lg font-black text-lg ${
+                index === 0 ? 'bg-yellow-500/30 text-yellow-300'
+                : index === 1 ? 'bg-gray-500/30 text-gray-300'
+                : index === 2 ? 'bg-amber-600/30 text-amber-300'
+                : 'bg-blue-500/20 text-blue-300'
+              }`}>
+                {candidate.percentage.toFixed(1)}%
+              </div>
+              <p className="text-sm text-gray-400 mt-1 font-semibold">
+                {candidate.votes.toLocaleString()} vòt
+              </p>
+            </div>
+          </div>
+        );
+      })}
+    </div>
   );
 }

@@ -12,7 +12,7 @@ Kèlkeswa kote w ye nan mond lan, vwa w konte!
 ### Etap 1: Chwazi Kandida W
 
 1. **Ale sou** https://www.haitivote.org
-2. **Gade** 47 kandida ofisyèl yo
+2. **Gade** 5 kandida ofisyèl yo
 3. **Itilize** ba rechèch la si w ap chèche yon non espesifik
 4. **Klike** sou foto kandida w vle vote pou li
 5. **Kat la** ap vin ble (sa vle di li seleksyone)
@@ -55,7 +55,7 @@ Felisitasyon! Vòt ou konte. W ap wè:
 
 **Paj:** `/leaderboard`
 
-- Wè tout 47 kandida klase pa kantite vòt
+- Wè tout 5 kandida klase pa kantite vòt
 - Top 3 kandida ak podiòm espesyal
 - Chanjman pozisyon an tan reyèl
 - Klike sou yon kandida pou wè estatistik detaye

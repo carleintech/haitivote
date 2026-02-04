@@ -76,7 +76,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   return {
     title: `${(candidate as any).name} - Estatistik | HaitiVote`,
-    description: `Wè estatistik detaye pou ${(candidate as any).name} nan sondaj HaitiVote 2025-2026.`,
+    description: `Wè estatistik detaye pou ${(candidate as any).name} nan sondaj HaitiVote 2026.`,
     openGraph: {
       title: `${(candidate as any).name} - Estatistik`,
       description: `Estatistik detaye pou ${(candidate as any).name}`,

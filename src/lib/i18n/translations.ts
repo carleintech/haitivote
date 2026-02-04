@@ -30,7 +30,7 @@ export const translations = {
     home: {
       title: 'TechKlein VoteLive',
       subtitle: 'Sondaj Ayiti Global',
-      description: 'Vote pou kandida w pou eleksyon 2025-2026',
+      description: 'Vote pou kandida w pou eleksyon 2026',
       selectCandidate: 'Chwazi kandida ou',
       viewLive: 'Gade rezilta an tan reyèl',
       totalVotes: 'Total vòt',
@@ -101,7 +101,7 @@ export const translations = {
     home: {
       title: 'TechKlein VoteLive',
       subtitle: 'Sondage Haïti Global',
-      description: 'Votez pour votre candidat pour les élections 2025-2026',
+      description: 'Votez pour votre candidat pour les élections 2026',
       selectCandidate: 'Choisissez votre candidat',
       viewLive: 'Voir les résultats en temps réel',
       totalVotes: 'Total des votes',
@@ -169,7 +169,7 @@ export const translations = {
     home: {
       title: 'TechKlein VoteLive',
       subtitle: 'Haiti Global Poll',
-      description: 'Vote for your candidate for the 2025-2026 elections',
+      description: 'Vote for your candidate for the 2026 elections',
       selectCandidate: 'Choose your candidate',
       viewLive: 'View real-time results',
       totalVotes: 'Total votes',
@@ -237,7 +237,7 @@ export const translations = {
     home: {
       title: 'TechKlein VoteLive',
       subtitle: 'Encuesta Global de Haití',
-      description: 'Vote por su candidato para las elecciones 2025-2026',
+      description: 'Vote por su candidato para las elecciones 2026',
       selectCandidate: 'Elija su candidato',
       viewLive: 'Ver resultados en tiempo real',
       totalVotes: 'Total de votos',

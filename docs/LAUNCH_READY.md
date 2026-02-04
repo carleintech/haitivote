@@ -75,7 +75,7 @@ Home (/)
 ## 🗂️ DATABASE SCHEMA
 
 ### Tables:
-- `candidates` - 47 candidate profiles
+- `candidates` - 5 candidate profiles
 - `votes` - All vote records
 - `public.private_otps` - Phone verification codes
 - `public.private_voter_records` - Duplicate prevention
@@ -157,7 +157,7 @@ Home (/)
 ## 🚀 DEPLOYMENT CHECKLIST
 
 ### Pre-Launch:
-- [ ] Upload 47 candidate photos to Supabase Storage
+- [ ] Upload 5 candidate photos to Supabase Storage
 - [ ] Set all environment variables
 - [ ] Test OTP flow with 10 different phones
 - [ ] Run SQL migrations
@@ -212,7 +212,7 @@ Home (/)
 ✅ 1,000+ votes
 ✅ < 1% error rate
 ✅ No security breaches
-✅ All 47 candidates voteable
+✅ All 5 candidates voteable
 
 ### Week 1:
 ✅ 10,000+ votes
@@ -383,7 +383,7 @@ Language selector in header
 
 Before going live:
 - [ ] All environment variables set
-- [ ] 47 candidates in database with photos
+- [ ] 5 candidates in database with photos
 - [ ] OTP system tested (10 phones)
 - [ ] Vote flow tested end-to-end
 - [ ] Load testing completed (100+ users)

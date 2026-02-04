@@ -136,7 +136,7 @@ This will automatically update `004_seed_candidates.sql` with correct URLs.
 2. **Copy the entire contents**
 3. **Paste into SQL Editor** (new query)
 4. Click **"Run"**
-5. ✅ You should see: **"Successfully inserted 47 candidates"**
+5. ✅ You should see: **"Successfully inserted 5 candidates"****
 
 ---
 
@@ -146,7 +146,7 @@ This will automatically update `004_seed_candidates.sql` with correct URLs.
 In Supabase Dashboard → **Table Editor**, you should see:
 
 **Public Schema:**
-- ✅ `candidates` (47 rows)
+- ✅ `candidates` (5 rows)
 - ✅ `candidate_meta`
 - ✅ `votes`
 - ✅ `media_referrers`
@@ -184,7 +184,7 @@ Expected output:
 ## STEP 5: Upload Candidate Photos
 
 ### 5.1 Prepare Photos
-1. Place all 47 candidate photos in `assets/candidates/`
+1. Place all 5 candidate photos in `assets/candidates/`
 2. Ensure file names match slugs exactly:
    ```
    jude-celestin.jpg
@@ -283,7 +283,7 @@ Copy the output to `IRON_SESSION_PASSWORD`
 - [ ] Supabase project created
 - [ ] All 4 SQL migrations executed successfully
 - [ ] `.env.local` configured with all credentials
-- [ ] 47 candidates seeded in database
+- [ ] 5 candidates seeded in database
 - [ ] Storage bucket created and configured
 - [ ] Candidate photos uploaded (optional at this stage)
 - [ ] Verification script passed all tests

@@ -1,11 +1,14 @@
 /**
- * Admin Guide Page
+ * Admin Guide Page - PROTECTED
  * Comprehensive training guide for VoteLive administrators
+ * Requires admin authentication
  */
 
 import * as React from 'react';
 import { Metadata } from 'next';
 import Link from 'next/link';
+import { redirect } from 'next/navigation';
+import { isAuthenticated } from '@/lib/auth';
 import { 
   ArrowLeft, Shield, Database, AlertTriangle, BarChart3, 
   CheckCircle, Clock, Eye, Lock, Terminal, TrendingUp,
@@ -21,7 +24,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function AdminGuidePage() {
+export default async function AdminGuidePage() {
+  // Check authentication - only admin can access
+  const authenticated = await isAuthenticated();
+  
+  if (!authenticated) {
+    redirect('/admin');
+  }
+
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-gray-50 to-blue-50">
       {/* Header */}

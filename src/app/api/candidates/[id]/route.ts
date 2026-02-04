@@ -5,9 +5,6 @@
 
 import { NextResponse } from 'next/server';
 import { createClient } from '@/lib/supabase/server';
-import type { Database } from '@/lib/types/database';
-
-type Candidate = Database['public']['Tables']['candidates']['Row'];
 
 export async function GET(
   request: Request,
@@ -17,23 +14,49 @@ export async function GET(
     const supabase = await createClient();
     const { id: identifier } = await params;
 
-    // Try to find by ID first (UUID format)
+    // Determine if it's a numeric ID, UUID, or slug
+    const isNumeric = /^\d+$/.test(identifier);
     const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(identifier);
 
     let query = supabase
       .from('candidates')
-      .select('*')
-      .eq('is_active', true);
+      .select(`
+        *,
+        candidate_meta (
+          bio,
+          political_views,
+          key_policies,
+          experience,
+          education,
+          age,
+          birthplace,
+          website,
+          twitter,
+          facebook,
+          instagram,
+          youtube
+        )
+      `);
 
-    if (isUuid) {
+    // Match based on identifier type
+    if (isNumeric || isUuid) {
       query = query.eq('id', identifier);
     } else {
       query = query.eq('slug', identifier);
     }
 
-    const { data: candidate, error } = await query.maybeSingle<Candidate>();
+    const { data: candidate, error } = await query.maybeSingle();
 
-    if (error || !candidate) {
+    if (error) {
+      console.error('Database error fetching candidate:', error);
+      return NextResponse.json(
+        { error: 'Database error', details: error.message },
+        { status: 500 }
+      );
+    }
+
+    if (!candidate) {
+      console.log('Candidate not found with identifier:', identifier);
       return NextResponse.json(
         { error: 'Candidate not found' },
         { status: 404 }
@@ -47,20 +70,13 @@ export async function GET(
       .eq('candidate_id', candidate.id)
       .maybeSingle<{ total_votes: number }>();
 
-    // Transform data for response
-    const response = {
-      id: candidate.id,
-      fullName: candidate.name,
-      partyAffiliation: candidate.party,
-      photoUrl: candidate.photo_url,
-      slug: candidate.slug,
-      totalVotes: voteStats?.total_votes || 0,
-      createdAt: candidate.created_at,
-    };
-
+    // Return complete candidate data with metadata
     return NextResponse.json({
       success: true,
-      data: response,
+      candidate: {
+        ...candidate,
+        total_votes: voteStats?.total_votes || 0,
+      },
     });
   } catch (error) {
     console.error('Unexpected error in GET /api/candidates/[id]:', error);

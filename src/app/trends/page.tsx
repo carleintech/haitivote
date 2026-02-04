@@ -1,6 +1,6 @@
 /**
- * Trends Page - Rising Stars and Momentum Analysis
- * Shows velocity, momentum, and projections
+ * Trends Page - Presidential Grade
+ * Enterprise-level rising stars and momentum analysis
  */
 
 'use client';
@@ -31,6 +31,8 @@ import {
   ArrowLeft,
   Target,
   Activity,
+  Sparkles,
+  Award,
 } from 'lucide-react';
 
 interface TrendingCandidate {
@@ -108,20 +110,35 @@ export default function TrendsPage() {
   const risingStars = trendsData?.rising_stars?.slice(0, 5) || [];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
-      {/* Header */}
-      <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50 shadow-sm">
-        <div className="container mx-auto px-4 py-4">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950">
+      
+      {/* Animated Background Effects */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-orange-500/20 rounded-full blur-3xl animate-blob" />
+        <div className="absolute top-1/3 right-1/4 w-96 h-96 bg-red-500/20 rounded-full blur-3xl animate-blob animation-delay-2000" />
+        <div className="absolute bottom-1/4 left-1/3 w-96 h-96 bg-pink-500/20 rounded-full blur-3xl animate-blob animation-delay-4000" />
+      </div>
+
+      {/* Header with Glassmorphism */}
+      <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/80 backdrop-blur-2xl shadow-2xl">
+        <div className="container mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-opacity">
-              <div className="text-2xl">🇭🇹</div>
-              <span className="text-2xl font-bold bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
-                HaitiVote
-              </span>
+            <Link href="/" className="flex items-center gap-3 group">
+              <div className="text-4xl group-hover:scale-110 transition-transform duration-300">
+                🇭🇹
+              </div>
+              <div className="flex flex-col">
+                <span className="text-2xl font-black bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent group-hover:scale-105 transition-transform duration-300">
+                  HaitiVote
+                </span>
+                <span className="text-xs text-gray-400 font-semibold">
+                  Tandans & Mòmantòm
+                </span>
+              </div>
             </Link>
             <Link href="/leaderboard">
-              <Button variant="outline" className="gap-2">
-                <ArrowLeft className="h-4 w-4" />
+              <Button className="rounded-xl bg-white/10 px-5 py-2.5 text-white ring-1 ring-white/20 backdrop-blur hover:bg-white/20 hover:scale-105 transition-all duration-300">
+                <ArrowLeft className="h-4 w-4 mr-2" />
                 Retounen
               </Button>
             </Link>
@@ -130,84 +147,84 @@ export default function TrendsPage() {
       </header>
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
-        {/* Title Section */}
-        <div className="text-center mb-12 space-y-4">
-          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-orange-500/10 to-red-500/10 border-2 border-orange-500/20">
-            <Rocket className="h-6 w-6 text-orange-500 animate-bounce" />
-            <span className="font-bold text-lg bg-gradient-to-r from-orange-500 to-red-500 bg-clip-text text-transparent">
-              TANDANS & MÒMANTÒM
+      <main className="relative container mx-auto px-6 py-12">
+        
+        {/* Hero Title Section */}
+        <div className="text-center mb-12 space-y-6">
+          <div className="inline-flex items-center gap-3 px-6 py-3 rounded-full bg-gradient-to-r from-orange-500/20 to-red-500/20 border-2 border-orange-400/30 backdrop-blur-xl ring-1 ring-white/10">
+            <Rocket className="h-6 w-6 text-orange-400 animate-bounce" />
+            <span className="font-black text-lg bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent">
+              ANALIZ MÒMANTÒM
             </span>
           </div>
           
-          <h1 className="text-5xl md:text-7xl font-bold bg-gradient-to-r from-[#006CFF] to-[#7F00FF] bg-clip-text text-transparent">
+          <h1 className="text-6xl md:text-7xl font-black bg-gradient-to-r from-orange-400 via-red-400 to-pink-400 bg-clip-text text-transparent">
             Tandans
           </h1>
           
-          <p className="text-xl text-gray-600">
+          <p className="text-xl text-gray-300 font-medium max-w-2xl mx-auto">
             Kandida ki ap monte vit ak pwojeksyon pou 24 èdtan kap vini yo
           </p>
         </div>
 
-        {/* Timeframe Selector */}
-        <Card className="mb-8 border-2 border-[#006CFF]/30 shadow-lg">
-          <CardContent className="p-6">
-            <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-              <div className="space-y-1">
-                <h3 className="font-bold text-lg flex items-center gap-2">
-                  <Clock className="h-5 w-5 text-[#006CFF]" />
-                  Chwazi Peryòd Tan
-                </h3>
-                <p className="text-sm text-gray-600">
-                  Wè tandans pou diferan peryòd tan
-                </p>
-              </div>
-              
-              <Select value={timeframe} onValueChange={(value) => setTimeframe(value as Timeframe)}>
-                <SelectTrigger className="w-full md:w-64">
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="1h">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      Dènye 1 Èdtan
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="6h">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      Dènye 6 Èdtan
-                    </div>
-                  </SelectItem>
-                  <SelectItem value="24h">
-                    <div className="flex items-center gap-2">
-                      <Clock className="h-4 w-4" />
-                      Dènye 24 Èdtan
-                    </div>
-                  </SelectItem>
-                </SelectContent>
-              </Select>
+        {/* Timeframe Selector - Glassmorphism Card */}
+        <div className="mb-8 rounded-3xl bg-slate-900/50 p-8 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl">
+          <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+            <div className="space-y-2">
+              <h3 className="font-black text-xl flex items-center gap-3 text-white">
+                <Clock className="h-6 w-6 text-orange-400" />
+                Chwazi Peryòd Tan
+              </h3>
+              <p className="text-sm text-gray-400 font-medium">
+                Wè tandans pou diferan peryòd tan
+              </p>
             </div>
-          </CardContent>
-        </Card>
+            
+            <Select value={timeframe} onValueChange={(value) => setTimeframe(value as Timeframe)}>
+              <SelectTrigger className="w-full md:w-64 bg-white/10 border-white/20 text-white backdrop-blur h-12 rounded-xl hover:bg-white/15 transition-colors">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent className="bg-slate-900 border-white/20">
+                <SelectItem value="1h" className="text-white hover:bg-white/10">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    Dènye 1 Èdtan
+                  </div>
+                </SelectItem>
+                <SelectItem value="6h" className="text-white hover:bg-white/10">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    Dènye 6 Èdtan
+                  </div>
+                </SelectItem>
+                <SelectItem value="24h" className="text-white hover:bg-white/10">
+                  <div className="flex items-center gap-2">
+                    <Clock className="h-4 w-4" />
+                    Dènye 24 Èdtan
+                  </div>
+                </SelectItem>
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
 
         {loading ? (
-          <div className="text-center py-12">
-            <div className="inline-flex items-center gap-3 text-[#006CFF]">
-              <div className="w-6 h-6 border-4 border-[#006CFF] border-t-transparent rounded-full animate-spin"></div>
-              <span className="text-lg font-semibold">Chajman tandans...</span>
+          <div className="text-center py-16">
+            <div className="inline-flex items-center gap-4 px-8 py-4 rounded-2xl bg-gradient-to-r from-orange-500/20 to-red-500/20 backdrop-blur-xl ring-1 ring-white/20">
+              <div className="w-8 h-8 border-4 border-orange-400 border-t-transparent rounded-full animate-spin"></div>
+              <span className="text-xl font-black text-white">Chajman tandans...</span>
             </div>
           </div>
         ) : (
           <>
             {/* Rising Stars Section */}
             <div className="mb-12">
-              <div className="flex items-center gap-3 mb-6">
-                <Rocket className="h-6 w-6 text-orange-500" />
-                <h2 className="text-3xl font-bold text-gray-900">
+              <div className="flex items-center gap-3 mb-8">
+                <Rocket className="h-7 w-7 text-orange-400" />
+                <h2 className="text-4xl font-black text-white">
                   Top 5 Kandida ki ap Monte
                 </h2>
+                <Sparkles className="h-6 w-6 text-yellow-400 animate-pulse" />
               </div>
 
               {risingStars.length > 0 ? (
@@ -216,216 +233,275 @@ export default function TrendsPage() {
                     const badge = getMomentumBadge(candidate.momentum_percentage);
                     return (
                       <Link key={candidate.id} href={`/candidate/${candidate.slug}/stats`}>
-                        <Card className="border-2 border-gray-200 hover:border-orange-500 hover:shadow-xl transition-all cursor-pointer group">
-                          <CardContent className="p-6 text-center space-y-4">
-                            <div className="relative">
-                              <Badge className={`absolute -top-2 -right-2 ${badge.color} text-white px-2 py-1 text-xs z-10`}>
+                        <div className="group relative h-full">
+                          <div className="absolute inset-0 bg-gradient-to-br from-orange-500/30 to-red-500/30 rounded-3xl blur-xl opacity-50 group-hover:opacity-70 transition-opacity" />
+                          <div className="relative h-full rounded-3xl bg-slate-900/80 p-6 ring-2 ring-orange-400/30 backdrop-blur-xl hover:scale-105 transition-all duration-300 shadow-2xl">
+                            
+                            {/* Rank Badge */}
+                            <div className="absolute -top-3 -right-3 z-10">
+                              <div className={`w-12 h-12 rounded-full flex items-center justify-center text-lg font-black shadow-2xl ${
+                                index === 0 ? 'bg-gradient-to-br from-yellow-400 to-amber-500 text-white ring-4 ring-yellow-400/50 animate-pulse' :
+                                index === 1 ? 'bg-gradient-to-br from-gray-400 to-gray-600 text-white ring-4 ring-gray-400/50' :
+                                index === 2 ? 'bg-gradient-to-br from-amber-600 to-orange-700 text-white ring-4 ring-amber-600/50' :
+                                'bg-gradient-to-br from-orange-500 to-red-600 text-white ring-4 ring-orange-500/50'
+                              }`}>
                                 #{index + 1}
-                              </Badge>
-                              {candidate.photo_url ? (
-                                <Image
-                                  src={candidate.photo_url}
-                                  alt={candidate.name}
-                                  width={100}
-                                  height={100}
-                                  className="w-24 h-24 rounded-full object-cover mx-auto border-4 border-orange-400 group-hover:border-orange-500 transition-colors"
-                                />
-                              ) : (
-                                <div className="w-24 h-24 rounded-full bg-gradient-to-br from-orange-400 to-red-600 flex items-center justify-center mx-auto border-4 border-orange-400">
-                                  <span className="text-3xl font-bold text-white">
-                                    {candidate.name.charAt(0)}
-                                  </span>
+                              </div>
+                            </div>
+
+                            <div className="text-center space-y-4">
+                              {/* Photo */}
+                              <div className="relative inline-block">
+                                {candidate.photo_url ? (
+                                  <Image
+                                    src={candidate.photo_url}
+                                    alt={candidate.name}
+                                    width={120}
+                                    height={120}
+                                    className="w-28 h-28 rounded-2xl object-cover mx-auto border-4 border-orange-400/50 shadow-xl ring-4 ring-orange-400/20 group-hover:border-orange-400 transition-colors"
+                                  />
+                                ) : (
+                                  <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center mx-auto border-4 border-orange-400/50 shadow-xl">
+                                    <span className="text-4xl font-black text-white">
+                                      {candidate.name.charAt(0)}
+                                    </span>
+                                  </div>
+                                )}
+                                {index === 0 && (
+                                  <div className="absolute -bottom-2 left-1/2 -translate-x-1/2">
+                                    <Award className="h-6 w-6 text-yellow-400 drop-shadow-lg" />
+                                  </div>
+                                )}
+                              </div>
+
+                              {/* Name */}
+                              <div>
+                                <h3 className="font-black text-lg text-white group-hover:text-orange-300 transition-colors line-clamp-2 mb-3">
+                                  {candidate.name}
+                                </h3>
+                                <div className={`inline-flex items-center gap-1 px-3 py-1.5 rounded-xl ${badge.color} text-white text-xs font-black shadow-lg`}>
+                                  {badge.label}
                                 </div>
-                              )}
-                            </div>
+                              </div>
 
-                            <div>
-                              <h3 className="font-bold text-lg text-gray-900 group-hover:text-orange-600 transition-colors line-clamp-2">
-                                {candidate.name}
-                              </h3>
-                              <Badge className={`mt-2 ${badge.color} text-white text-xs`}>
-                                {badge.label}
-                              </Badge>
-                            </div>
+                              {/* Stats */}
+                              <div className="pt-4 border-t border-white/10">
+                                <p className="text-3xl font-black text-white mb-1">
+                                  {formatNumber(candidate.total_votes)}
+                                </p>
+                                <p className="text-xs text-gray-400 font-semibold">Total Vòt</p>
+                              </div>
 
-                            <div className="pt-2 border-t space-y-1">
-                              <p className="text-2xl font-bold text-gray-900">
-                                {formatNumber(candidate.total_votes)}
-                              </p>
-                              <p className="text-xs text-gray-500">Total Vòt</p>
+                              {/* Velocity Indicator */}
+                              <div className="flex items-center justify-center gap-2 px-3 py-2 rounded-lg bg-white/5">
+                                <Zap className="h-4 w-4 text-yellow-400" />
+                                <span className="text-sm font-bold text-white">
+                                  {formatNumber(candidate.votes_per_hour)} vòt/h
+                                </span>
+                              </div>
                             </div>
-                          </CardContent>
-                        </Card>
+                          </div>
+                        </div>
                       </Link>
                     );
                   })}
                 </div>
               ) : (
-                <Card className="border-2 border-dashed border-gray-300">
-                  <CardContent className="p-12 text-center">
-                    <Activity className="h-16 w-16 mx-auto mb-4 text-gray-400" />
-                    <p className="text-gray-600">
+                <div className="rounded-3xl bg-slate-900/30 border-2 border-dashed border-white/20 backdrop-blur-xl">
+                  <div className="p-16 text-center space-y-4">
+                    <Activity className="h-20 w-20 mx-auto text-gray-500" />
+                    <p className="text-gray-400 text-lg">
                       Pa gen done disponib pou peryòd sa a
                     </p>
-                  </CardContent>
-                </Card>
+                  </div>
+                </div>
               )}
             </div>
 
             {/* Detailed Metrics Tabs */}
-            <Card className="border-2 border-gray-200 shadow-lg">
-              <CardHeader className="bg-gradient-to-r from-[#006CFF]/5 to-[#7F00FF]/5">
-                <CardTitle className="flex items-center gap-2">
-                  <BarChart3 className="h-6 w-6 text-[#006CFF]" />
+            <div className="rounded-3xl bg-slate-900/80 ring-1 ring-white/10 backdrop-blur-xl shadow-2xl overflow-hidden">
+              <div className="bg-gradient-to-r from-orange-500/20 to-red-500/20 px-8 py-6 border-b border-white/10">
+                <h2 className="text-2xl font-black text-white flex items-center gap-3">
+                  <BarChart3 className="h-7 w-7 text-orange-400" />
                   Analiz Detaye
-                </CardTitle>
-              </CardHeader>
-              <CardContent className="p-6">
+                </h2>
+              </div>
+              <div className="p-8">
                 <Tabs defaultValue="velocity" className="w-full">
-                  <TabsList className="grid w-full grid-cols-3 mb-6">
-                    <TabsTrigger value="velocity" className="gap-2">
+                  <TabsList className="grid w-full grid-cols-3 mb-8 bg-white/10 p-1 rounded-xl border border-white/20">
+                    <TabsTrigger 
+                      value="velocity" 
+                      className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-blue-500/30 data-[state=active]:to-cyan-500/30 data-[state=active]:text-white text-gray-300 rounded-lg font-bold"
+                    >
                       <Zap className="h-4 w-4" />
                       Vitès
                     </TabsTrigger>
-                    <TabsTrigger value="momentum" className="gap-2">
+                    <TabsTrigger 
+                      value="momentum" 
+                      className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-orange-500/30 data-[state=active]:to-red-500/30 data-[state=active]:text-white text-gray-300 rounded-lg font-bold"
+                    >
                       <Flame className="h-4 w-4" />
                       Mòmantòm
                     </TabsTrigger>
-                    <TabsTrigger value="projections" className="gap-2">
+                    <TabsTrigger 
+                      value="projections" 
+                      className="gap-2 data-[state=active]:bg-gradient-to-r data-[state=active]:from-purple-500/30 data-[state=active]:to-pink-500/30 data-[state=active]:text-white text-gray-300 rounded-lg font-bold"
+                    >
                       <Target className="h-4 w-4" />
                       Pwojeksyon
                     </TabsTrigger>
                   </TabsList>
 
                   {/* Velocity Tab */}
-                  <TabsContent value="velocity" className="space-y-4">
-                    <div className="bg-blue-50 p-4 rounded-lg border border-blue-200">
-                      <p className="text-sm text-gray-700">
-                        <strong>Vitès:</strong> Kantite vòt kandida ap resevwa pa èdtan nan peryòd {timeframeLabels[timeframe].toLowerCase()}.
+                  <TabsContent value="velocity" className="space-y-6">
+                    <div className="rounded-2xl bg-gradient-to-br from-blue-500/20 to-cyan-500/20 p-6 border border-blue-400/30">
+                      <p className="text-sm text-gray-200 leading-relaxed">
+                        <strong className="text-blue-300">Vitès:</strong> Kantite vòt kandida ap resevwa pa èdtan nan peryòd {timeframeLabels[timeframe].toLowerCase()}.
                       </p>
                     </div>
                     
                     {risingStars.length > 0 ? (
-                      <div className="space-y-3">
-                        {risingStars.map((candidate) => (
-                          <div key={candidate.id} className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-blue-50 to-purple-50 border border-gray-200">
-                            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-[#006CFF] to-[#7F00FF] flex items-center justify-center">
-                              <Zap className="h-6 w-6 text-white" />
+                      <div className="space-y-4">
+                        {risingStars.map((candidate, index) => (
+                          <div key={candidate.id} className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 hover:border-blue-400/50">
+                            <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 flex items-center justify-center ring-2 ring-blue-400/30">
+                              <Zap className="h-7 w-7 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-gray-900 truncate">{candidate.name}</h4>
-                              <p className="text-sm text-gray-600">
+                              <h4 className="font-black text-white text-lg truncate group-hover:text-blue-300 transition-colors">{candidate.name}</h4>
+                              <p className="text-sm text-gray-400 font-semibold">
                                 {formatNumber(candidate.votes_per_hour)} vòt/èdtan
                               </p>
                             </div>
-                            <Badge className="bg-blue-600 text-white">
-                              {candidate.votes_per_hour.toFixed(0)}
-                            </Badge>
+                            <div className="shrink-0 px-4 py-2 rounded-xl bg-blue-500/30 ring-1 ring-blue-400/50">
+                              <span className="text-2xl font-black text-white">
+                                {candidate.votes_per_hour.toFixed(0)}
+                              </span>
+                            </div>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-center text-gray-500 py-8">Pa gen done disponib</p>
+                      <p className="text-center text-gray-400 py-12 text-lg">Pa gen done disponib</p>
                     )}
                   </TabsContent>
 
                   {/* Momentum Tab */}
-                  <TabsContent value="momentum" className="space-y-4">
-                    <div className="bg-orange-50 p-4 rounded-lg border border-orange-200">
-                      <p className="text-sm text-gray-700">
-                        <strong>Mòmantòm:</strong> Pousantaj chanjman nan vòt kandida yo nan peryòd {timeframeLabels[timeframe].toLowerCase()}.
+                  <TabsContent value="momentum" className="space-y-6">
+                    <div className="rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 p-6 border border-orange-400/30">
+                      <p className="text-sm text-gray-200 leading-relaxed">
+                        <strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman nan vòt kandida yo nan peryòd {timeframeLabels[timeframe].toLowerCase()}.
                       </p>
                     </div>
                     
                     {risingStars.length > 0 ? (
-                      <div className="space-y-3">
+                      <div className="space-y-4">
                         {risingStars.map((candidate) => {
                           const badge = getMomentumBadge(candidate.momentum_percentage);
                           return (
-                            <div key={candidate.id} className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-orange-50 to-red-50 border border-gray-200">
-                              <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center">
-                                <Flame className="h-6 w-6 text-white" />
+                            <div key={candidate.id} className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 hover:border-orange-400/50">
+                              <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 flex items-center justify-center ring-2 ring-orange-400/30">
+                                <Flame className="h-7 w-7 text-white" />
                               </div>
                               <div className="flex-1 min-w-0">
-                                <h4 className="font-bold text-gray-900 truncate">{candidate.name}</h4>
-                                <p className="text-sm text-gray-600">
+                                <h4 className="font-black text-white text-lg truncate group-hover:text-orange-300 transition-colors">{candidate.name}</h4>
+                                <p className="text-sm text-gray-400 font-semibold">
                                   {candidate.momentum_percentage > 0 ? '+' : ''}{candidate.momentum_percentage.toFixed(2)}% chanjman
                                 </p>
                               </div>
-                              <Badge className={badge.color}>
-                                {badge.label}
-                              </Badge>
+                              <div className={`shrink-0 px-4 py-2 rounded-xl ${badge.color} shadow-lg`}>
+                                <span className="text-sm font-black text-white">
+                                  {badge.label}
+                                </span>
+                              </div>
                             </div>
                           );
                         })}
                       </div>
                     ) : (
-                      <p className="text-center text-gray-500 py-8">Pa gen done disponib</p>
+                      <p className="text-center text-gray-400 py-12 text-lg">Pa gen done disponib</p>
                     )}
                   </TabsContent>
 
                   {/* Projections Tab */}
-                  <TabsContent value="projections" className="space-y-4">
-                    <div className="bg-purple-50 p-4 rounded-lg border border-purple-200">
-                      <p className="text-sm text-gray-700">
-                        <strong>Pwojeksyon 24h:</strong> Estimasyon vòt kandida yo ap gen nan 24 èdtan kap vini yo, baze sou tandans aktyèl yo.
+                  <TabsContent value="projections" className="space-y-6">
+                    <div className="rounded-2xl bg-gradient-to-br from-purple-500/20 to-pink-500/20 p-6 border border-purple-400/30">
+                      <p className="text-sm text-gray-200 leading-relaxed">
+                        <strong className="text-purple-300">Pwojeksyon 24h:</strong> Estimasyon vòt kandida yo ap gen nan 24 èdtan kap vini yo, baze sou tandans aktyèl yo.
                       </p>
                     </div>
                     
                     {risingStars.length > 0 ? (
-                      <div className="space-y-3">
+                      <div className="space-y-4">
                         {risingStars.map((candidate) => (
-                          <div key={candidate.id} className="flex items-center gap-4 p-4 rounded-lg bg-gradient-to-r from-purple-50 to-pink-50 border border-gray-200">
-                            <div className="flex-shrink-0 w-12 h-12 rounded-full bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center">
-                              <Target className="h-6 w-6 text-white" />
+                          <div key={candidate.id} className="group flex items-center gap-5 p-5 rounded-2xl bg-white/5 hover:bg-white/10 transition-all border border-white/10 hover:border-purple-400/50">
+                            <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-purple-500 to-pink-600 flex items-center justify-center ring-2 ring-purple-400/30">
+                              <Target className="h-7 w-7 text-white" />
                             </div>
                             <div className="flex-1 min-w-0">
-                              <h4 className="font-bold text-gray-900 truncate">{candidate.name}</h4>
-                              <div className="flex items-center gap-2 mt-1">
-                                <p className="text-sm text-gray-600">
-                                  Aktyèl: {formatNumber(candidate.total_votes)}
+                              <h4 className="font-black text-white text-lg truncate group-hover:text-purple-300 transition-colors">{candidate.name}</h4>
+                              <div className="flex items-center gap-3 mt-1 flex-wrap">
+                                <p className="text-sm text-gray-400 font-semibold">
+                                  Aktyèl: <span className="text-white">{formatNumber(candidate.total_votes)}</span>
                                 </p>
-                                <TrendingUp className="h-4 w-4 text-green-600" />
-                                <p className="text-sm text-green-600 font-semibold">
+                                <TrendingUp className="h-4 w-4 text-emerald-400" />
+                                <p className="text-sm text-emerald-400 font-black">
                                   Pwojekte: {formatNumber(candidate.projected_24h)}
                                 </p>
                               </div>
                             </div>
-                            <Badge className="bg-purple-600 text-white">
-                              +{formatNumber(candidate.projected_24h - candidate.total_votes)}
-                            </Badge>
+                            <div className="shrink-0 px-4 py-2 rounded-xl bg-purple-500/30 ring-1 ring-purple-400/50">
+                              <span className="text-xl font-black text-white">
+                                +{formatNumber(candidate.projected_24h - candidate.total_votes)}
+                              </span>
+                            </div>
                           </div>
                         ))}
                       </div>
                     ) : (
-                      <p className="text-center text-gray-500 py-8">Pa gen done disponib</p>
+                      <p className="text-center text-gray-400 py-12 text-lg">Pa gen done disponib</p>
                     )}
                   </TabsContent>
                 </Tabs>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
 
             {/* Info Box */}
-            <Card className="mt-8 border-2 border-blue-200 bg-blue-50">
-              <CardContent className="p-6">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-blue-600 flex items-center justify-center flex-shrink-0">
-                    <Activity className="h-5 w-5 text-white" />
+            <div className="mt-8 rounded-3xl bg-gradient-to-br from-blue-900/50 to-purple-900/50 ring-1 ring-blue-400/30 backdrop-blur-xl shadow-2xl overflow-hidden">
+              <div className="p-8">
+                <div className="flex items-start gap-5">
+                  <div className="shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 flex items-center justify-center ring-2 ring-blue-400/50">
+                    <Activity className="h-7 w-7 text-white" />
                   </div>
-                  <div>
-                    <h3 className="font-bold text-lg text-gray-900 mb-2">Kòman Tandans Fonksyone?</h3>
-                    <ul className="space-y-1 text-sm text-gray-700">
-                      <li><strong>Vitès:</strong> Kantite vòt pa èdtan</li>
-                      <li><strong>Mòmantòm:</strong> Pousantaj chanjman relatif oswa negatif</li>
-                      <li><strong>Pwojeksyon:</strong> Estimasyon baze sou tandans aktyèl yo</li>
+                  <div className="flex-1">
+                    <h3 className="font-black text-2xl text-white mb-4 flex items-center gap-2">
+                      Kòman Tandans Fonksyone?
+                      <Sparkles className="h-5 w-5 text-yellow-400" />
+                    </h3>
+                    <ul className="space-y-3 text-sm text-gray-200">
+                      <li className="flex items-start gap-2">
+                        <Zap className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
+                        <div><strong className="text-blue-300">Vitès:</strong> Kantite vòt pa èdtan</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Flame className="h-5 w-5 text-orange-400 shrink-0 mt-0.5" />
+                        <div><strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman relatif oswa negatif</div>
+                      </li>
+                      <li className="flex items-start gap-2">
+                        <Target className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
+                        <div><strong className="text-purple-300">Pwojeksyon:</strong> Estimasyon baze sou tandans aktyèl yo</div>
+                      </li>
                     </ul>
-                    <p className="text-sm text-gray-600 mt-3">
-                      ⚠️ Pwojeksyon yo se estimasyon sèlman e yo ka chanje rapidman.
-                    </p>
+                    <div className="mt-6 p-4 rounded-xl bg-yellow-500/20 border border-yellow-400/30">
+                      <p className="text-sm text-yellow-200 font-semibold flex items-start gap-2">
+                        <span className="text-xl">⚠️</span>
+                        <span>Pwojeksyon yo se estimasyon sèlman e yo ka chanje rapidman.</span>
+                      </p>
+                    </div>
                   </div>
                 </div>
-              </CardContent>
-            </Card>
+              </div>
+            </div>
           </>
         )}
       </main>

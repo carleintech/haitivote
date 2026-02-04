@@ -9,36 +9,44 @@ import * as React from 'react';
 import Link from 'next/link';
 import { 
   ArrowLeft, Share2, Twitter, Facebook, Instagram, Linkedin,
-  Hash, MessageSquare, TrendingUp, Calendar, Users, Copy,
-  Mail, FileText, Video, Image as ImageIcon, Download, Sparkles,
-  Target, Globe, Megaphone, Award, Zap, Heart
+  Hash, MessageSquare, TrendingUp, Users, Copy,
+  Mail, FileText, Sparkles, Globe, Megaphone, Award, Zap, Heart
 } from 'lucide-react';
 
 export default function SocialMediaPage() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-purple-950 to-blue-950">
+      {/* Animated Background Blobs - Social Media Theme */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-4 w-72 h-72 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob" />
+        <div className="absolute top-0 -right-4 w-72 h-72 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-8 left-20 w-72 h-72 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
+
       {/* Header */}
-      <header className="sticky top-0 z-50 bg-white/90 backdrop-blur-sm border-b border-gray-200 shadow-sm">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <header className="sticky top-0 z-50 bg-slate-950/80 border-b border-white/10 backdrop-blur-2xl shadow-2xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16">
             <Link 
               href="/" 
-              className="flex items-center gap-2 text-gray-700 hover:text-[#006CFF] transition-colors font-semibold"
+              className="flex items-center gap-2 text-gray-300 hover:text-purple-400 transition-colors font-bold"
             >
               <ArrowLeft className="h-5 w-5" />
               Retounen
             </Link>
             
             <div className="flex items-center gap-3">
-              <Share2 className="h-6 w-6 text-[#006CFF]" />
-              <h1 className="text-xl font-bold text-gray-900">
+              <div className="p-2 rounded-xl bg-gradient-to-br from-blue-500 to-purple-600 shadow-lg">
+                <Share2 className="h-5 w-5 text-white" />
+              </div>
+              <h1 className="text-xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                 Social Media Hub
               </h1>
             </div>
             
             <button 
               onClick={() => window.open('/press-release', '_blank')}
-              className="px-4 py-2 bg-[#006CFF] text-white rounded-lg font-semibold hover:bg-blue-700 transition-colors flex items-center gap-2"
+              className="px-4 py-2 bg-slate-900/90 border-2 border-white/20 text-white rounded-xl font-bold hover:bg-slate-800 hover:scale-105 transition-all flex items-center gap-2 shadow-xl backdrop-blur-xl"
             >
               <FileText className="h-4 w-4" />
               Press Kit
@@ -48,29 +56,31 @@ export default function SocialMediaPage() {
       </header>
 
       {/* Main Content */}
-      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <main className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Hero Section */}
         <section className="text-center mb-16">
           <div className="flex items-center justify-center gap-3 mb-6">
-            <Sparkles className="h-12 w-12 text-blue-600 animate-pulse" />
-            <h1 className="text-5xl font-bold text-gray-900">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-600 shadow-lg animate-pulse">
+              <Sparkles className="h-12 w-12 text-white" />
+            </div>
+            <h1 className="text-5xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               Social Media Resources
             </h1>
           </div>
-          <p className="text-xl text-gray-700 max-w-3xl mx-auto mb-6">
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto mb-6 font-medium">
             Complete content templates, campaign strategies, and marketing materials for VoteLive platform
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3">
-            <span className="px-4 py-2 bg-blue-100 text-blue-700 rounded-full font-semibold text-sm">
+            <span className="px-4 py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-full font-black text-sm shadow-lg">
               📱 Multi-Platform
             </span>
-            <span className="px-4 py-2 bg-purple-100 text-purple-700 rounded-full font-semibold text-sm">
+            <span className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-full font-black text-sm shadow-lg">
               🗓️ Content Calendar
             </span>
-            <span className="px-4 py-2 bg-pink-100 text-pink-700 rounded-full font-semibold text-sm">
+            <span className="px-4 py-2 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-full font-black text-sm shadow-lg">
               📊 Campaign Templates
             </span>
-            <span className="px-4 py-2 bg-green-100 text-green-700 rounded-full font-semibold text-sm">
+            <span className="px-4 py-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white rounded-full font-black text-sm shadow-lg">
               🎯 Engagement Tools
             </span>
           </div>
@@ -78,106 +88,108 @@ export default function SocialMediaPage() {
 
         {/* Platform Templates */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Megaphone className="h-8 w-8 text-blue-600" />
+          <h2 className="text-3xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent mb-8 flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-blue-500 to-cyan-600 shadow-lg">
+              <Megaphone className="h-8 w-8 text-white" />
+            </div>
             Launch Announcement Templates
           </h2>
           
           <div className="grid md:grid-cols-2 gap-6">
             {/* Twitter/X */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-200 hover:shadow-xl transition-shadow">
+            <div className="group p-6 rounded-2xl bg-slate-900/50 border-2 border-blue-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 hover:border-blue-400/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-blue-100 rounded-lg">
-                  <Twitter className="h-6 w-6 text-blue-600" />
+                <div className="p-3 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-xl shadow-lg">
+                  <Twitter className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Twitter/X Thread</h3>
-                  <p className="text-sm text-gray-600">4-part launch announcement</p>
+                  <h3 className="text-xl font-black text-white">Twitter/X Thread</h3>
+                  <p className="text-sm text-gray-400">4-part launch announcement</p>
                 </div>
               </div>
               <div className="space-y-3">
-                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <p className="text-sm text-gray-700 mb-2"><strong>Tweet 1:</strong></p>
-                  <p className="text-gray-600 italic">🇭🇹 LANSMAN: TechKlein VoteLive kounye a disponib! Premye platfòm sondaj dijital pou eleksyon Ayiti 2025-2026. Vwa w konte! → www.haitivote.org #HaitiVote #Ayiti2026</p>
+                <div className="p-4 bg-slate-950/50 rounded-lg border border-white/10">
+                  <p className="text-sm text-gray-300 mb-2 font-bold">Tweet 1:</p>
+                  <p className="text-gray-400 italic">🇭🇹 LANSMAN: TechKlein VoteLive kounye a disponib! Premye platfòm sondaj dijital pou eleksyon Ayiti 2026. Vwa w konte! → www.haitivote.org #HaitiVote #Ayiti2026</p>
                 </div>
-                <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                  <p className="text-sm text-gray-700 mb-2"><strong>Tweet 2:</strong></p>
-                  <p className="text-gray-600 italic">✅ 47 kandida ofisyèl ✅ Verifikasyon sekirize ✅ Rezilta live ✅ Dyaspora akeyi ✅ 100% gratis. Ou pa bezwen kont! 📱 #HaitiVote</p>
+                <div className="p-4 bg-slate-950/50 rounded-lg border border-white/10">
+                  <p className="text-sm text-gray-300 mb-2 font-bold">Tweet 2:</p>
+                  <p className="text-gray-400 italic">✅ 5 kandida ofisyèl ✅ Verifikasyon sekirize ✅ Rezilta live ✅ Dyaspora akeyi ✅ 100% gratis. Ou pa bezwen kont! 📱 #HaitiVote</p>
                 </div>
               </div>
-              <button className="mt-4 w-full py-2 bg-blue-50 text-blue-600 rounded-lg font-semibold hover:bg-blue-100 transition-colors flex items-center justify-center gap-2">
+              <button className="mt-4 w-full py-2 bg-gradient-to-r from-blue-500 to-cyan-600 text-white rounded-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg">
                 <Copy className="h-4 w-4" />
                 Copy Thread
               </button>
             </div>
 
             {/* Facebook */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-indigo-200 hover:shadow-xl transition-shadow">
+            <div className="group p-6 rounded-2xl bg-slate-900/50 border-2 border-indigo-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 hover:border-indigo-400/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-indigo-100 rounded-lg">
-                  <Facebook className="h-6 w-6 text-indigo-600" />
+                <div className="p-3 bg-gradient-to-br from-indigo-500 to-blue-600 rounded-xl shadow-lg">
+                  <Facebook className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Facebook Post</h3>
-                  <p className="text-sm text-gray-600">Community announcement</p>
+                  <h3 className="text-xl font-black text-white">Facebook Post</h3>
+                  <p className="text-sm text-gray-400">Community announcement</p>
                 </div>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-gray-700 text-sm leading-relaxed">
+              <div className="p-4 bg-slate-950/50 rounded-lg border border-white/10">
+                <p className="text-gray-300 text-sm leading-relaxed">
                   🇭🇹 GADE SA! TechKlein pwoud pou prezante: VoteLive – Sondaj Ayiti Global<br/><br/>
                   Pou premye fwa, chak Ayisyen nan mond lan ka vote nan yon sondaj nasyonal transparan!<br/><br/>
-                  🔹 47 kandida ofisyèl<br/>
+                  🔹 5 kandida ofisyèl<br/>
                   🔹 Sekirite maksimòm<br/>
                   🔹 Rezilta live<br/>
                   🔹 4 lang disponib<br/><br/>
                   👉 www.haitivote.org
                 </p>
               </div>
-              <button className="mt-4 w-full py-2 bg-indigo-50 text-indigo-600 rounded-lg font-semibold hover:bg-indigo-100 transition-colors flex items-center justify-center gap-2">
+              <button className="mt-4 w-full py-2 bg-gradient-to-r from-indigo-500 to-blue-600 text-white rounded-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg">
                 <Copy className="h-4 w-4" />
                 Copy Post
               </button>
             </div>
 
             {/* Instagram */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-pink-200 hover:shadow-xl transition-shadow">
+            <div className="group p-6 rounded-2xl bg-slate-900/50 border-2 border-pink-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 hover:border-pink-400/50 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-pink-100 rounded-lg">
-                  <Instagram className="h-6 w-6 text-pink-600" />
+                <div className="p-3 bg-gradient-to-br from-pink-500 to-rose-600 rounded-xl shadow-lg">
+                  <Instagram className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">Instagram Caption</h3>
-                  <p className="text-sm text-gray-600">Visual story + hashtags</p>
+                  <h3 className="text-xl font-black text-white">Instagram Caption</h3>
+                  <p className="text-sm text-gray-400">Visual story + hashtags</p>
                 </div>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-gray-700 text-sm leading-relaxed">
+              <div className="p-4 bg-slate-950/50 rounded-lg border border-white/10">
+                <p className="text-gray-300 text-sm leading-relaxed">
                   🗳️ VWA W KONTE! 🇭🇹<br/><br/>
                   Prezante @techkleinhaiti VoteLive – premye platfòm sondaj dijital pou Ayiti!<br/><br/>
-                  ✨ 47 kandida • Vote sekirize • Rezilta live • Kat mondyal<br/><br/>
+                  ✨ 5 kandida • Vote sekirize • Rezilta live • Kat mondyal<br/><br/>
                   Vote jodi a! Lyen nan bio ⬆️<br/><br/>
                   #HaitiVote #Ayiti2026 #HaitianPride
                 </p>
               </div>
-              <button className="mt-4 w-full py-2 bg-pink-50 text-pink-600 rounded-lg font-semibold hover:bg-pink-100 transition-colors flex items-center justify-center gap-2">
+              <button className="mt-4 w-full py-2 bg-gradient-to-r from-pink-500 to-rose-600 text-white rounded-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg">
                 <Copy className="h-4 w-4" />
                 Copy Caption
               </button>
             </div>
 
             {/* LinkedIn */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-800 hover:shadow-xl transition-shadow">
+            <div className="group p-6 rounded-2xl bg-slate-900/50 border-2 border-blue-700/50 backdrop-blur-2xl shadow-2xl hover:scale-105 hover:border-blue-600/60 transition-all">
               <div className="flex items-center gap-3 mb-4">
-                <div className="p-3 bg-blue-900 rounded-lg">
+                <div className="p-3 bg-gradient-to-br from-blue-700 to-blue-500 rounded-xl shadow-lg">
                   <Linkedin className="h-6 w-6 text-white" />
                 </div>
                 <div>
-                  <h3 className="text-xl font-bold text-gray-900">LinkedIn Post</h3>
-                  <p className="text-sm text-gray-600">Professional announcement</p>
+                  <h3 className="text-xl font-black text-white">LinkedIn Post</h3>
+                  <p className="text-sm text-gray-400">Professional announcement</p>
                 </div>
               </div>
-              <div className="p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <p className="text-gray-700 text-sm leading-relaxed">
+              <div className="p-4 bg-slate-950/50 rounded-lg border border-white/10">
+                <p className="text-gray-300 text-sm leading-relaxed">
                   Proud to announce VoteLive by TechKlein - a groundbreaking digital polling platform for Haiti's election.<br/><br/>
                   🔑 Key Innovation: First secure polling enabling global diaspora participation<br/>
                   📊 Real-time transparency with enterprise-grade security<br/>
@@ -185,7 +197,7 @@ export default function SocialMediaPage() {
                   www.haitivote.org
                 </p>
               </div>
-              <button className="mt-4 w-full py-2 bg-blue-50 text-blue-900 rounded-lg font-semibold hover:bg-blue-100 transition-colors flex items-center justify-center gap-2">
+              <button className="mt-4 w-full py-2 bg-gradient-to-r from-blue-700 to-blue-500 text-white rounded-xl font-black hover:scale-105 transition-all flex items-center justify-center gap-2 shadow-lg">
                 <Copy className="h-4 w-4" />
                 Copy Post
               </button>
@@ -193,96 +205,47 @@ export default function SocialMediaPage() {
           </div>
         </section>
 
-        {/* Content Calendar */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Calendar className="h-8 w-8 text-purple-600" />
-            Weekly Content Calendar
-          </h2>
-
-          <div className="bg-white rounded-xl shadow-lg p-8 border border-gray-200">
-            <h3 className="text-2xl font-bold text-gray-900 mb-6">Week 1: Launch Week</h3>
-            
-            <div className="space-y-4">
-              {[
-                { day: 'Monday', theme: 'Launch Day', icon: '🚀', color: 'red', tasks: ['Press release', 'Twitter thread', 'Facebook video', 'Instagram carousel', 'Stories'] },
-                { day: 'Tuesday', theme: 'Education', icon: '📚', color: 'blue', tasks: ['How-to-vote tutorial', 'Security features', 'Tech architecture', 'Step-by-step guides'] },
-                { day: 'Wednesday', theme: 'Stats Day', icon: '📊', color: 'green', tasks: ['24-hour results', 'Vote milestones', 'Country breakdown', 'Thank you messages'] },
-                { day: 'Thursday', theme: 'Engagement', icon: '💬', color: 'yellow', tasks: ['Tag challenges', 'Testimonials', 'Polls', 'User content'] },
-                { day: 'Friday', theme: 'Momentum', icon: '📈', color: 'purple', tasks: ['Weekly summary', 'Top candidates', 'Analytics report', 'Infographics'] },
-                { day: 'Weekend', theme: 'Community', icon: '🤝', color: 'pink', tasks: ['Diaspora spotlight', 'Global reach stats', 'UGC reposts', 'Community voices'] },
-              ].map((day) => (
-                <div key={day.day} className={`p-4 bg-${day.color}-50 rounded-lg border-l-4 border-${day.color}-500`}>
-                  <div className="flex items-center justify-between mb-2">
-                    <div className="flex items-center gap-3">
-                      <span className="text-2xl">{day.icon}</span>
-                      <div>
-                        <h4 className="font-bold text-gray-900">{day.day}</h4>
-                        <p className="text-sm text-gray-600">{day.theme}</p>
-                      </div>
-                    </div>
-                  </div>
-                  <ul className="ml-11 space-y-1">
-                    {day.tasks.map((task, idx) => (
-                      <li key={idx} className="text-sm text-gray-700">• {task}</li>
-                    ))}
-                  </ul>
-                </div>
-              ))}
-            </div>
-
-            <div className="mt-8 p-6 bg-gradient-to-r from-purple-100 to-blue-100 rounded-lg">
-              <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-                <Target className="h-5 w-5 text-purple-600" />
-                Daily Themes (Week 2+)
-              </h4>
-              <div className="grid md:grid-cols-3 gap-3">
-                <div className="text-sm text-gray-700">📅 <strong>Mon:</strong> Motivation Monday</div>
-                <div className="text-sm text-gray-700">💻 <strong>Tue:</strong> Tech Tuesday</div>
-                <div className="text-sm text-gray-700">🌍 <strong>Wed:</strong> World Wednesday</div>
-                <div className="text-sm text-gray-700">⏮️ <strong>Thu:</strong> Throwback Thursday</div>
-                <div className="text-sm text-gray-700">⭐ <strong>Fri:</strong> Feature Friday</div>
-                <div className="text-sm text-gray-700">📊 <strong>Sat:</strong> Stats Saturday</div>
-              </div>
-            </div>
-          </div>
-        </section>
-
         {/* Hashtag Strategy */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Hash className="h-8 w-8 text-green-600" />
+          <h2 className="text-3xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent mb-8 flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-green-500 to-emerald-600 shadow-lg">
+              <Hash className="h-8 w-8 text-white" />
+            </div>
             Hashtag Strategy
           </h2>
 
           <div className="grid md:grid-cols-3 gap-6">
             {/* Primary */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-green-200">
+            <div className="p-6 rounded-2xl bg-slate-900/50 border-2 border-green-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <Award className="h-6 w-6 text-green-600" />
-                <h3 className="text-xl font-bold text-gray-900">Primary Hashtags</h3>
+                <div className="p-2 rounded-lg bg-gradient-to-br from-green-500 to-emerald-600 shadow-lg">
+                  <Award className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-black text-white">Primary Hashtags</h3>
               </div>
-              <p className="text-sm text-gray-600 mb-4">Always use these</p>
+              <p className="text-sm text-gray-400 mb-4">Always use these</p>
               <div className="space-y-2">
                 {['#HaitiVote', '#VoteLive2026', '#TechKlein', '#Ayiti2026'].map((tag) => (
-                  <div key={tag} className="px-3 py-2 bg-green-50 rounded-lg text-green-700 font-semibold text-sm flex items-center justify-between">
+                  <div key={tag} className="px-3 py-2 bg-gradient-to-r from-green-500/20 to-emerald-500/20 rounded-lg border border-green-400/30 text-green-400 font-black text-sm flex items-center justify-between hover:scale-105 transition-all">
                     {tag}
-                    <Copy className="h-4 w-4 cursor-pointer hover:text-green-900" />
+                    <Copy className="h-4 w-4 cursor-pointer hover:text-green-300" />
                   </div>
                 ))}
               </div>
             </div>
 
             {/* Secondary */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-blue-200">
+            <div className="p-6 rounded-2xl bg-slate-900/50 border-2 border-blue-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <TrendingUp className="h-6 w-6 text-blue-600" />
-                <h3 className="text-xl font-bold text-gray-900">Secondary Hashtags</h3>
+                <div className="p-2 rounded-lg bg-gradient-to-br from-blue-500 to-cyan-600 shadow-lg">
+                  <TrendingUp className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-black text-white">Secondary Hashtags</h3>
               </div>
-              <p className="text-sm text-gray-600 mb-4">Rotate these</p>
+              <p className="text-sm text-gray-400 mb-4">Rotate these</p>
               <div className="flex flex-wrap gap-2">
                 {['#HaitianDiaspora', '#DemocracyMatters', '#YourVoiceCounts', '#HaitianPride', '#TechForGood', '#CivicEngagement'].map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-blue-50 text-blue-700 rounded text-xs font-semibold">
+                  <span key={tag} className="px-2 py-1 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 border border-blue-400/30 text-blue-400 rounded text-xs font-black">
                     {tag}
                   </span>
                 ))}
@@ -290,15 +253,17 @@ export default function SocialMediaPage() {
             </div>
 
             {/* Creole */}
-            <div className="bg-white rounded-xl p-6 shadow-lg border-2 border-purple-200">
+            <div className="p-6 rounded-2xl bg-slate-900/50 border-2 border-purple-400/30 backdrop-blur-2xl shadow-2xl hover:scale-105 transition-all">
               <div className="flex items-center gap-2 mb-4">
-                <Globe className="h-6 w-6 text-purple-600" />
-                <h3 className="text-xl font-bold text-gray-900">Creole Hashtags</h3>
+                <div className="p-2 rounded-lg bg-gradient-to-br from-purple-500 to-pink-600 shadow-lg">
+                  <Globe className="h-6 w-6 text-white" />
+                </div>
+                <h3 className="text-xl font-black text-white">Creole Hashtags</h3>
               </div>
-              <p className="text-sm text-gray-600 mb-4">Local engagement</p>
+              <p className="text-sm text-gray-400 mb-4">Local engagement</p>
               <div className="flex flex-wrap gap-2">
                 {['#SondajAyiti', '#VwaW', '#AyisyenAyisyen', '#FyèteAyisyen', '#JayVoteLive', '#DemokrasiAyiti'].map((tag) => (
-                  <span key={tag} className="px-2 py-1 bg-purple-50 text-purple-700 rounded text-xs font-semibold">
+                  <span key={tag} className="px-2 py-1 bg-gradient-to-r from-purple-500/20 to-pink-500/20 border border-purple-400/30 text-purple-400 rounded text-xs font-black">
                     {tag}
                   </span>
                 ))}
@@ -309,30 +274,32 @@ export default function SocialMediaPage() {
 
         {/* Milestone Templates */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Zap className="h-8 w-8 text-yellow-600" />
+          <h2 className="text-3xl font-black bg-gradient-to-r from-yellow-400 to-orange-400 bg-clip-text text-transparent mb-8 flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-yellow-500 to-orange-600 shadow-lg animate-pulse">
+              <Zap className="h-8 w-8 text-white" />
+            </div>
             Milestone Post Templates
           </h2>
 
           <div className="grid md:grid-cols-2 gap-6">
             {[
-              { milestone: '1,000 votes', emoji: '🎯', message: 'Premye milye!', color: 'yellow' },
-              { milestone: '5,000 votes', emoji: '🚀', message: '5K fò!', color: 'blue' },
-              { milestone: '10,000 votes', emoji: '⚡', message: '10K ansanm!', color: 'purple' },
-              { milestone: '25,000 votes', emoji: '💥', message: '25K epi n ap kontinye!', color: 'red' },
-              { milestone: '50,000 votes', emoji: '🌟', message: '50K vwa!', color: 'green' },
-              { milestone: '100,000 votes', emoji: '🏆', message: '100K! Istorik!', color: 'orange' },
+              { milestone: '1,000 votes', emoji: '🎯', message: 'Premye milye!', gradientFrom: 'from-yellow-500/20', gradientTo: 'to-orange-500/20', borderColor: 'border-yellow-400/40' },
+              { milestone: '5,000 votes', emoji: '🚀', message: '5K fò!', gradientFrom: 'from-blue-500/20', gradientTo: 'to-cyan-500/20', borderColor: 'border-blue-400/40' },
+              { milestone: '10,000 votes', emoji: '⚡', message: '10K ansanm!', gradientFrom: 'from-purple-500/20', gradientTo: 'to-pink-500/20', borderColor: 'border-purple-400/40' },
+              { milestone: '25,000 votes', emoji: '💥', message: '25K epi n ap kontinye!', gradientFrom: 'from-red-500/20', gradientTo: 'to-orange-500/20', borderColor: 'border-red-400/40' },
+              { milestone: '50,000 votes', emoji: '🌟', message: '50K vwa!', gradientFrom: 'from-green-500/20', gradientTo: 'to-emerald-500/20', borderColor: 'border-green-400/40' },
+              { milestone: '100,000 votes', emoji: '🏆', message: '100K! Istorik!', gradientFrom: 'from-amber-500/20', gradientTo: 'to-yellow-500/20', borderColor: 'border-amber-400/40' },
             ].map((item) => (
-              <div key={item.milestone} className={`bg-gradient-to-br from-${item.color}-50 to-${item.color}-100 rounded-xl p-6 border-2 border-${item.color}-200`}>
+              <div key={item.milestone} className={`bg-gradient-to-br ${item.gradientFrom} ${item.gradientTo} rounded-2xl p-6 border-2 ${item.borderColor} backdrop-blur-xl shadow-2xl hover:scale-105 transition-all`}>
                 <div className="text-center">
                   <span className="text-5xl mb-3 block">{item.emoji}</span>
-                  <h3 className="text-2xl font-bold text-gray-900 mb-2">{item.milestone}</h3>
-                  <p className="text-xl text-gray-700 font-semibold mb-4">"{item.message}"</p>
-                  <div className="p-4 bg-white rounded-lg text-sm text-gray-700">
-                    <p>🎉 [{item.milestone.toUpperCase()}] VÒT!</p>
+                  <h3 className="text-2xl font-black text-white mb-2">{item.milestone}</h3>
+                  <p className="text-xl text-gray-300 font-black mb-4">"{item.message}"</p>
+                  <div className="p-4 bg-slate-950/50 rounded-xl border border-white/10 text-sm text-gray-300">
+                    <p className="font-black text-white">🎉 [{item.milestone.toUpperCase()}] VÒT!</p>
                     <p>Mèsi pou tout moun ki patisipe!</p>
                     <p>Pa vote ankò? → www.haitivote.org</p>
-                    <p className="text-gray-500 mt-2">#HaitiVote #Milestone</p>
+                    <p className="text-gray-500 mt-2 font-bold">#HaitiVote #Milestone</p>
                   </div>
                 </div>
               </div>
@@ -342,8 +309,10 @@ export default function SocialMediaPage() {
 
         {/* Email Templates */}
         <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Mail className="h-8 w-8 text-red-600" />
+          <h2 className="text-3xl font-black bg-gradient-to-r from-red-400 to-pink-400 bg-clip-text text-transparent mb-8 flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-red-500 to-pink-600 shadow-lg">
+              <Mail className="h-8 w-8 text-white" />
+            </div>
             Email Campaign Templates
           </h2>
 
@@ -352,38 +321,41 @@ export default function SocialMediaPage() {
               { 
                 title: 'Welcome Email (Post-Vote)', 
                 icon: Heart, 
-                color: 'red',
+                iconBg: 'from-red-500 to-pink-600',
+                borderColor: 'border-red-400',
                 description: 'Confirmation and next steps',
                 preview: 'Subject: Mèsi pou vote sou VoteLive! 🇭🇹'
               },
               { 
                 title: 'Weekly Digest', 
                 icon: TrendingUp, 
-                color: 'blue',
+                iconBg: 'from-blue-500 to-cyan-600',
+                borderColor: 'border-blue-400',
                 description: 'Stats and updates',
                 preview: 'Subject: Semèn sa sou VoteLive - Mizajou & Rezilta 📊'
               },
               { 
                 title: 'Milestone Announcement', 
                 icon: Award, 
-                color: 'yellow',
+                iconBg: 'from-yellow-500 to-orange-600',
+                borderColor: 'border-yellow-400',
                 description: 'Celebrate achievements',
                 preview: 'Subject: 🎉 Nou rive [X] vòt! Mèsi Ayiti! 🇭🇹'
               },
             ].map((template) => (
-              <div key={template.title} className={`bg-white rounded-xl p-6 shadow-lg border-l-4 border-${template.color}-500 hover:shadow-xl transition-shadow`}>
+              <div key={template.title} className={`p-6 rounded-2xl bg-slate-900/50 border-l-4 ${template.borderColor} backdrop-blur-2xl shadow-2xl hover:scale-105 transition-all`}>
                 <div className="flex items-start gap-4">
-                  <div className={`p-3 bg-${template.color}-100 rounded-lg flex-shrink-0`}>
-                    <template.icon className={`h-6 w-6 text-${template.color}-600`} />
+                  <div className={`p-3 bg-gradient-to-br ${template.iconBg} rounded-xl shadow-lg flex-shrink-0`}>
+                    <template.icon className="h-6 w-6 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-900 mb-2">{template.title}</h3>
-                    <p className="text-gray-600 mb-3">{template.description}</p>
-                    <div className="p-3 bg-gray-50 rounded-lg border border-gray-200">
-                      <p className="text-sm text-gray-700 font-mono">{template.preview}</p>
+                    <h3 className="text-xl font-black text-white mb-2">{template.title}</h3>
+                    <p className="text-gray-400 mb-3">{template.description}</p>
+                    <div className="p-3 bg-slate-950/50 rounded-lg border border-white/10">
+                      <p className="text-sm text-gray-300 font-mono">{template.preview}</p>
                     </div>
                   </div>
-                  <button className={`px-4 py-2 bg-${template.color}-50 text-${template.color}-700 rounded-lg font-semibold hover:bg-${template.color}-100 transition-colors flex items-center gap-2 flex-shrink-0`}>
+                  <button className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white rounded-xl font-black hover:scale-105 transition-all flex items-center gap-2 flex-shrink-0 shadow-lg">
                     <Copy className="h-4 w-4" />
                     Copy
                   </button>
@@ -393,53 +365,12 @@ export default function SocialMediaPage() {
           </div>
         </section>
 
-        {/* Media Kit */}
-        <section className="mb-16">
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Download className="h-8 w-8 text-indigo-600" />
-            Media Kit & Resources
-          </h2>
-
-          <div className="bg-gradient-to-br from-indigo-600 to-purple-600 rounded-xl p-8 text-white shadow-xl">
-            <h3 className="text-3xl font-bold mb-4">Complete Media Kit Available</h3>
-            <p className="text-lg mb-6 opacity-90">
-              Logos, screenshots, videos, infographics, and more - everything you need for promotion
-            </p>
-            
-            <div className="grid md:grid-cols-3 gap-4 mb-8">
-              {[
-                { icon: ImageIcon, label: 'Logos & Graphics', count: '20+ files' },
-                { icon: Video, label: 'Video Content', count: '6 videos' },
-                { icon: FileText, label: 'Documents', count: '7 PDFs' },
-              ].map((item) => (
-                <div key={item.label} className="bg-white/10 backdrop-blur-sm rounded-lg p-4 text-center">
-                  <item.icon className="h-8 w-8 mx-auto mb-2" />
-                  <p className="font-bold">{item.label}</p>
-                  <p className="text-sm opacity-75">{item.count}</p>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap gap-4">
-              <button className="px-6 py-3 bg-white text-indigo-600 rounded-lg font-bold hover:bg-gray-100 transition-colors flex items-center gap-2">
-                <Download className="h-5 w-5" />
-                Download Full Kit
-              </button>
-              <Link 
-                href="/press-release"
-                className="px-6 py-3 bg-white/20 backdrop-blur-sm text-white rounded-lg font-bold hover:bg-white/30 transition-colors flex items-center gap-2"
-              >
-                <FileText className="h-5 w-5" />
-                View Press Release
-              </Link>
-            </div>
-          </div>
-        </section>
-
         {/* Engagement Tips */}
         <section>
-          <h2 className="text-3xl font-bold text-gray-900 mb-8 flex items-center gap-3">
-            <Users className="h-8 w-8 text-orange-600" />
+          <h2 className="text-3xl font-black bg-gradient-to-r from-orange-400 to-red-400 bg-clip-text text-transparent mb-8 flex items-center gap-3">
+            <div className="p-3 rounded-xl bg-gradient-to-br from-orange-500 to-red-600 shadow-lg">
+              <Users className="h-8 w-8 text-white" />
+            </div>
             Engagement Best Practices
           </h2>
 
@@ -454,10 +385,10 @@ export default function SocialMediaPage() {
               { icon: '🎥', title: 'Video Priority', tip: 'Video content gets 5x more engagement' },
               { icon: '🤝', title: 'Community First', tip: 'Share user-generated content daily' },
             ].map((item) => (
-              <div key={item.title} className="bg-white rounded-xl p-6 shadow-lg border border-gray-200 text-center hover:shadow-xl transition-shadow">
+              <div key={item.title} className="p-6 rounded-2xl bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl shadow-2xl text-center hover:scale-105 transition-all">
                 <span className="text-4xl mb-3 block">{item.icon}</span>
-                <h3 className="font-bold text-gray-900 mb-2">{item.title}</h3>
-                <p className="text-sm text-gray-600">{item.tip}</p>
+                <h3 className="font-black text-white mb-2">{item.title}</h3>
+                <p className="text-sm text-gray-400">{item.tip}</p>
               </div>
             ))}
           </div>
@@ -465,19 +396,19 @@ export default function SocialMediaPage() {
       </main>
 
       {/* Footer */}
-      <footer className="mt-20 py-8 border-t border-gray-200 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <p className="text-gray-600 mb-4">
-            © 2025 TechKlein. All rights reserved. | For partnership inquiries: press@techklein.com
+      <footer className="relative mt-20 py-8 border-t border-white/10 bg-slate-900/50 backdrop-blur-2xl">
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <p className="text-gray-300 mb-4 font-medium">
+            © 2025 TechKlein. All rights reserved. | For partnership inquiries: <a href="mailto:carleintech@gmail.com" className="text-purple-400 hover:text-purple-300 underline font-bold transition-colors">carleintech@gmail.com</a>
           </p>
-          <div className="flex justify-center gap-6 text-sm text-gray-500">
-            <a href="https://twitter.com/TechKleinHT" className="hover:text-blue-600 transition-colors">
+          <div className="flex justify-center gap-6 text-sm text-gray-400">
+            <a href="https://twitter.com/TechKleinHT" className="hover:text-blue-400 transition-colors font-bold">
               @TechKleinHT
             </a>
-            <a href="https://facebook.com/TechKleinHaiti" className="hover:text-blue-600 transition-colors">
+            <a href="https://facebook.com/TechKleinHaiti" className="hover:text-blue-400 transition-colors font-bold">
               @TechKleinHaiti
             </a>
-            <a href="https://instagram.com/techkleinhaiti" className="hover:text-blue-600 transition-colors">
+            <a href="https://instagram.com/techkleinhaiti" className="hover:text-blue-400 transition-colors font-bold">
               @techkleinhaiti
             </a>
           </div>

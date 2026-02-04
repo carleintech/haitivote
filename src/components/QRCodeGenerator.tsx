@@ -65,18 +65,27 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
   };
 
   return (
-    <Card className="border-2 border-gray-100 shadow-xl rounded-2xl overflow-hidden">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2 border-gray-100">
-        <CardTitle className="text-2xl">Jenere Kòd QR</CardTitle>
-        <CardDescription className="text-base">
-          Kreye kòd QR pou swiv sous medya
-        </CardDescription>
+    <Card className="border-2 border-white/10 bg-slate-900/50 backdrop-blur-2xl shadow-2xl">
+      <CardHeader>
+        <div className="flex items-center gap-3 mb-2">
+          <div className="p-3 rounded-xl bg-gradient-to-br from-pink-500 to-rose-600 shadow-lg">
+            <Download className="h-6 w-6 text-white" />
+          </div>
+          <div>
+            <CardTitle className="text-3xl font-black bg-gradient-to-r from-pink-400 to-rose-400 bg-clip-text text-transparent">
+              Jenere Kòd QR
+            </CardTitle>
+            <CardDescription className="text-gray-400 text-base font-medium mt-1">
+              Kreye kòd QR pou swiv sous medya
+            </CardDescription>
+          </div>
+        </div>
       </CardHeader>
 
       <CardContent className="space-y-6 p-6">
         {/* Media Code Input */}
         <div className="space-y-3">
-          <Label htmlFor="mediaCode" className="text-base font-semibold text-gray-900">
+          <Label htmlFor="mediaCode" className="text-base font-black text-white">
             Kòd Medya (Opsyonèl)
           </Label>
           <Input
@@ -84,16 +93,16 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
             placeholder="telemetropole, rtvc, youtube-miami, etc."
             value={mediaCode}
             onChange={(e) => setMediaCode(e.target.value.toLowerCase().replace(/[^a-z0-9-_]/g, ''))}
-            className="border-2 border-gray-200 focus:border-[#006CFF] text-base py-6"
+            className="border-2 border-white/20 bg-slate-950/50 text-white placeholder:text-gray-500 focus:border-pink-400/50 text-base py-6 backdrop-blur-xl"
           />
-          <p className="text-sm text-gray-600">
+          <p className="text-sm text-gray-400">
             Itilize kòd sa pou idantifye sous trafik (radyo, TV, influencer, etc.)
           </p>
         </div>
 
         {/* QR Code Display */}
         <div className="flex justify-center">
-          <div className="p-6 bg-white rounded-2xl border-4 border-gray-200 shadow-lg">
+          <div className="p-6 bg-white rounded-2xl border-4 border-white/30 shadow-2xl ring-4 ring-pink-500/20">
             {qrDataUrl ? (
               <img
                 src={qrDataUrl}
@@ -102,7 +111,7 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
               />
             ) : (
               <div className="w-80 h-80 flex items-center justify-center">
-                <div className="animate-spin h-12 w-12 border-4 border-[#006CFF] border-t-transparent rounded-full" />
+                <div className="animate-spin h-12 w-12 border-4 border-pink-500 border-t-transparent rounded-full" />
               </div>
             )}
           </div>
@@ -110,21 +119,21 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
 
         {/* Generated URL */}
         <div className="space-y-3">
-          <Label className="text-base font-semibold text-gray-900">Lyen Jenere</Label>
+          <Label className="text-base font-black text-white">Lyen Jenere</Label>
           <div className="flex gap-2">
             <Input
               value={generateUrl()}
               readOnly
-              className="flex-1 font-mono text-sm bg-gray-50 border-2 border-gray-200"
+              className="flex-1 font-mono text-sm bg-slate-950/70 border-2 border-white/20 text-cyan-400 backdrop-blur-xl"
             />
             <Button
               size="lg"
-              className="bg-white text-gray-900 border-2 border-gray-200 hover:bg-gray-50"
+              className="bg-slate-900/90 text-white border-2 border-white/20 hover:bg-slate-800 backdrop-blur-xl shadow-xl"
               onClick={handleCopyUrl}
             >
               {copied ? (
                 <>
-                  <Check className="h-5 w-5 text-green-600" />
+                  <Check className="h-5 w-5 text-green-400" />
                 </>
               ) : (
                 <>
@@ -139,7 +148,7 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
         <div className="flex gap-3">
           <Button
             size="lg"
-            className="flex-1 bg-gradient-to-r from-[#006CFF] to-[#7F00FF] hover:opacity-90 text-white text-base py-6"
+            className="flex-1 bg-gradient-to-r from-pink-500 to-rose-600 hover:opacity-90 text-white text-base py-6 font-black shadow-xl"
             onClick={handleDownload}
             disabled={!qrDataUrl}
           >
@@ -149,9 +158,9 @@ export function QRCodeGenerator({ baseUrl }: QRCodeGeneratorProps) {
         </div>
 
         {/* Usage Instructions */}
-        <div className="p-6 rounded-xl bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-green-200 space-y-3">
-          <p className="font-bold text-base text-gray-900">Kijan pou itilize:</p>
-          <ul className="list-disc list-inside space-y-2 text-sm text-gray-700">
+        <div className="p-6 rounded-2xl bg-gradient-to-br from-green-500/10 to-emerald-500/10 border-2 border-green-400/30 backdrop-blur-xl space-y-3">
+          <p className="font-black text-base text-white">Kijan pou itilize:</p>
+          <ul className="list-disc list-inside space-y-2 text-sm text-gray-300">
             <li>Afiche kòd QR sou ekran TV oswa poster</li>
             <li>Moun eskane l ak telefòn yo</li>
             <li>Yo ale dirèkteman nan paj vote a</li>

@@ -126,15 +126,8 @@ export function LiveChart({ data }: LiveChartProps) {
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Rezilta an Tan Reyèl</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-[500px]">
-          <Bar data={chartData} options={options} />
-        </div>
-      </CardContent>
-    </Card>
+    <div className="h-[450px]">
+      <Bar data={chartData} options={options} />
+    </div>
   );
 }

@@ -6,7 +6,7 @@
 
 #### Supabase Migrations
 - ✅ `supabase/migrations/003_storage_setup.sql` - Storage bucket configuration with RLS policies
-- ✅ `supabase/migrations/004_seed_candidates.sql` - All 47 candidates with photo URLs
+- ✅ `supabase/migrations/004_seed_candidates.sql` - All 5 candidates with photo URLs
 
 #### Scripts
 - ✅ `scripts/upload-candidates.ps1` - PowerShell script to upload photos to Supabase Storage
@@ -24,7 +24,7 @@
 - ✅ `.env.local` - Updated with admin password hash
 
 #### Seed Data
-- ✅ `supabase/seed/candidates.json` - All 47 candidates in JSON format
+- ✅ `supabase/seed/candidates.json` - All 5 candidates in JSON format
 
 ---
 
@@ -45,7 +45,7 @@ techklein-votelive/
 │   │   ├── 001_schema.sql                ← Database tables & views
 │   │   ├── 002_rls_policies.sql          ← Row Level Security
 │   │   ├── 003_storage_setup.sql         ← Storage bucket setup
-│   │   └── 004_seed_candidates.sql       ← Seed all 47 candidates
+│   │   └── 004_seed_candidates.sql       ← Seed all 5 candidates
 │   └── seed/
 │       └── candidates.json               ← Candidate data
 ├── src/
@@ -75,7 +75,7 @@ This guide covers:
 - ✅ Creating your Supabase project
 - ✅ Getting API keys and credentials
 - ✅ Running all 4 SQL migrations
-- ✅ Seeding 47 candidates
+- ✅ Seeding 5 candidates
 - ✅ Setting up storage bucket
 - ✅ Verifying everything works
 

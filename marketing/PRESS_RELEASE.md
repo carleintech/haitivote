@@ -41,7 +41,7 @@ VoteLive represents a major technological advancement in democratic participatio
 - Interactive dashboards and maps
 - Media-friendly embeds
 
-**🎯 47 Official Candidates**
+**🎯 5 Official Candidates**
 - Complete candidate profiles
 - Party affiliations
 - High-quality photos
