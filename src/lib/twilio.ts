@@ -4,24 +4,13 @@
 
 import twilio from 'twilio';
 
-// Validate Twilio configuration
-if (!process.env.TWILIO_ACCOUNT_SID) {
-  throw new Error('Missing TWILIO_ACCOUNT_SID environment variable');
-}
-
-if (!process.env.TWILIO_AUTH_TOKEN) {
-  throw new Error('Missing TWILIO_AUTH_TOKEN environment variable');
-}
-
-if (!process.env.TWILIO_FROM_NUMBER) {
-  throw new Error('Missing TWILIO_FROM_NUMBER environment variable');
-}
-
-// Create Twilio client
-const twilioClient = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
+// Create Twilio client only if credentials are available
+const twilioClient = process.env.TWILIO_ACCOUNT_SID && process.env.TWILIO_AUTH_TOKEN
+  ? twilio(
+      process.env.TWILIO_ACCOUNT_SID,
+      process.env.TWILIO_AUTH_TOKEN
+    )
+  : null;
 
 export interface SendSmsParams {
   to: string;
@@ -38,10 +27,19 @@ export interface SendSmsResult {
  * Send SMS via Twilio
  */
 export async function sendSms(params: SendSmsParams): Promise<SendSmsResult> {
+  // Check if Twilio is configured
+  if (!twilioClient || !process.env.TWILIO_FROM_NUMBER) {
+    console.error('Twilio not configured - missing credentials');
+    return {
+      success: false,
+      error: 'SMS service not configured',
+    };
+  }
+
   try {
     const message = await twilioClient.messages.create({
       to: params.to,
-      from: process.env.TWILIO_FROM_NUMBER!,
+      from: process.env.TWILIO_FROM_NUMBER,
       body: params.body,
     });
 
