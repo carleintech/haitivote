@@ -45,7 +45,28 @@ export async function GET(
       query = query.eq('slug', identifier);
     }
 
-    const { data: candidate, error } = await query.maybeSingle();
+    const { data: candidate, error } = await query.maybeSingle<{
+      id: number;
+      name: string;
+      slug: string;
+      photo_url: string;
+      party: string | null;
+      motto: string | null;
+      candidate_meta: Array<{
+        bio: string | null;
+        political_views: string | null;
+        key_policies: string | null;
+        experience: string | null;
+        education: string | null;
+        age: number | null;
+        birthplace: string | null;
+        website: string | null;
+        twitter: string | null;
+        facebook: string | null;
+        instagram: string | null;
+        youtube: string | null;
+      }> | null;
+    }>();
 
     if (error) {
       console.error('Database error fetching candidate:', error);
