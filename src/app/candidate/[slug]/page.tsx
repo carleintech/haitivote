@@ -83,12 +83,19 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
   const meta = candidate.candidate_meta?.[0];
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gradient-to-br from-slate-950 via-blue-950 to-purple-950 text-white">
+      {/* Animated Background Blobs */}
+      <div className="fixed inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-0 -left-4 w-96 h-96 bg-gradient-to-br from-blue-500 to-cyan-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob" />
+        <div className="absolute top-0 -right-4 w-96 h-96 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-2000" />
+        <div className="absolute -bottom-8 left-20 w-96 h-96 bg-gradient-to-br from-pink-500 to-rose-600 rounded-full mix-blend-screen filter blur-3xl opacity-20 animate-blob animation-delay-4000" />
+      </div>
+
       {/* Header */}
-      <div className="border-b border-border bg-card">
+      <div className="relative border-b border-white/10 bg-slate-900/50 backdrop-blur-xl">
         <div className="container mx-auto px-4 py-6">
           <Link href="/">
-            <Button variant="ghost" size="sm" className="mb-4">
+            <Button variant="ghost" size="sm" className="mb-4 text-white hover:bg-white/10">
               <ArrowLeft className="h-4 w-4 mr-2" />
               Retounen
             </Button>
@@ -96,7 +103,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
 
           <div className="flex flex-col md:flex-row gap-6">
             {/* Photo */}
-            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-4 border-primary flex-shrink-0">
+            <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-2xl overflow-hidden border-4 border-purple-400/50 flex-shrink-0 shadow-2xl">
               <Image
                 src={candidate.photo_url}
                 alt={candidate.name}
@@ -109,18 +116,18 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
             {/* Info */}
             <div className="flex-1 space-y-3">
               <div>
-                <h1 className="text-3xl md:text-4xl font-bold">
+                <h1 className="text-3xl md:text-4xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
                   {candidate.name}
                 </h1>
                 {candidate.party && (
-                  <Badge variant="secondary" className="mt-2">
+                  <Badge className="mt-2 bg-gradient-to-r from-purple-500 to-pink-600 text-white border-0">
                     {candidate.party}
                   </Badge>
                 )}
               </div>
 
               {candidate.motto && (
-                <p className="text-lg italic text-muted-foreground">
+                <p className="text-lg italic text-blue-200">
                   "{candidate.motto}"
                 </p>
               )}
@@ -129,7 +136,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
               {meta && (
                 <div className="flex flex-wrap gap-2">
                   {meta.website && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" className="bg-slate-800/80 hover:bg-slate-700/80 text-white border border-white/20" asChild>
                       <a href={meta.website} target="_blank" rel="noopener noreferrer">
                         <Globe className="h-4 w-4 mr-2" />
                         Sit Wèb
@@ -138,7 +145,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                   )}
 
                   {meta.twitter && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" className="bg-slate-800/80 hover:bg-slate-700/80 text-white border border-white/20" asChild>
                       <a href={meta.twitter} target="_blank" rel="noopener noreferrer">
                         <Twitter className="h-4 w-4" />
                       </a>
@@ -146,7 +153,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                   )}
 
                   {meta.facebook && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" className="bg-slate-800/80 hover:bg-slate-700/80 text-white border border-white/20" asChild>
                       <a href={meta.facebook} target="_blank" rel="noopener noreferrer">
                         <Facebook className="h-4 w-4" />
                       </a>
@@ -154,7 +161,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                   )}
 
                   {meta.instagram && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" className="bg-slate-800/80 hover:bg-slate-700/80 text-white border border-white/20" asChild>
                       <a href={meta.instagram} target="_blank" rel="noopener noreferrer">
                         <Instagram className="h-4 w-4" />
                       </a>
@@ -162,7 +169,7 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                   )}
 
                   {meta.youtube && (
-                    <Button size="sm" variant="outline" asChild>
+                    <Button size="sm" className="bg-slate-800/80 hover:bg-slate-700/80 text-white border border-white/20" asChild>
                       <a href={meta.youtube} target="_blank" rel="noopener noreferrer">
                         <Youtube className="h-4 w-4" />
                       </a>
@@ -176,18 +183,18 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
       </div>
 
       {/* Main Content */}
-      <div className="container mx-auto px-4 py-8">
+      <div className="relative container mx-auto px-4 py-8">
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Left Column - Biography */}
           <div className="lg:col-span-2 space-y-6">
             {/* Bio */}
             {meta?.bio && (
-              <Card>
+              <Card className="bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl">
                 <CardHeader>
-                  <CardTitle>Biyografi</CardTitle>
+                  <CardTitle className="text-2xl font-black bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Biyografi</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground leading-relaxed whitespace-pre-wrap">
+                  <p className="text-gray-300 leading-relaxed whitespace-pre-wrap">
                     {meta.bio}
                   </p>
                 </CardContent>
@@ -196,10 +203,10 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
 
             {/* Vote Distribution by Country */}
             {byCountry.length > 0 && (
-              <Card>
+              <Card className="bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl">
                 <CardHeader>
-                  <CardTitle>Vòt Pa Peyi</CardTitle>
-                  <CardDescription>
+                  <CardTitle className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Vòt Pa Peyi</CardTitle>
+                  <CardDescription className="text-blue-200">
                     Kote sipòtè {candidate.name} yo ye
                   </CardDescription>
                 </CardHeader>
@@ -213,12 +220,12 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
                       return (
                         <div key={item.country} className="space-y-2">
                           <div className="flex items-center justify-between text-sm">
-                            <span className="font-medium">{item.country}</span>
-                            <span className="text-muted-foreground">
+                            <span className="font-semibold text-white">{item.country}</span>
+                            <span className="text-gray-400">
                               {formatNumber(item.total_votes)} ({percentage.toFixed(1)}%)
                             </span>
                           </div>
-                          <Progress value={percentage} className="h-2" />
+                          <Progress value={percentage} className="h-2 bg-slate-800" />
                         </div>
                       );
                     })}
@@ -232,35 +239,35 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
           <div className="space-y-6">
             {/* Vote Stats */}
             {stats && (
-              <Card className="border-2 border-primary/50">
+              <Card className="bg-gradient-to-br from-purple-500/20 to-pink-500/20 border-2 border-purple-400/50 backdrop-blur-2xl shadow-2xl">
                 <CardHeader>
-                  <CardTitle className="flex items-center gap-2">
-                    <TrendingUp className="h-5 w-5 text-primary" />
+                  <CardTitle className="flex items-center gap-2 text-white">
+                    <TrendingUp className="h-5 w-5 text-purple-400" />
                     Estatistik Vòt
                   </CardTitle>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="text-center space-y-2">
-                    <p className="text-sm text-muted-foreground">Total Vòt</p>
-                    <p className="text-4xl font-bold text-gradient-techklein">
+                    <p className="text-sm text-blue-200">Total Vòt</p>
+                    <p className="text-4xl font-black bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
                       {formatNumber(stats.total_votes)}
                     </p>
                   </div>
 
-                  <Separator />
+                  <Separator className="bg-white/20" />
 
                   <div className="text-center space-y-2">
-                    <p className="text-sm text-muted-foreground">Pousantaj</p>
-                    <p className="text-3xl font-bold">
+                    <p className="text-sm text-blue-200">Pousantaj</p>
+                    <p className="text-3xl font-black text-white">
                       {stats.percentage.toFixed(2)}%
                     </p>
                   </div>
 
-                  <Separator />
+                  <Separator className="bg-white/20" />
 
                   <div className="text-center">
                     <Link href="/live">
-                      <Button variant="gradient" className="w-full">
+                      <Button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white font-bold shadow-lg">
                         Gade Tout Rezilta
                       </Button>
                     </Link>
@@ -270,47 +277,47 @@ export default async function CandidatePage({ params }: CandidatePageProps) {
             )}
 
             {/* Quick Facts */}
-            <Card>
+            <Card className="bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl">
               <CardHeader>
-                <CardTitle>Enfòmasyon Rapid</CardTitle>
+                <CardTitle className="text-xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Enfòmasyon Rapid</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
                 {candidate.party && (
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Pati:</span>
-                    <span className="font-semibold">{candidate.party}</span>
+                    <span className="text-gray-400">Pati:</span>
+                    <span className="font-semibold text-white">{candidate.party}</span>
                   </div>
                 )}
 
                 {candidate.motto && (
                   <div className="space-y-1">
-                    <span className="text-muted-foreground">Deviz:</span>
-                    <p className="font-semibold italic">"{candidate.motto}"</p>
+                    <span className="text-gray-400">Deviz:</span>
+                    <p className="font-semibold italic text-blue-200">"{candidate.motto}"</p>
                   </div>
                 )}
 
-                <Separator />
+                <Separator className="bg-white/20" />
 
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">ID:</span>
-                  <span className="font-mono text-xs">{candidate.id}</span>
+                  <span className="text-gray-400">ID:</span>
+                  <span className="font-mono text-xs text-white">{candidate.id}</span>
                 </div>
               </CardContent>
             </Card>
 
             {/* Call to Action */}
-            <Card className="bg-gradient-to-br from-primary/10 to-secondary/10">
+            <Card className="bg-gradient-to-br from-blue-500/20 to-purple-500/20 border-2 border-blue-400/50 backdrop-blur-2xl shadow-2xl">
               <CardContent className="p-6 text-center space-y-4">
-                <Users className="h-12 w-12 mx-auto text-primary" />
+                <Users className="h-12 w-12 mx-auto text-blue-400" />
                 <div>
-                  <h3 className="font-bold text-lg mb-2">
+                  <h3 className="font-black text-xl text-white mb-2">
                     Pa vote ankò?
                   </h3>
-                  <p className="text-sm text-muted-foreground mb-4">
+                  <p className="text-sm text-blue-200 mb-4">
                     Patisipe nan sondaj la kounye a
                   </p>
                   <Link href="/">
-                    <Button variant="gradient" size="lg" className="w-full">
+                    <Button size="lg" className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold shadow-lg">
                       Vote Kounye a
                     </Button>
                   </Link>
