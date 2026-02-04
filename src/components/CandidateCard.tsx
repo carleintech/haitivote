@@ -22,11 +22,10 @@ export interface CandidateCardProps {
   motto: string | null;
   selected: boolean;
   onSelect: (id: number) => void;
-  onViewDetails: (id: number) => void;
 }
 
 export const CandidateCard = React.memo<CandidateCardProps>(
-  ({ id, name, slug, photoUrl, party, motto, selected, onSelect, onViewDetails }) => {
+  ({ id, name, slug, photoUrl, party, motto, selected, onSelect }) => {
     return (
       <div
         className={cn(

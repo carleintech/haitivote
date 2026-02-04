@@ -8,7 +8,6 @@
 import * as React from 'react';
 import { useCandidates } from '@/hooks/use-candidates';
 import { CandidateCard } from '@/components/CandidateCard';
-import { CandidateModal } from '@/components/CandidateModal';
 import { Skeleton } from '@/components/ui/skeleton';
 import { Alert, AlertDescription } from '@/components/ui/alert';
 import { AlertCircle } from 'lucide-react';
@@ -25,7 +24,6 @@ export function CandidateGrid({
   searchQuery = '',
 }: CandidateGridProps) {
   const { candidates, loading, error, searchCandidates } = useCandidates();
-  const [modalCandidateId, setModalCandidateId] = React.useState<number | null>(null);
 
   // Filter candidates based on search
   const filteredCandidates = React.useMemo(() => {
@@ -74,33 +72,20 @@ export function CandidateGrid({
   }
 
   return (
-    <>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
-        {filteredCandidates.map((candidate) => (
-          <CandidateCard
-            key={candidate.id}
-            id={candidate.id}
-            name={candidate.name}
-            slug={candidate.slug}
-            photoUrl={candidate.photo_url}
-            party={candidate.party}
-            motto={candidate.motto}
-            selected={selectedCandidateId === candidate.id}
-            onSelect={onSelectCandidate}
-            onViewDetails={setModalCandidateId}
-          />
-        ))}
-      </div>
-
-      {/* Candidate details modal */}
-      {modalCandidateId && (
-        <CandidateModal
-          candidateId={modalCandidateId}
-          open={true}
-          onClose={() => setModalCandidateId(null)}
+    <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      {filteredCandidates.map((candidate) => (
+        <CandidateCard
+          key={candidate.id}
+          id={candidate.id}
+          name={candidate.name}
+          slug={candidate.slug}
+          photoUrl={candidate.photo_url}
+          party={candidate.party}
+          motto={candidate.motto}
+          selected={selectedCandidateId === candidate.id}
           onSelect={onSelectCandidate}
         />
-      )}
-    </>
+      ))}
+    </div>
   );
 }
