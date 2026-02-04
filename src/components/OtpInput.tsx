@@ -118,10 +118,12 @@ export function OtpInput({
   };
 
   return (
-    <Card>
-      <CardHeader>
-        <CardTitle>Antre Kòd Verifikasyon</CardTitle>
-        <CardDescription>
+    <Card className="bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl shadow-2xl">
+      <CardHeader className="bg-gradient-to-r from-purple-500/10 to-pink-500/10 border-b-2 border-white/10">
+        <CardTitle className="text-2xl font-black bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">
+          Antre Kòd Verifikasyon
+        </CardTitle>
+        <CardDescription className="text-blue-200">
           Nou voye yon kòd 6 chif sou {phoneNumber}
         </CardDescription>
       </CardHeader>
@@ -143,18 +145,18 @@ export function OtpInput({
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={index === 0 ? handlePaste : undefined}
               disabled={loading}
-              className="w-12 h-14 text-center text-2xl font-bold border-2 border-border rounded-lg focus:border-techklein-cyan focus:ring-2 focus:ring-techklein-cyan/20 transition-all disabled:opacity-50"
+              className="w-12 h-14 text-center text-2xl font-bold bg-slate-800/50 border-2 border-white/20 text-white rounded-lg focus:border-purple-400 focus:ring-2 focus:ring-purple-400/20 transition-all disabled:opacity-50"
               autoFocus={index === 0}
             />
           ))}
         </div>
 
         {/* Timer */}
-        <Alert>
-          <Clock className="h-4 w-4" />
-          <AlertDescription className="flex items-center justify-between">
+        <Alert className="border-2 border-blue-400/50 bg-blue-500/10 backdrop-blur-xl">
+          <Clock className="h-4 w-4 text-blue-400" />
+          <AlertDescription className="flex items-center justify-between text-blue-100">
             <span>Kòd ap ekspire nan:</span>
-            <span className="font-mono font-bold">
+            <span className="font-mono font-bold text-white">
               {timeLeft > 0 ? formatTime(timeLeft) : 'Ekspire'}
             </span>
           </AlertDescription>
@@ -163,9 +165,8 @@ export function OtpInput({
         {/* Actions */}
         <div className="space-y-2">
           <Button
-            variant="gradient"
             size="lg"
-            className="w-full"
+            className="w-full bg-gradient-to-r from-purple-500 to-pink-600 hover:from-purple-600 hover:to-pink-700 text-white font-bold shadow-lg border-0"
             onClick={() => handleVerify(code.join(''))}
             loading={loading}
             disabled={loading || code.some((d) => !d) || timeLeft === 0}
@@ -176,7 +177,7 @@ export function OtpInput({
           <Button
             variant="outline"
             size="lg"
-            className="w-full"
+            className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
             onClick={handleResend}
             disabled={!canResend || loading}
           >
@@ -185,7 +186,7 @@ export function OtpInput({
           </Button>
         </div>
 
-        <p className="text-xs text-center text-muted-foreground">
+        <p className="text-xs text-center text-gray-400">
           Pa resevwa kòd la? Verifye nimewo w oswa eseye revoye.
         </p>
       </CardContent>

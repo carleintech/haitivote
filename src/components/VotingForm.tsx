@@ -67,13 +67,13 @@ export function VotingForm({
   };
 
   return (
-    <Card className="border-2 shadow-xl">
-      <CardHeader className="bg-gradient-to-r from-blue-50 to-purple-50 border-b-2">
-        <CardTitle className="text-2xl bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+    <Card className="bg-slate-900/50 border-2 border-white/10 backdrop-blur-2xl shadow-2xl">
+      <CardHeader className="bg-gradient-to-r from-blue-500/10 to-purple-500/10 border-b-2 border-white/10">
+        <CardTitle className="text-2xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
           Ranpli Enfòmasyon Ou
         </CardTitle>
-        <CardDescription className="text-base">
-          Ou ap vote pou: <span className="font-bold text-foreground">{candidateName}</span>
+        <CardDescription className="text-base text-blue-200">
+          Ou ap vote pou: <span className="font-bold text-white">{candidateName}</span>
         </CardDescription>
       </CardHeader>
 
@@ -82,8 +82,8 @@ export function VotingForm({
           {/* First Name and Last Name */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName" className="text-base font-semibold">
-                Prenon <span className="text-destructive">*</span>
+              <Label htmlFor="firstName" className="text-base font-semibold text-white">
+                Prenon <span className="text-red-400">*</span>
               </Label>
               <Input
                 id="firstName"
@@ -92,12 +92,12 @@ export function VotingForm({
                 error={!!errors.firstName}
                 helperText={errors.firstName?.message}
                 disabled={loading}
-                className="h-12 text-base"
+                className="h-12 text-base bg-slate-800/50 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lastName" className="text-base font-semibold">
-                Siyati <span className="text-destructive">*</span>
+              <Label htmlFor="lastName" className="text-base font-semibold text-white">
+                Siyati <span className="text-red-400">*</span>
               </Label>
               <Input
                 id="lastName"
@@ -106,15 +106,15 @@ export function VotingForm({
                 error={!!errors.lastName}
                 helperText={errors.lastName?.message}
                 disabled={loading}
-                className="h-12 text-base"
+                className="h-12 text-base bg-slate-800/50 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
               />
             </div>
           </div>
 
           {/* Date of Birth */}
           <div className="space-y-2">
-            <Label htmlFor="dob" className="text-base font-semibold">
-              Dat Nesans <span className="text-destructive">*</span>
+            <Label htmlFor="dob" className="text-base font-semibold text-white">
+              Dat Nesans <span className="text-red-400">*</span>
             </Label>
             <Input
               id="dob"
@@ -124,26 +124,26 @@ export function VotingForm({
               helperText={errors.dob?.message}
               disabled={loading}
               max={new Date().toISOString().split('T')[0]}
-              className="h-12 text-base"
+              className="h-12 text-base bg-slate-800/50 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
             />
           </div>
 
           {/* Country */}
           <div className="space-y-2">
-            <Label htmlFor="country" className="text-base font-semibold">
-              Peyi <span className="text-destructive">*</span>
+            <Label htmlFor="country" className="text-base font-semibold text-white">
+              Peyi <span className="text-red-400">*</span>
             </Label>
             <Select
               value={selectedCountry}
               onValueChange={(value) => setValue('country', value)}
               disabled={loading}
             >
-              <SelectTrigger id="country">
+              <SelectTrigger id="country" className="h-12 bg-slate-800/50 border-white/20 text-white">
                 <SelectValue placeholder="Chwazi peyi ou" />
               </SelectTrigger>
-              <SelectContent>
+              <SelectContent className="bg-slate-900 border-white/20">
                 {countries.map((country) => (
-                  <SelectItem key={country.code} value={country.name}>
+                  <SelectItem key={country.code} value={country.name} className="text-white hover:bg-slate-800">
                     <span className="mr-2">{country.flag}</span>
                     {country.name}
                   </SelectItem>
@@ -151,27 +151,27 @@ export function VotingForm({
               </SelectContent>
             </Select>
             {errors.country && (
-              <p className="text-xs text-destructive">{errors.country.message}</p>
+              <p className="text-xs text-red-400">{errors.country.message}</p>
             )}
           </div>
 
           {/* Region/City (Optional) */}
           <div className="space-y-2">
-            <Label htmlFor="region" className="text-base font-semibold">Rejyon/Vil (Opsyonèl)</Label>
+            <Label htmlFor="region" className="text-base font-semibold text-white">Rejyon/Vil (Opsyonèl)</Label>
             <Input
               id="region"
               {...register('region')}
               placeholder="Port-au-Prince, Miami, Montréal, etc."
               disabled={loading}
-              className="h-12 text-base"
+              className="h-12 text-base bg-slate-800/50 border-white/20 text-white placeholder:text-gray-400 focus:border-purple-400"
             />
           </div>
 
           {/* Privacy Notice */}
-          <Alert className="border-2 border-blue-200 bg-blue-50">
-            <Lock className="h-5 w-5 text-blue-600" />
-            <AlertDescription className="text-sm font-medium text-gray-900">
-              <strong>Enfòmasyon prive:</strong> Nou kolekte non ak dat nesans ou sèlman pou evite vòt doub. 
+          <Alert className="border-2 border-blue-400/50 bg-blue-500/10 backdrop-blur-xl">
+            <Lock className="h-5 w-5 text-blue-400" />
+            <AlertDescription className="text-sm font-medium text-blue-100">
+              <strong className="text-white">Enfòmasyon prive:</strong> Nou kolekte non ak dat nesans ou sèlman pou evite vòt doub. 
               Enfòmasyon sa yo pa pral pibliye.
             </AlertDescription>
           </Alert>
@@ -179,9 +179,8 @@ export function VotingForm({
           {/* Submit Button */}
           <Button
             type="submit"
-            variant="gradient"
             size="lg"
-            className="w-full h-14 text-lg font-bold shadow-lg"
+            className="w-full h-14 text-lg font-bold shadow-lg bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 hover:from-blue-600 hover:via-purple-700 hover:to-pink-700 text-white border-0"
             loading={loading}
             disabled={loading}
           >
@@ -189,9 +188,9 @@ export function VotingForm({
           </Button>
 
           {/* Info */}
-          <Alert className="border-2 border-purple-200 bg-purple-50">
-            <Info className="h-5 w-5 text-purple-600" />
-            <AlertDescription className="text-sm font-medium text-gray-900">
+          <Alert className="border-2 border-purple-400/50 bg-purple-500/10 backdrop-blur-xl">
+            <Info className="h-5 w-5 text-purple-400" />
+            <AlertDescription className="text-sm font-medium text-purple-100">
               Lè w klike sou bouton an, vòt ou pral konte imedyatman.
             </AlertDescription>
           </Alert>
