@@ -39,8 +39,7 @@ export async function GET(
     const { data: candidateVotesList, error: votesError } = await supabase
       .from('votes')
       .select('id, country')
-      .eq('candidate_id', candidateId)
-      .eq('status', 'verified');
+      .eq('candidate_id', candidateId);
 
     if (votesError) {
       console.error('Error fetching votes for candidate', candidateId, ':', votesError);
@@ -51,8 +50,7 @@ export async function GET(
     // Get total votes across all candidates from votes table
     const { count: totalVotesCount } = await supabase
       .from('votes')
-      .select('*', { count: 'exact', head: true })
-      .eq('status', 'verified');
+      .select('*', { count: 'exact', head: true });
     
     const totalVotes = totalVotesCount || 1; // Avoid division by zero
     const percentage = totalVotes > 0 ? (candidateVotes / totalVotes) * 100 : 0;
@@ -82,6 +80,7 @@ export async function GET(
       countryCount,
       topCountries: topCountries.slice(0, 3),
       hasMeta: !!candidateMeta,
+      rawVotes: candidateVotesList,
     });
 
     // Format key policies into mission statement
