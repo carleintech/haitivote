@@ -40,9 +40,17 @@ export async function GET() {
 
     let candidateDistribution: any[] = [];
 
-    // If vote_aggregates is empty or has error, fallback to counting from votes table directly
-    if (statsError || !candidateStats || candidateStats.length === 0) {
-      console.log('vote_aggregates empty or error, falling back to votes table');
+    // Check if vote_aggregates is stale by comparing total votes
+    const aggTotal = candidateStats?.reduce((sum: number, stat: any) => sum + (stat.total_votes || 0), 0) || 0;
+    const isStale = aggTotal !== totalVotes;
+
+    // If vote_aggregates is empty, has error, or is stale, fallback to counting from votes table directly
+    if (statsError || !candidateStats || candidateStats.length === 0 || isStale) {
+      if (isStale) {
+        console.log('vote_aggregates is stale (aggregates:', aggTotal, 'vs actual:', totalVotes, '), falling back to votes table');
+      } else {
+        console.log('vote_aggregates empty or error, falling back to votes table');
+      }
       
       // Get all candidates
       const { data: candidates } = await supabase

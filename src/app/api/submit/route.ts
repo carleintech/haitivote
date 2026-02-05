@@ -266,6 +266,21 @@ export async function POST(request: Request) {
     }
     console.log('✅ Vote inserted successfully');
 
+    // Refresh the materialized views to update candidate distribution
+    console.log('🔵 Refreshing vote aggregates...');
+    try {
+      const { error: refreshError } = await admin.rpc('refresh_vote_aggregates');
+      if (refreshError) {
+        console.error('⚠️ Failed to refresh views (continuing anyway):', refreshError);
+        // Don't fail the request - vote was recorded successfully
+      } else {
+        console.log('✅ Vote aggregates refreshed');
+      }
+    } catch (refreshErr) {
+      console.error('⚠️ Error refreshing views (continuing anyway):', refreshErr);
+      // Don't fail the request - vote was recorded successfully
+    }
+
     return NextResponse.json({
       success: true,
       message: 'Your vote has been recorded successfully!',
