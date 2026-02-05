@@ -472,8 +472,8 @@ export default function ComparePage() {
                 {/* Political Views Comparison */}
                 <div>
                   <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
-                    <Target className="h-6 w-6 text-pink-400" />
-                    Pozisyon Politik
+                    <BookOpen className="h-6 w-6 text-pink-400" />
+                    Background Politik
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {selectedCandidates.map((candidate) => (
@@ -485,7 +485,7 @@ export default function ComparePage() {
                           <span className="text-pink-400">▸</span>
                           {candidate.name}
                         </h5>
-                        <p className="text-gray-200 text-sm leading-relaxed">
+                        <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">
                           {candidate.political_views || (
                             <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
                           )}
@@ -511,7 +511,7 @@ export default function ComparePage() {
                           <span className="text-amber-400">▸</span>
                           {candidate.name}
                         </h5>
-                        <p className="text-gray-200 text-sm leading-relaxed">
+                        <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">
                           {candidate.experience || (
                             <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
                           )}
@@ -537,7 +537,7 @@ export default function ComparePage() {
                           <span className="text-cyan-400">▸</span>
                           {candidate.name}
                         </h5>
-                        <p className="text-gray-200 text-sm leading-relaxed">
+                        <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">
                           {candidate.vision || (
                             <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
                           )}
@@ -551,7 +551,7 @@ export default function ComparePage() {
                 <div>
                   <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
                     <Lightbulb className="h-6 w-6 text-yellow-400" />
-                    Misyon
+                    Priyorite Politik (Key Policies)
                   </h4>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {selectedCandidates.map((candidate) => (
@@ -563,7 +563,7 @@ export default function ComparePage() {
                           <span className="text-yellow-400">▸</span>
                           {candidate.name}
                         </h5>
-                        <p className="text-gray-200 text-sm leading-relaxed">
+                        <p className="text-gray-200 text-sm leading-relaxed whitespace-pre-wrap">
                           {candidate.mission || (
                             <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
                           )}

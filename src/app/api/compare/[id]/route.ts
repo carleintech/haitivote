@@ -31,7 +31,7 @@ export async function GET(
     // Get candidate metadata (bio, political views, experience, etc.)
     const { data: candidateMeta } = await supabase
       .from('candidate_meta')
-      .select('bio, political_views, experience, education, age, birthplace, vision, mission')
+      .select('bio, political_views, key_policies, experience, education, age, birthplace')
       .eq('candidate_id', candidateId)
       .single();
 
@@ -81,7 +81,13 @@ export async function GET(
       percentage: percentage.toFixed(2),
       countryCount,
       topCountries: topCountries.slice(0, 3),
+      hasMeta: !!candidateMeta,
     });
+
+    // Format key policies into mission statement
+    const mission = candidateMeta?.key_policies 
+      ? candidateMeta.key_policies.map((policy: string, index: number) => `${index + 1}. ${policy}`).join('\n')
+      : null;
 
     return NextResponse.json({
       id: candidateId,
@@ -94,13 +100,10 @@ export async function GET(
       top_countries: topCountries,
       // Candidate details
       bio: candidateMeta?.bio || null,
-      political_views: candidateMeta?.political_views || null,
+      political_views: candidateMeta?.bio || null, // Using bio as political background
       experience: candidateMeta?.experience || null,
-      education: candidateMeta?.education || null,
-      age: candidateMeta?.age || null,
-      birthplace: candidateMeta?.birthplace || null,
-      vision: candidateMeta?.vision || null,
-      mission: candidateMeta?.mission || null,
+      vision: candidateMeta?.political_views || null, // political_views column contains vision
+      mission: mission, // key_policies formatted as mission
     });
 
   } catch (error) {
