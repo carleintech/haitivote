@@ -33,6 +33,10 @@ import {
   MapPin,
   Zap,
   Award,
+  BookOpen,
+  Briefcase,
+  Eye,
+  Lightbulb,
 } from 'lucide-react';
 
 interface CandidateStats {
@@ -48,6 +52,14 @@ interface CandidateStats {
     votes: number;
     percentage: number;
   }>;
+  bio?: string | null;
+  political_views?: string | null;
+  experience?: string | null;
+  education?: string | null;
+  age?: number | null;
+  birthplace?: string | null;
+  vision?: string | null;
+  mission?: string | null;
 }
 
 export default function ComparePage() {
@@ -456,6 +468,118 @@ export default function ComparePage() {
                     ))}
                   </div>
                 </div>
+
+                {/* Political Views Comparison */}
+                {selectedCandidates.some(c => c.political_views) && (
+                  <div>
+                    <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
+                      <Target className="h-6 w-6 text-pink-400" />
+                      Pozisyon Politik
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedCandidates.map((candidate) => (
+                        <div
+                          key={candidate.id}
+                          className="p-6 rounded-2xl bg-gradient-to-br from-pink-500/10 to-rose-500/10 border border-pink-400/30 hover:border-pink-400/50 transition-all"
+                        >
+                          <h5 className="font-black text-lg text-white mb-3 flex items-center gap-2">
+                            <span className="text-pink-400">▸</span>
+                            {candidate.name}
+                          </h5>
+                          <p className="text-gray-200 text-sm leading-relaxed">
+                            {candidate.political_views || (
+                              <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
+                            )}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Experience Comparison */}
+                {selectedCandidates.some(c => c.experience) && (
+                  <div>
+                    <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
+                      <Briefcase className="h-6 w-6 text-amber-400" />
+                      Eksperyans nan Gouvènman
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedCandidates.map((candidate) => (
+                        <div
+                          key={candidate.id}
+                          className="p-6 rounded-2xl bg-gradient-to-br from-amber-500/10 to-orange-500/10 border border-amber-400/30 hover:border-amber-400/50 transition-all"
+                        >
+                          <h5 className="font-black text-lg text-white mb-3 flex items-center gap-2">
+                            <span className="text-amber-400">▸</span>
+                            {candidate.name}
+                          </h5>
+                          <p className="text-gray-200 text-sm leading-relaxed">
+                            {candidate.experience || (
+                              <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
+                            )}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Vision Comparison */}
+                {selectedCandidates.some(c => c.vision) && (
+                  <div>
+                    <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
+                      <Eye className="h-6 w-6 text-cyan-400" />
+                      Vizyon
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedCandidates.map((candidate) => (
+                        <div
+                          key={candidate.id}
+                          className="p-6 rounded-2xl bg-gradient-to-br from-cyan-500/10 to-blue-500/10 border border-cyan-400/30 hover:border-cyan-400/50 transition-all"
+                        >
+                          <h5 className="font-black text-lg text-white mb-3 flex items-center gap-2">
+                            <span className="text-cyan-400">▸</span>
+                            {candidate.name}
+                          </h5>
+                          <p className="text-gray-200 text-sm leading-relaxed">
+                            {candidate.vision || (
+                              <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
+                            )}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
+                {/* Mission Comparison */}
+                {selectedCandidates.some(c => c.mission) && (
+                  <div>
+                    <h4 className="font-black text-xl mb-6 flex items-center gap-3 text-white">
+                      <Lightbulb className="h-6 w-6 text-yellow-400" />
+                      Misyon
+                    </h4>
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      {selectedCandidates.map((candidate) => (
+                        <div
+                          key={candidate.id}
+                          className="p-6 rounded-2xl bg-gradient-to-br from-yellow-500/10 to-amber-500/10 border border-yellow-400/30 hover:border-yellow-400/50 transition-all"
+                        >
+                          <h5 className="font-black text-lg text-white mb-3 flex items-center gap-2">
+                            <span className="text-yellow-400">▸</span>
+                            {candidate.name}
+                          </h5>
+                          <p className="text-gray-200 text-sm leading-relaxed">
+                            {candidate.mission || (
+                              <span className="text-gray-500 italic">Pa gen enfòmasyon disponib</span>
+                            )}
+                          </p>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
 

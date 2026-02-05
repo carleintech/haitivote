@@ -28,68 +28,59 @@ export async function GET(
       );
     }
 
-    // Get stats
-    const { data: stats, error: statsError } = await supabase
-      .from('vote_aggregates')
-      .select('*')
+    // Get candidate metadata (bio, political views, experience, etc.)
+    const { data: candidateMeta } = await supabase
+      .from('candidate_meta')
+      .select('bio, political_views, experience, education, age, birthplace, vision, mission')
       .eq('candidate_id', candidateId)
       .single();
 
-    if (statsError) {
-      console.log('Stats error for candidate', candidateId, ':', statsError);
+    // Get candidate votes directly from votes table for real-time data
+    const { data: candidateVotesList, error: votesError } = await supabase
+      .from('votes')
+      .select('id, country')
+      .eq('candidate_id', candidateId)
+      .eq('status', 'verified');
+
+    if (votesError) {
+      console.error('Error fetching votes for candidate', candidateId, ':', votesError);
     }
 
-    // If no stats in vote_aggregates, try getting directly from votes table
-    let candidateVotes = (stats as any)?.total_votes || 0;
-    
-    if (!stats || candidateVotes === 0) {
-      const { count } = await supabase
-        .from('votes')
-        .select('*', { count: 'exact', head: true })
-        .eq('candidate_id', candidateId);
-      
-      candidateVotes = count || 0;
-      console.log('Direct count for candidate', candidateId, ':', candidateVotes);
-    }
+    const candidateVotes = candidateVotesList?.length || 0;
 
-    // Get by country
-    const { data: byCountry } = await supabase
-      .from('vote_by_country')
-      .select('*')
-      .eq('candidate_slug', (candidate as any)?.slug)
-      .order('total_votes', { ascending: false });
-
-    // Get total votes across all candidates
-    const { data: allCandidates } = await supabase
-      .from('vote_aggregates')
-      .select('total_votes');
+    // Get total votes across all candidates from votes table
+    const { count: totalVotesCount } = await supabase
+      .from('votes')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'verified');
     
-    let totalVotes = allCandidates?.reduce((sum: number, c: any) => sum + (c.total_votes || 0), 0) || 0;
-    
-    // If vote_aggregates is empty, count from votes table
-    if (totalVotes === 0) {
-      const { count } = await supabase
-        .from('votes')
-        .select('*', { count: 'exact', head: true });
-      
-      totalVotes = count || 1;
-      console.log('Total votes from direct count:', totalVotes);
-    }
-    
+    const totalVotes = totalVotesCount || 1; // Avoid division by zero
     const percentage = totalVotes > 0 ? (candidateVotes / totalVotes) * 100 : 0;
 
+    // Calculate country breakdown from the votes
+    const countryVotes: Record<string, number> = {};
+    candidateVotesList?.forEach((vote: any) => {
+      const country = vote.country || 'Unknown';
+      countryVotes[country] = (countryVotes[country] || 0) + 1;
+    });
+
     // Format top countries
-    const topCountries = (byCountry || []).map((c: any) => ({
-      country: c.country_name || c.country || 'Unknown',
-      votes: c.total_votes || 0,
-      percentage: candidateVotes > 0 ? ((c.total_votes || 0) / candidateVotes) * 100 : 0,
-    }));
+    const topCountries = Object.entries(countryVotes)
+      .map(([country, votes]) => ({
+        country,
+        votes,
+        percentage: candidateVotes > 0 ? (votes / candidateVotes) * 100 : 0,
+      }))
+      .sort((a, b) => b.votes - a.votes);
+
+    const countryCount = Object.keys(countryVotes).length;
 
     console.log('Compare API Response for candidate', candidateId, ':', {
       candidateVotes,
       totalVotes,
-      percentage,
-      countryCount: byCountry?.length || 0,
+      percentage: percentage.toFixed(2),
+      countryCount,
+      topCountries: topCountries.slice(0, 3),
     });
 
     return NextResponse.json({
@@ -99,8 +90,17 @@ export async function GET(
       photo_url: (candidate as any)?.photo_url || '',
       total_votes: candidateVotes,
       percentage: percentage,
-      country_count: byCountry?.length || 0,
+      country_count: countryCount,
       top_countries: topCountries,
+      // Candidate details
+      bio: candidateMeta?.bio || null,
+      political_views: candidateMeta?.political_views || null,
+      experience: candidateMeta?.experience || null,
+      education: candidateMeta?.education || null,
+      age: candidateMeta?.age || null,
+      birthplace: candidateMeta?.birthplace || null,
+      vision: candidateMeta?.vision || null,
+      mission: candidateMeta?.mission || null,
     });
 
   } catch (error) {
