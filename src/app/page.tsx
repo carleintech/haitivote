@@ -274,7 +274,7 @@ export default function HomePage() {
               country={state.metadata?.country || null}
             />
 
-            <Separator className="my-8" />
+            <Separator className="my-8 bg-white/10" />
 
             <VoteCard
               voteId={state.voteId}

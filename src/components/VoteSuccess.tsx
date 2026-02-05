@@ -47,15 +47,15 @@ export function VoteSuccess({ candidateName, voteId, country }: VoteSuccessProps
   };
 
   return (
-    <Card className="border-2 border-green-500/50">
+    <Card className="bg-slate-900/50 border-2 border-green-400/50 backdrop-blur-2xl shadow-2xl">
       <CardHeader className="text-center space-y-4">
-        <div className="mx-auto w-16 h-16 rounded-full bg-green-500/20 flex items-center justify-center">
-          <CheckCircle2 className="h-10 w-10 text-green-500" />
+        <div className="mx-auto w-16 h-16 rounded-full bg-gradient-to-br from-green-500/30 to-emerald-500/30 flex items-center justify-center shadow-lg">
+          <CheckCircle2 className="h-10 w-10 text-green-400" />
         </div>
         
         <div>
-          <CardTitle className="text-2xl">Siksè! Vòt Ou Konte</CardTitle>
-          <CardDescription className="text-base mt-2">
+          <CardTitle className="text-2xl font-black bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">Siksè! Vòt Ou Konte</CardTitle>
+          <CardDescription className="text-base mt-2 text-blue-200">
             Mèsi pou patisipasyon ou nan TechKlein VoteLive
           </CardDescription>
         </div>
@@ -63,31 +63,30 @@ export function VoteSuccess({ candidateName, voteId, country }: VoteSuccessProps
 
       <CardContent className="space-y-6">
         {/* Vote Details */}
-        <div className="p-4 rounded-lg bg-muted/50 space-y-2">
+        <div className="p-4 rounded-lg bg-slate-800/50 border border-white/10 space-y-2">
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">Ou vote pou:</span>
-            <span className="font-semibold">{candidateName}</span>
+            <span className="text-gray-400">Ou vote pou:</span>
+            <span className="font-semibold text-white">{candidateName}</span>
           </div>
           
           {country && (
             <div className="flex justify-between text-sm">
-              <span className="text-muted-foreground">Peyi:</span>
-              <span className="font-semibold">{country}</span>
+              <span className="text-gray-400">Peyi:</span>
+              <span className="font-semibold text-white">{country}</span>
             </div>
           )}
           
           <div className="flex justify-between text-sm">
-            <span className="text-muted-foreground">ID Vòt:</span>
-            <span className="font-mono text-xs">{voteId.slice(0, 8)}...</span>
+            <span className="text-gray-400">ID Vòt:</span>
+            <span className="font-mono text-xs text-white">{voteId.slice(0, 8)}...</span>
           </div>
         </div>
 
         {/* Actions */}
         <div className="space-y-2">
           <Button
-            variant="gradient"
             size="lg"
-            className="w-full"
+            className="w-full bg-gradient-to-r from-green-500 to-emerald-600 hover:from-green-600 hover:to-emerald-700 text-white font-bold shadow-lg border-0"
             onClick={handleViewResults}
           >
             <BarChart3 className="h-5 w-5 mr-2" />
@@ -97,7 +96,7 @@ export function VoteSuccess({ candidateName, voteId, country }: VoteSuccessProps
           <Button
             variant="outline"
             size="lg"
-            className="w-full"
+            className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
             onClick={handleShare}
           >
             <Share2 className="h-5 w-5 mr-2" />
@@ -107,11 +106,11 @@ export function VoteSuccess({ candidateName, voteId, country }: VoteSuccessProps
 
         {/* Message */}
         <div className="text-center space-y-2">
-          <p className="text-sm text-muted-foreground">
+          <p className="text-sm text-blue-200">
             Vòt ou se yon vwa pou demokrasi ak transparans.
           </p>
-          <p className="text-xs text-muted-foreground">
-            Powered by <span className="font-semibold text-gradient-techklein">TechKlein</span>
+          <p className="text-xs text-gray-400">
+            Powered by <span className="font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">TechKlein</span>
           </p>
         </div>
       </CardContent>

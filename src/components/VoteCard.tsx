@@ -85,27 +85,27 @@ export function VoteCard({
       {/* Card Preview */}
       <Card
         ref={cardRef}
-        className="relative overflow-hidden border-2 border-primary/50"
+        className="relative overflow-hidden bg-slate-900/50 border-2 border-purple-400/50 backdrop-blur-2xl shadow-2xl"
       >
-        <div className="absolute inset-0 bg-gradient-to-br from-techklein-purple/20 via-techklein-blue/20 to-techklein-cyan/20" />
+        <div className="absolute inset-0 bg-gradient-to-br from-purple-500/20 via-blue-500/20 to-cyan-500/20" />
         
         <CardContent className="relative p-8 space-y-6">
           {/* Header */}
           <div className="text-center space-y-2">
-            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-techklein-purple to-techklein-cyan text-white text-sm font-bold">
+            <div className="inline-block px-4 py-1.5 rounded-full bg-gradient-to-r from-purple-500 to-cyan-600 text-white text-sm font-bold shadow-lg">
               ✓ VOT KONFIME
             </div>
-            <h3 className="text-2xl font-bold">
+            <h3 className="text-2xl font-black bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
               TechKlein VoteLive
             </h3>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-blue-200">
               Sondaj Ayiti Global
             </p>
           </div>
 
           {/* Candidate Info */}
-          <div className="flex items-center gap-4 p-4 rounded-xl bg-background/80 backdrop-blur-sm border border-border">
-            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-primary flex-shrink-0">
+          <div className="flex items-center gap-4 p-4 rounded-xl bg-slate-800/50 backdrop-blur-sm border border-white/10">
+            <div className="relative w-20 h-20 rounded-full overflow-hidden border-4 border-purple-400/50 flex-shrink-0 shadow-lg">
               <Image
                 src={candidatePhoto}
                 alt={candidateName}
@@ -115,9 +115,9 @@ export function VoteCard({
             </div>
             
             <div className="flex-1 min-w-0">
-              <p className="text-sm text-muted-foreground">Mwen vote pou:</p>
-              <p className="text-xl font-bold truncate">{candidateName}</p>
-              <p className="text-sm text-muted-foreground flex items-center gap-1">
+              <p className="text-sm text-gray-400">Mwen vote pou:</p>
+              <p className="text-xl font-bold truncate text-white">{candidateName}</p>
+              <p className="text-sm text-gray-400 flex items-center gap-1">
                 📍 {country}
               </p>
             </div>
@@ -125,20 +125,20 @@ export function VoteCard({
 
           {/* Message */}
           <div className="text-center space-y-2 py-4">
-            <p className="text-lg font-semibold text-gradient-techklein">
+            <p className="text-lg font-bold bg-gradient-to-r from-green-400 to-emerald-400 bg-clip-text text-transparent">
               Vwa m konte!
             </p>
-            <p className="text-sm text-muted-foreground">
+            <p className="text-sm text-blue-200">
               Pataje avèk zanmi ou yo pou yo vote tou
             </p>
           </div>
 
           {/* Footer */}
-          <div className="flex items-center justify-between pt-4 border-t border-border">
-            <div className="text-xs text-muted-foreground">
+          <div className="flex items-center justify-between pt-4 border-t border-white/10">
+            <div className="text-xs text-gray-400">
               ID: {voteId.slice(0, 8)}...
             </div>
-            <div className="text-xs font-semibold text-gradient-techklein">
+            <div className="text-xs font-semibold bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">
               TechKlein
             </div>
           </div>
@@ -150,7 +150,7 @@ export function VoteCard({
         <Button
           variant="outline"
           size="lg"
-          className="w-full"
+          className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
           onClick={() => handleShare('whatsapp')}
         >
           <MessageCircle className="h-5 w-5 mr-2" />
@@ -160,7 +160,7 @@ export function VoteCard({
         <Button
           variant="outline"
           size="lg"
-          className="w-full"
+          className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
           onClick={() => handleShare('facebook')}
         >
           <Facebook className="h-5 w-5 mr-2" />
@@ -170,7 +170,7 @@ export function VoteCard({
         <Button
           variant="outline"
           size="lg"
-          className="w-full"
+          className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
           onClick={() => handleShare('twitter')}
         >
           <Twitter className="h-5 w-5 mr-2" />
@@ -180,7 +180,7 @@ export function VoteCard({
         <Button
           variant="outline"
           size="lg"
-          className="w-full"
+          className="w-full bg-slate-800/50 border-white/20 text-white hover:bg-slate-700/50"
           onClick={() => handleShare()}
         >
           <Share2 className="h-5 w-5 mr-2" />
@@ -189,9 +189,8 @@ export function VoteCard({
       </div>
 
       <Button
-        variant="gradient"
         size="lg"
-        className="w-full"
+        className="w-full bg-gradient-to-r from-blue-500 via-purple-600 to-pink-600 hover:from-blue-600 hover:via-purple-700 hover:to-pink-700 text-white font-bold shadow-lg border-0"
         onClick={handleDownload}
       >
         <Download className="h-5 w-5 mr-2" />
