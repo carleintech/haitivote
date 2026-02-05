@@ -86,18 +86,20 @@ export default function TrendsPage() {
   }, [timeframe, fetchTrends]);
 
   const getMomentumBadge = (momentum: number) => {
-    if (momentum >= 10) {
+    if (momentum >= 100) {
       return { label: '🚀 EKSPLOZIF', color: 'bg-gradient-to-r from-red-500 to-pink-600' };
-    } else if (momentum >= 5) {
+    } else if (momentum >= 50) {
       return { label: '🔥 TRÈ FÒ', color: 'bg-gradient-to-r from-orange-500 to-red-500' };
-    } else if (momentum >= 2) {
+    } else if (momentum >= 20) {
       return { label: '⚡ FÒ', color: 'bg-gradient-to-r from-yellow-500 to-orange-500' };
     } else if (momentum > 0) {
       return { label: '📈 POZITIF', color: 'bg-gradient-to-r from-green-500 to-emerald-600' };
     } else if (momentum === 0) {
       return { label: '➖ STAB', color: 'bg-gray-500' };
+    } else if (momentum >= -20) {
+      return { label: '📉 LEJÈ NEGATIF', color: 'bg-gradient-to-r from-cyan-500 to-blue-500' };
     } else {
-      return { label: '📉 NEGATIF', color: 'bg-gradient-to-r from-blue-500 to-purple-600' };
+      return { label: '❄️ FRÈT', color: 'bg-gradient-to-r from-blue-600 to-purple-600' };
     }
   };
 
@@ -390,7 +392,8 @@ export default function TrendsPage() {
                   <TabsContent value="momentum" className="space-y-6">
                     <div className="rounded-2xl bg-gradient-to-br from-orange-500/20 to-red-500/20 p-6 border border-orange-400/30">
                       <p className="text-sm text-gray-200 leading-relaxed">
-                        <strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman nan vòt kandida yo nan peryòd {timeframeLabels[timeframe].toLowerCase()}.
+                        <strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman nan vòt kandida yo nan peryòd {timeframeLabels[timeframe].toLowerCase()} konpare ak peryòd anvan an. 
+                        Egzanp: Si yon kandida te gen 10 vòt anvan epi resevwa 5 vòt nan 6 dènye èdtan, mòmantòm se -50% (5/10 - 1 = -0.5 = -50%).
                       </p>
                     </div>
                     
@@ -481,15 +484,15 @@ export default function TrendsPage() {
                     <ul className="space-y-3 text-sm text-gray-200">
                       <li className="flex items-start gap-2">
                         <Zap className="h-5 w-5 text-blue-400 shrink-0 mt-0.5" />
-                        <div><strong className="text-blue-300">Vitès:</strong> Kantite vòt pa èdtan</div>
+                        <div><strong className="text-blue-300">Vitès:</strong> Vòt pa èdtan nan peryòd chwazi a (egz: 5 vòt / 6 èdtan = 0.83 vòt/h)</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <Flame className="h-5 w-5 text-orange-400 shrink-0 mt-0.5" />
-                        <div><strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman relatif oswa negatif</div>
+                        <div><strong className="text-orange-300">Mòmantòm:</strong> Pousantaj chanjman konpare ak peryòd anvan an (egz: 5 nouvo vòt / 10 vòt anvan = -50%)</div>
                       </li>
                       <li className="flex items-start gap-2">
                         <Target className="h-5 w-5 text-purple-400 shrink-0 mt-0.5" />
-                        <div><strong className="text-purple-300">Pwojeksyon:</strong> Estimasyon baze sou tandans aktyèl yo</div>
+                        <div><strong className="text-purple-300">Pwojeksyon 24h:</strong> Vòt total aktyèl + (vitès × 24 èdtan)</div>
                       </li>
                     </ul>
                     <div className="mt-6 p-4 rounded-xl bg-yellow-500/20 border border-yellow-400/30">
